@@ -1,9 +1,9 @@
-import { matchRoutes } from "react-router-config";
-import Renderer from "./Renderer";
-import Routes from "../../client/Routes";
-import CreateStore from "./CreateStore";
+const { matchRoutes } = require("react-router-config");
+const Renderer = require("./Renderer");
+const Routes = require("../../client/Routes");
+const CreateStore = require("./CreateStore");
 
-export default (req, res) => {
+module.exports = (req, res) => {
     const store = CreateStore(req);
     const promises = matchRoutes(Routes, req.path).map(({
         route

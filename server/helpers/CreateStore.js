@@ -1,12 +1,10 @@
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import axios from "axios";
-import Cookies from "universal-cookie";
-import reducers from "../../client/reducers";
-// import {connectToSocket} from "../client/config/socket";
+const { createStore, applyMiddleware } = require("redux");
+const thunk = require("redux-thunk");
+const axios = require("axios");
+const Cookies = require("universal-cookie");
+const reducers = require("../../client/reducers");
 
-// const baseUrl = process.env.API_URL+'/api';
-export default (req) => {
+module.exports = (req) => {
     const cookies = new Cookies(req.headers.cookie);
     const axiosInstance = axios.create({
         baseURL: `http://${process.env.API_URL}/api`,

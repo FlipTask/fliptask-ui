@@ -1,9 +1,8 @@
-import express from "express";
-import Path from "path";
-import * as bodyParser from "body-parser";
-import ServeWeb from "../helpers/ServeWeb";
-
+const express = require("express");
+const Path = require("path");
+const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const ServeWeb = require("../helpers/ServeWeb");
 
 const init = async () => {
     const app = express();
@@ -31,4 +30,4 @@ const init = async () => {
     });
 };
 
-export default init;
+module.exports = init;

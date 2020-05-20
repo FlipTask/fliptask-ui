@@ -12,6 +12,27 @@ import Paragraph from "@ckeditor/ckeditor5-paragraph/src/paragraph";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import BalloonToolbar from "@ckeditor/ckeditor5-ui/src/toolbar/balloon/balloontoolbar";
 
+function customItemRenderer(item) {
+    const itemElement = document.createElement("span");
+
+    itemElement
+        .classList
+        .add("custom-item");
+    itemElement.id = `mention-list-item-id-${item.userId}`;
+    itemElement.textContent = `${item.name} `;
+
+    const usernameElement = document.createElement("span");
+
+    usernameElement
+        .classList
+        .add("custom-item-username");
+    usernameElement.textContent = item.id;
+
+    itemElement.appendChild(usernameElement);
+
+    return itemElement;
+}
+
 function MentionLinks(editor) {
     // The upcast converter will convert <a class="mention" href="" data-user-id="">
     // elements to the model 'mention' attribute.
@@ -184,27 +205,6 @@ function getFeedItems(queryText) {
             resolve(itemsToDisplay);
         }, 100);
     });
-}
-
-function customItemRenderer(item) {
-    const itemElement = document.createElement("span");
-
-    itemElement
-        .classList
-        .add("custom-item");
-    itemElement.id = `mention-list-item-id-${item.userId}`;
-    itemElement.textContent = `${item.name} `;
-
-    const usernameElement = document.createElement("span");
-
-    usernameElement
-        .classList
-        .add("custom-item-username");
-    usernameElement.textContent = item.id;
-
-    itemElement.appendChild(usernameElement);
-
-    return itemElement;
 }
 
 class InputEditor extends Component {

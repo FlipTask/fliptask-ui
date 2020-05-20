@@ -1,16 +1,14 @@
-import React from "react";
-import path from "path";
-import { renderToString } from "react-dom/server";
-import { ChunkExtractor } from "@loadable/server";
-import { Provider } from "react-redux";
-import { StaticRouter } from "react-router";
-// import Routes from "./../../client/Routes";
-// import {renderRoutes} from "react-router-config";
-import App from "../../client/App";
+const React = require("react");
+const path = require("path");
+const { renderToString } = require("react-dom/server");
+const { ChunkExtractor } = require("@loadable/server");
+const { Provider } = require("react-redux");
+const { StaticRouter } = require("react-router");
+const App = require("../../client/App");
 
 const webStats = path.resolve(__dirname, "./../client-build/loadable-stats.json");
 
-export default (req, store, context) => new Promise((resolve) => {
+module.exports = (req, store, context) => new Promise((resolve) => {
     const InitialComponent = (
         <Provider store={store}>
             <StaticRouter location={req.url} context={context}>
