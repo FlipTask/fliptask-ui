@@ -1,12 +1,16 @@
 const loadDependency = async (type, dep, moduleObj) => {
-    try {
-        const res = await require(`./${type}/${dep}`);
-        global[dep] = typeof (res) === "function" ? await res(moduleObj) : await res;
+    try{
+        const res = await import(`./${type}/${dep}`);
+        if(typeof(res.default) === "function"){
+            global[dep] = await res.default(moduleObj);
+        }else{
+            global[dep] = res.default;
+        }
         moduleObj[dep] = global[dep];
         console.info(`[INFO] Dependency [${dep}] loaded from [${type}]`);
         return global[dep];
-    } catch (e) {
-        console.error(`[Error] Unable to load ${dep}\n`, e);
+    }catch(e){
+        console.error(`[Error] Unable to load ${dep}\n`,e);
     }
 };
 const configuration = {
@@ -31,6 +35,4 @@ const loadApp = async () => {
     await loadConfig();
 };
 
-module.exports = {
-    loadApp
-};
+export default loadApp;

@@ -12,7 +12,7 @@ import {
     setAuthTokenInLocalStorage
 } from "./AuthActions";
 
-export const fetchUser = (fromServer) => async (dispatch, getState, api) => {
+export const fetchUser = (fromServer) => async (dispatch, getState, { api }) => {
     // console.log("fromserver",fromServer);
     try {
         dispatch({
@@ -30,7 +30,7 @@ export const fetchUser = (fromServer) => async (dispatch, getState, api) => {
     }
 };
 
-export const createNewUser = (obj = {}) => async (dispatch, getState, api) => {
+export const createNewUser = (obj = {}) => async (dispatch, getState, { api }) => {
     try {
         dispatch({
             type: USER_LOGIN_PENDING
@@ -44,10 +44,9 @@ export const createNewUser = (obj = {}) => async (dispatch, getState, api) => {
             payload: res.data
         });
     } catch (e) {
-        // console.log(e.response.data);
         dispatch({
             type: USER_LOGIN_FAILURE,
-            payload: e.response.data
+            payload: e.message ? { message: e.message } : e.response.data
         });
     }
 };

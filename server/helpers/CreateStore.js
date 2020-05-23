@@ -1,15 +1,34 @@
-const { createStore, applyMiddleware } = require("redux");
-const thunk = require("redux-thunk");
-const axios = require("axios");
-const Cookies = require("universal-cookie");
-const reducers = require("../../client/reducers");
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import axios from "axios";
+import Cookies from "universal-cookie";
+import reducers from "../../client/reducers";
 
-module.exports = (req) => {
+const getUrl = () => {
+    const apiUrl = process.env.API_URL;
+    if (apiUrl.indexOf("http://") > -1 || apiUrl.indexOf("https://") > -1) {
+        return process.env.API_URL;
+    }
+    return `http://${process.env.API_URL}`;
+};
+
+export default (req) => {
     const cookies = new Cookies(req.headers.cookie);
+
     const axiosInstance = axios.create({
-        baseURL: `http://${process.env.API_URL}/api`,
+        baseURL: `${getUrl()}/api`,
         headers: { cookie: req.get("cookie") || "" }
     });
+
+    axiosInstance.interceptors.request.use((request) => {
+        console.log(`[AXIOS Request][${request.baseURL}] ${request.method} ${request.url}`);
+        return request;
+    });
+
+    axiosInstance.interceptors.response.use((response) => {
+        console.log(`[AXIOS Response][${response.baseURL}] ${response.method} ${response.url}`);
+        return response;
+    }, (err) => err.response.data);
 
     const store = createStore(reducers, {}, applyMiddleware(thunk.withExtraArgument({
         api: axiosInstance,

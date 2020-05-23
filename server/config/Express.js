@@ -1,8 +1,9 @@
-const express = require("express");
-const Path = require("path");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const ServeWeb = require("../helpers/ServeWeb");
+import express from "express";
+import Path from "path";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import ServeWeb from "../helpers/ServeWeb";
+import { useCompression, useProxy } from "../helpers/Middlewares";
 
 const init = async () => {
     const app = express();
@@ -14,8 +15,9 @@ const init = async () => {
     app.use(bodyParser.json({}));
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(cookieParser());
+    app.use(useCompression);
 
-
+    app.use("/api", useProxy);
     app.get("/*", ServeWeb);
     app.get("*.js", (req, res, next) => {
         req.url += ".gz";
@@ -30,4 +32,4 @@ const init = async () => {
     });
 };
 
-module.exports = init;
+export default init;

@@ -7,7 +7,7 @@
         "dev": "npm-run-all --parallel dev:*",
         "dev-build-server": "webpack --config webpack/dev/webpack.server.js",
         "dev:build-client": "webpack --config webpack/dev/webpack.client.js --watch",
-        "dev:server": "nodemon --watch server --exec \"npm run dev-build-server && node --inspect server-build/server.js\"",
+        "dev:server": "nodemon --watch server --exec \"npm run dev-build-server && node server-build/server.js\"",
         "lint": "./node_modules/eslint-watch/bin/esw --",
         "lint:watch": "npm run lint --watch"
     },
@@ -30,6 +30,7 @@
         "@ckeditor/ckeditor5-theme-lark": "^19.0.0",
         "@loadable/server": "5.12.0",
         "body-parser": "^1.19.0",
+        "compression": "^1.7.4",
         "cookie-parser": "^1.4.5",
         "dotenv": "^8.2.0",
         "express": "^4.17.1",

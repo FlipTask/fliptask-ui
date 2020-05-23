@@ -21,7 +21,7 @@ class CreateNew extends Component {
             selected: {},
             name: "",
             createNew: false,
-            skipInvitation: props.user.user.meta.is_org_verified,
+            skipInvitation: props.user.user.meta && props.user.user.meta.is_org_verified,
             invite: false,
             options: [this.fixedOption]
         };

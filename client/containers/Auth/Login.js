@@ -53,7 +53,7 @@ class Login extends Component {
                             <form className="login-form">
                                 {
                                     error.message
-                                        ? <p className="inline--error">{error.message}</p> : ""
+                                        ? <p className="inline--error text-danger text-left">{error.message}</p> : ""
                                 }
                                 <Input
                                     iconPosition="left"

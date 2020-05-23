@@ -27,7 +27,7 @@ class RenderRoutes extends Component {
                                 path={route.path}
                                 exact={route.exact}
                                 strict={route.strict}
-                                component={(props) => <RequestedComponent {...props} {...extraProps} route={route} /> }
+                                render={(props) => <RequestedComponent {...props} {...extraProps} route={route} /> }
                             />;
                         }
                         return <Route
@@ -35,7 +35,7 @@ class RenderRoutes extends Component {
                             path={route.path}
                             exact={route.exact}
                             strict={route.strict}
-                            component={(props) => {
+                            render={(props) => {
                                 if (route.render) {
                                     return route.render({ ...props, ...extraProps, route });
                                 }

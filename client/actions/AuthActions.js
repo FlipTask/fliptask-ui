@@ -6,7 +6,7 @@ import {
     USER_LOGOUT
 } from "../constants/ActionTypes";
 
-
+const tokenCookieName = "token";
 export const setHeaderInApi = (token) => async () => {
     if (token) {
         API.defaults.headers.common.Authorization = `Bearer ${token}`;
@@ -15,15 +15,13 @@ export const setHeaderInApi = (token) => async () => {
     }
 };
 
-export const setAuthTokenInLocalStorage = (token) => async (dispatch) => {
+export const setAuthTokenInLocalStorage = (token) => async (dispatch, getState, { cookies }) => {
     dispatch(setHeaderInApi(token));
-    // if(token){
-    //     localStorage[`${appName}-isAuthorised`] = true;
-    //     localStorage[`${appName}-jwttoken`] = token;
-    // }else{
-    //     delete localStorage[`${appName}-isAuthorised`]
-    //     delete localStorage[`${appName}-jwttoken`];
-    // }
+    if (token) {
+        cookies.set(tokenCookieName, token, { path: "/" });
+    } else {
+        cookies.remove(tokenCookieName);
+    }
 };
 
 export const tryLogin = (obj = {}) => async (dispatch, getState, { api }) => {
@@ -40,7 +38,7 @@ export const tryLogin = (obj = {}) => async (dispatch, getState, { api }) => {
             payload: res.data
         });
     } catch (e) {
-        // console.log(e.response.data);
+        console.log(e.response.data);
         dispatch({
             type: USER_LOGIN_FAILURE,
             payload: e.response.data
@@ -50,9 +48,13 @@ export const tryLogin = (obj = {}) => async (dispatch, getState, { api }) => {
 
 export const logout = () => async (dispatch, getState, { api }) => {
     const res = await api.get("/user/logout");
-    dispatch({
-        type: USER_LOGOUT,
-        payload: res.data
-    });
-    dispatch(setAuthTokenInLocalStorage());
+    try {
+        dispatch({
+            type: USER_LOGOUT,
+            payload: res.data
+        });
+        dispatch(setAuthTokenInLocalStorage());
+    } catch (err) {
+        // console.log(err.response.status);
+    }
 };

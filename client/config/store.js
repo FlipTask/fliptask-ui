@@ -3,11 +3,6 @@ import thunk from "redux-thunk";
 import Cookies from "universal-cookie";
 import reducers from "../reducers";
 import API from "./api";
-import {
-    setHeaderInApi
-} from "../actions";
-
-const appName = require("../../package.json").name;
 
 const cookies = new Cookies();
 
@@ -36,10 +31,5 @@ const store = createStore(
     enhancer
 );
 
-if (localStorage.getItem(`${appName}-jwttoken`)) {
-    store.dispatch(setHeaderInApi(
-        localStorage.getItem(`${appName}-jwttoken`)
-    ));
-}
 
 export default store;
