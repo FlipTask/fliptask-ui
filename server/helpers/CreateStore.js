@@ -26,7 +26,7 @@ export default (req) => {
     });
 
     axiosInstance.interceptors.response.use((response) => {
-        console.log(`[AXIOS Response][${response.baseURL}] ${response.method} ${response.url}`);
+        console.log(`[AXIOS Response][${response.config.baseURL}] ${response.status} ${response.config.url}`);
         return response;
     }, (err) => err.response.data);
 

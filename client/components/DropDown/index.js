@@ -75,7 +75,7 @@ class DropDown extends Component {
         if (selectedOption && selectedOption.name) {
             selectedValue = selectedOption.name;
         }
-        console.log(newOptions);
+        // console.log(newOptions);
         return (
             <div className="dropdown" onClick={(e) => {
                 if (!readOnly) {

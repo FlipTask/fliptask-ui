@@ -47,28 +47,27 @@
     animation: slideUpClose 0.3s;
 }
 
-
-.invite-box-wrapper{
-    padding: .625rem .75rem !important;
-    @include borderRadius;
-    &.customize-token-input---focused---2EN4q{
+.invite-box-wrapper {
+    padding: 0.625rem 0.75rem !important;
+    border-radius: 0;
+    &.customize-token-input---focused---2EN4q {
         box-shadow: 0 2px 3px rgba(50, 50, 93, 0.11), 0 0 2px rgba(0, 0, 0, 0.08) !important;
         border-color: #1f89e5 !important;
     }
 }
 
-.token--item{
+.token--item {
     display: flex;
     justify-content: space-between;
     position: relative;
     padding-right: 0 !important;
-    padding-top: 0 !important;
+    padding-top: 0;
     padding-bottom: 0 !important;
     line-height: 24px !important;
     margin-right: 10px !important;
-    i{
+    i {
         align-self: center;
-        padding: 5px 5px;
+        padding: 5px;
         margin-left: 5px;
         flex: 1;
         height: 100%;
@@ -76,9 +75,62 @@
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
     }
-    &:hover{
-        i{
+    &:hover {
+        i {
             color: #333 !important;
         }
     }
+}
+@keyframes clockwise {
+    from {
+        transform: rotateZ(0deg);
+    }
+    to {
+        transform: rotateZ(180deg);
+    }
+}
+@keyframes anticlockwise {
+    to {
+        transform: rotateZ(0deg);
+    }
+    from {
+        transform: rotateZ(180deg);
+    }
+}
+.rotate-clockwise {
+    transform: rotateZ(180deg);
+    transition: all 0.2s ease-in;
+}
+.rotate-anticlockwise {
+    transform: rotateZ(0deg);
+    transition: all 0.2s ease-out;
+    // animation: anticlockwise 0.3s;
+}
+
+@keyframes rodal-zoom-enter {
+    from {
+        -webkit-transform: scale3d(0.3, 0.3, 0.3);
+        transform: scale3d(0.3, 0.3, 0.3);
+        opacity: 0;
+    }
+}
+
+.rodal-zoom-enter {
+    opacity: 1;
+    -webkit-animation: rodal-zoom-enter both cubic-bezier(0.4, 0, 0, 1.5);
+    animation: rodal-zoom-enter both cubic-bezier(0.4, 0, 0, 1.5);
+    animation-duration: 0.3s;
+    transition: opacity 0.3s cubic-bezier(0,0,0.3,1);
+}
+@keyframes rodal-zoom-leave {
+    to {
+        -webkit-transform: scale3d(0.3, 0.3, 0.3);
+        transform: scale3d(0.3, 0.3, 0.3);
+    }
+}
+
+.rodal-zoom-leave {
+    -webkit-animation: rodal-zoom-leave both;
+    animation: rodal-zoom-leave both;
+    animation-duration: 0.3s;
 }

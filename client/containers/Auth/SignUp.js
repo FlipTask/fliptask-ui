@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect, Link } from "react-router-dom";
-
+import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { createNewUser } from "../../actions";
 
@@ -41,70 +41,52 @@ class SignUp extends Component {
             return <Redirect to="/onboard"/>;
         }
         return (
-            <div className="page-wrapper">
-                <div className="row">
-                    <div className="column page-side-wrapper">
-                        <img src="/assets/help.png" alt="HELP.png"/>
-                        <h1>Plan</h1>
-                        <h2>Collaborate</h2>
-                        <h3>Succeed</h3>
-                    </div>
-                    <div className="column">
-                        <div className="login-form-wrapper">
-                            <img src="/assets/logo.png" className="logo-img"/>
-                            <form className="login-form">
-                                {error.message
-                                    ? <p className="inline--error">{error.message}</p>
-                                    : ""
-                                }
-                                <div>
-                                    <Input
-                                        icon="user-alt"
-                                        className="rounded shadowed border"
-                                        type="text"
-                                        placeholder="First Name"
-                                        value={firstName}
-                                        onChange={this.handleOnChange}
-                                        name="first_name"/>
-                                    <Input
-                                        icon="user-alt"
-                                        className="rounded shadowed border"
-                                        type="text"
-                                        placeholder="Last Name"
-                                        value={lastName}
-                                        onChange={this.handleOnChange}
-                                        name="last_name"/>
-                                </div>
-                                <Input
-                                    icon="envelope-open"
-                                    className="rounded shadowed border"
-                                    type="email"
-                                    placeholder="Email"
-                                    value={email}
-                                    onChange={this.handleOnChange}
-                                    name="email"/>
-                                <Input
-                                    icon="unlock-alt"
-                                    className="rounded shadowed border"
-                                    type="password"
-                                    placeholder="password"
-                                    value={password}
-                                    onChange={this.handleOnChange}
-                                    name="password"/>
-                                <button
-                                    className={`btn bg-awesome gradient rounded shadowed text-white form-control ${isLoading
-                                        ? "disabled"
-                                        : ""}`}
-                                    onClick={this.submitLogin}
-                                    type="button">
-                                    Sign Up
-                                </button>
-                                <Link className="auth-back-link" to="/login">Already a user ? Login</Link>
-                            </form>
-                        </div>
-                    </div>
+            <form className="login-form">
+                {error.message
+                    ? <p className="inline--error">{error.message}</p>
+                    : ""
+                }
+                <div>
+                    <Input
+                        icon="user-alt"
+                        className="shadowed border"
+                        type="text"
+                        placeholder="First Name"
+                        value={firstName}
+                        onChange={this.handleOnChange}
+                        name="first_name"/>
+                    <Input
+                        icon="user-alt"
+                        className="shadowed border"
+                        type="text"
+                        placeholder="Last Name"
+                        value={lastName}
+                        onChange={this.handleOnChange}
+                        name="last_name"/>
                 </div>
-            </div>
+                <Input
+                    icon="envelope-open"
+                    className="shadowed border"
+                    type="email"
+                    placeholder="Email"
+                    value={email}
+                    onChange={this.handleOnChange}
+                    name="email"/>
+                <Input
+                    icon="unlock-alt"
+                    className="shadowed border"
+                    type="password"
+                    placeholder="password"
+                    value={password}
+                    onChange={this.handleOnChange}
+                    name="password"/>
+                <Button
+                    text="Sign Up"
+                    onClick={this.submitLogin}
+                    className={`bg-neutral floating-shadow form-control ${isLoading ? "disabled" : ""}`}
+                />
+                <Link className="auth-back-link" to="/login">Already a user ? Login</Link>
+            </form>
         );
     }
 }

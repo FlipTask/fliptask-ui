@@ -1,7 +1,20 @@
 import React, { useEffect, useState } from "react";
 
+const StyleInjector = ({ children, classToInject, onAnimationEnd }) => {
+    const StyledChildren = () => React.Children.map(children, (child) => React.cloneElement(child, {
+        className: `${child.props.className} ${classToInject}`,
+        onAnimationEnd
+    }));
+
+    return <StyledChildren />;
+};
+
 const Animation = ({
-    show, children, mountAnimation, unmountAnimation
+    show,
+    children,
+    mountAnimation,
+    unmountAnimation,
+    afterClose
 }) => {
     const [shouldRender,
         setRender] = useState(show);
@@ -14,19 +27,20 @@ const Animation = ({
     [show]);
 
     const onAnimationEnd = () => {
+        console.log("Animation End");
         if (!show) {
             setRender(false);
+            if (afterClose) {
+                afterClose();
+            }
         }
     };
-    // console.log(show, "End Animation")
     return (shouldRender && (
-        <div
-            className={`${show
-                ? (mountAnimation || "slideIn")
-                : (unmountAnimation || "slideOut")}`}
-            onAnimationEnd={onAnimationEnd}>
+        <StyleInjector
+            onAnimationEnd={onAnimationEnd}
+            classToInject={`${show ? (mountAnimation || "slideIn") : (unmountAnimation || "slideOut")}`}>
             {children}
-        </div>
+        </StyleInjector>
     ));
 };
 

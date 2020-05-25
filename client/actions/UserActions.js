@@ -9,7 +9,7 @@ import {
 } from "../constants/ActionTypes";
 import {
     logout,
-    setAuthTokenInLocalStorage
+    setAuthTokenInSession
 } from "./AuthActions";
 
 export const fetchUser = (fromServer) => async (dispatch, getState, { api }) => {
@@ -25,7 +25,7 @@ export const fetchUser = (fromServer) => async (dispatch, getState, { api }) => 
         });
     } catch (e) {
         // console.error(e);
-        dispatch(setAuthTokenInLocalStorage());
+        dispatch(setAuthTokenInSession());
         dispatch(logout());
     }
 };
@@ -38,7 +38,7 @@ export const createNewUser = (obj = {}) => async (dispatch, getState, { api }) =
         const res = await api.post("/user/signup", {
             ...obj
         });
-        dispatch(setAuthTokenInLocalStorage(res.data.data.token));
+        dispatch(setAuthTokenInSession(res.data.data.token));
         dispatch({
             type: USER_LOGIN_SUCCESS,
             payload: res.data

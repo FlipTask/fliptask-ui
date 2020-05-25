@@ -26,7 +26,7 @@ class ImageUpload extends Component {
         ));
         const uploadedFiles = files.map((img, i) => (
             <li className="image-wrapper" key={i}>
-                <img className="image-thumbnail" src={`/images/${img.image_name}`}/>
+                <img className="image-thumbnail" src={`/api/images/${img.image_name}`}/>
             </li>
         ));
         return (
@@ -38,7 +38,7 @@ class ImageUpload extends Component {
                                 <li {...getRootProps({ className: `dropzone image-wrapper ${readOnly ? "readOnly" : ""}` })}>
                                     <input {...getInputProps()} name={name}/>
                                     <p className="text-light">
-                                        <i className="fas fa-upload"></i>
+                                        <i className="far fa-upload"></i>
                                         <span>Upload</span>
                                     </p>
                                 </li>

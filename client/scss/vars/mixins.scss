@@ -16,7 +16,7 @@
 }
 $borderRadius: .375rem;
 @mixin borderRadius {
-    border-radius: $borderRadius;
+    border-radius: $borderRadius !important;
 }
 
 .ellipsis{

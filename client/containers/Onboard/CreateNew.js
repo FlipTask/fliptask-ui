@@ -6,6 +6,7 @@ import Input from "../../components/Input";
 import InviteBox from "../../components/InviteBox";
 import { searchOrganization, createNewOrganization, sendInvitation } from "../../actions";
 import { mailRegex } from "../../constants/constants";
+import Header from "../../components/Header";
 
 class CreateNew extends Component {
     constructor(props) {
@@ -104,35 +105,23 @@ class CreateNew extends Component {
         // eslint-disable-next-line no-unused-expressions
         e && e.preventDefault();
         this.setState({
-            invite: true
+            skipInvitation: true
         });
     }
 
     render() {
         const { name } = this.state;
-        const { user } = this.props;
+        // const { user } = this.props;
 
-        if ((user && user.user && user.user.meta && user.user.meta.is_org_verified) && this.state.skipInvitation) {
+        if (this.state.skipInvitation) {
             return <Redirect to="/workspace" />;
         }
-        if (!user.isAuthorised) {
-            return <Redirect to="/login"/>;
-        }
+
         return (
             <React.Fragment>
-                <div style={{
-                    height: "60px"
-                }}>
-                    <img
-                        style={{
-                            maxWidth: "100%",
-                            height: "inherit",
-                            padding: "0.6em"
-                        }}
-                        src="/assets/logo-horizontal.png"
-                    />
-                </div>
                 <div className="page-wrapper row">
+                    <Header/>
+
                     <div className="column page-side-wrapper">
                         <div style={{
                             width: "50%",
@@ -181,7 +170,7 @@ class CreateNew extends Component {
                                                     name="name"/>
                                                 <button
                                                     style={{ marginTop: "1em" }}
-                                                    className={"w-100 btn bg-primary text-white rounded shadowed"}
+                                                    className={"w-100 btn bg-primary text-white floating-shadow"}
                                                     onClick={this.submitNewOrg}
                                                     type="button">
                                                     Create New Organization

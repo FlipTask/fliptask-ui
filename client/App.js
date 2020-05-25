@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { renderRoutes } from "react-router-config";
+// import { renderRoutes } from "react-router-config";
+import RenderRoutes from "./components/RenderRoutes";
 import { fetchUser } from "./actions";
 import Routes from "./Routes";
 
 class App extends Component {
     componentDidMount = async () => {
-        await this.props.fetchUser();
+        // await this.props.fetchUser();
     }
 
     render() {
         return (
             <div className="page--container">
-                {renderRoutes(Routes)}
+                <RenderRoutes routes={Routes} />
             </div>
         );
     }

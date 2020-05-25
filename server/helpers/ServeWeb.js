@@ -1,15 +1,23 @@
 import { matchRoutes } from "react-router-config";
+import { matchPath } from "react-router-dom";
 import Renderer from "./Renderer";
 import Routes from "../../client/Routes";
 import CreateStore from "./CreateStore";
 // (store, route, req.path, req.query, req.params)
 export default (req, res) => {
     const store = CreateStore(req);
-    const promises = matchRoutes(Routes, req.path).filter((routes) => routes.route.loadData).map((routes) => new Promise((resolve) => {
-        resolve(routes.route.loadData(store, routes.route, req.path, req.query, req.params));
-    }).catch((err) => {
-        console.log("[ERROR]", err);
-    }));
+    const promises = matchRoutes(Routes, req.path).map(({
+        route
+    // eslint-disable-next-line array-callback-return
+    }) => (route.loadData ? route.loadData(store, matchPath(req.path, route), req.path, req.query, req.params) : null)).map((promise) => {
+        if (promise) {
+            return new Promise((resolve) => {
+                Promise.all(promise).then((value) => {
+                    resolve(value);
+                });
+            });
+        }
+    });
 
     Promise
         .all(promises)

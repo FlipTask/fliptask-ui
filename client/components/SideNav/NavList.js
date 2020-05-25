@@ -19,21 +19,24 @@ class NavList extends Component {
 
     render() {
         const {
-            title,
-            list,
-            urlPrefix,
-            activeItem,
-            AddListItem
+            title = "",
+            list = [],
+            urlPrefix = "",
+            activeItem = {},
+            addListItem
         } = this.props;
         const { accordian, open } = this.state;
         return (
-            <div className="nav-list">
+            <div className={`nav-list ${open ? "active" : ""}`}>
                 <div className="nav-list-heading text-light" onClick={(e) => {
                     if (accordian) {
                         this.toggleOpen(e);
                     }
                     return false;
-                }}>{title}</div>
+                }}>
+                    <span>{title}</span>
+                    <i className={`far fa-angle-down ${open ? "rotate-clockwise" : "rotate-anticlockwise"}`}></i>
+                </div>
                 <Animation show={open} mountAnimation="slideDownOpen" unmountAnimation="slideUpClose">
                     <div className={"nav--list"}>
                         <div className="nav-list--wrapper">
@@ -48,7 +51,7 @@ class NavList extends Component {
                             }
 
                         </div>
-                        <AddListItem/>
+                        {addListItem()}
                     </div>
                 </Animation>
             </div>

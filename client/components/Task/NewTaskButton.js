@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import TaskModal from "./TaskModal";
+import { withRouter } from "react-router";
 
 class NewTaskButton extends Component {
     constructor(props) {
@@ -12,23 +12,17 @@ class NewTaskButton extends Component {
     toggleModal = () => {
         this.setState({
             openModal: !this.state.openModal
+        }, () => {
+            if (this.state.openModal) {
+                const { listId, workspace } = this.props;
+                this.props.history.push(`/workspace/${workspace._id}/list/${listId}/ticket/create-new`);
+            }
         });
     }
 
     render() {
-        const { listId } = this.props;
         return (
             <React.Fragment>
-                {
-                    this.state.openModal
-                        ? <TaskModal
-                            toggleModal={this.toggleModal}
-                            listId={listId}
-                            open={this.state.openModal}
-                            title={"Create New Task"}
-                        />
-                        : ""
-                }
                 <button type="button" className="btn text-primary shadowed rounded" onClick={this.toggleModal}>
                     <i className="fa fa-plus" aria-hidden="true"></i>
                     Add New Task
@@ -39,4 +33,4 @@ class NewTaskButton extends Component {
 }
 
 
-export default NewTaskButton;
+export default withRouter(NewTaskButton);

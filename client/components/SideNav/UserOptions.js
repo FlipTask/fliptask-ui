@@ -1,14 +1,8 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router";
-import {
-    logout
-} from "../../actions";
 
 class UserOptions extends Component {
     onLogout = async () => {
         await this.props.logout();
-        await this.props.history.push("/login");
     }
 
     render() {
@@ -26,10 +20,4 @@ class UserOptions extends Component {
     }
 }
 
-const mapStateToProps = ({ user }) => ({
-    user: user.user
-});
-
-export default withRouter(connect(mapStateToProps, {
-    logout
-})(UserOptions));
+export default UserOptions;

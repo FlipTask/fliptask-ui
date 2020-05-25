@@ -56,7 +56,7 @@ class Input extends Component {
                             name={name}
                             className={`${className || ""} form-control`}
                         />
-                        <i className="fas fa-chevron-down text-light" aria-hidden="true"></i>
+                        <i className="far fa-chevron-down text-light" aria-hidden="true"></i>
                     </div>
                 </div>
 
@@ -74,7 +74,7 @@ class Input extends Component {
                     }
                     {
                         icon
-                            ? <i className={`fas fa-${icon} icon ${classNameIfIcon}`}></i>
+                            ? <i className={`far fa-${icon} icon ${classNameIfIcon}`}></i>
                             : ""
                     }
                     <input

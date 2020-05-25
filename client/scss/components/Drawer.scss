@@ -55,21 +55,25 @@
         .drawer--footer{
             border-top: 1px solid #f6f6f6;
             padding: 1em 0;
+            display: flex;
+            align-items: center;
         }
     }
 }
 
 .drawer-slide-in{
     animation-direction: normal;
-    transition: 0.3s ease all;
+    // transition: 0.2s ease all;
     animation: drawerSlideIn 0.3s;
-    animation-timing-function: ease-in-out;
+    // animation-timing-function: ease-in-out;
+    height: inherit;
 }
 .drawer-slide-out{
     animation-direction: normal;
-    transition: 0.3s ease all;
+    // transition: 0.2s ease all;
     animation: drawerSlideOut 0.3s;
-    animation-timing-function: ease-in-out;
+    // animation-timing-function: ease-in-out;
+    height: inherit;
 }
 .hide{
     display: none;

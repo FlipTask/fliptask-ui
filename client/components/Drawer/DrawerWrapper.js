@@ -30,10 +30,16 @@ class DrawerWrapper extends Component {
             disableActions,
             open,
             HeaderComponent,
-            FooterComponent
+            FooterComponent,
+            afterClose
         } = this.props;
         return (
-            <Animation show={open} mountAnimation="drawer-slide-in" unmountAnimation="drawer-slide-out">
+            <Animation
+                show={open}
+                mountAnimation="drawer-slide-in"
+                unmountAnimation="drawer-slide-out"
+                afterClose={afterClose}
+            >
                 <div className="drawer">
                     {
                         loader

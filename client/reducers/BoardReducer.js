@@ -63,10 +63,6 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             ...state,
             isLoading: false,
             boards: payload.data,
-            activeBoard: {
-                ...state.activeBoard,
-                ...payload.data && (payload.data[0] || {})
-            },
             error: {}
         };
     case FETCH_BOARDS_FAILURE:

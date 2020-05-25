@@ -8,30 +8,53 @@
     display: flex;
     z-index:1;
     .modal{
+        position: relative;
         width: 70%;
         margin: auto;
         margin-top: 4em;
         background-color: #fff;
         padding: 1em;
-        box-shadow: 0px 0px 7px 2px rgba(51, 51, 51, 0.52);
-        @include borderRadius;
+        box-shadow: 0px 0px 4px 0px rgba(53, 53, 53, 0.2);
+        .cancel-btn{
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 0.7em 1em;
+            font-size: 1.5em;
+            &:hover{
+                color: #333 !important;
+                cursor: pointer;
+            }
+        }
         .modal--header{
+            padding-bottom: 1em;
+            border-bottom: 1px solid #f7f7f7;
+            margin-bottom: 1em;
             p{
                 font-size: 1.5em;
                 font-weight: 700;
-                margin-top: 0;
+                margin: 0;
+                padding-right: 2em;
             }
         }
         .modal--body{
             margin-bottom: 2em;
         }
         .modal--footer{
-            float: right;
+            padding-top: 1em;
+            border-top: 1px solid #f7f7f7;
+            margin-top: 1em;
+            text-align: right;
             button{
                 &:last-child{
                     margin-left: 1em;
                 }
             }
         }
+    }
+}
+.modal-form{
+    .form-field-block {
+        margin-bottom: 1.5em;
     }
 }
