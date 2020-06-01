@@ -11,7 +11,18 @@ const config = {
     // Tell webpack the root file of our
     // server Application
     target: "web",
+    devServer: {
+        contentBase: path.join(__dirname, 'client-build'),
+        port: 8080,
+        host: `localhost`,
+    },
     entry: path.resolve(__dirname, "../../client/index.js"),
+    // {
+    //     app: [
+    //         "webpack-hot-middleware/client?reload=true&timeout=1000",
+            
+    //     ]
+    // },
     module: {
         rules: [
             {
@@ -27,7 +38,11 @@ const config = {
                 use: [MiniCssExtractPlugin.loader, "css-loader", {
                     loader: "postcss-loader",
                     options: {
-                        options: {}
+                        // parser: "sugarss",
+                        // exec: true,
+                        // config: {
+                        //     path: __dirname
+                        // }
                     }
                 }, "sass-loader"]
             },
@@ -76,13 +91,13 @@ const config = {
         // chunkFilename: '[name].bundle.js',
         path: path.resolve(__dirname, "../../client-build")
     },
-    optimization: {
-        splitChunks: {
-            // include all types of chunks
-            chunks: "all"
-        },
-        runtimeChunk: true
-    },
+    // optimization: {
+    //     splitChunks: {
+    //         // include all types of chunks
+    //         chunks: "all"
+    //     },
+    //     runtimeChunk: true
+    // },
     plugins: [
         // extractSass,
         new CleanWebpackPlugin(),

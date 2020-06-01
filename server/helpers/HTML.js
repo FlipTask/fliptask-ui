@@ -18,6 +18,8 @@ const HTML = ({
     <link
         href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700&display=swap"
         rel="stylesheet">
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
     ${linkTags}
     ${styleTags}
 </head>
@@ -29,11 +31,12 @@ window.INITIAL_STATE = ${JSON.stringify(store).replace(
     )}
 </script>
     <section id="root">${html}</section>
+    <section id="root-drawer"></section>
     <section id="root-modal"></section>
     ${scriptTags}
-    <script src="https://kit.fontawesome.com/179049e472.js" crossorigin="anonymous" async></script>
 </body>
 </html>
     `;
 
 export default HTML;
+//    <script src="https://kit.fontawesome.com/179049e472.js" crossorigin="anonymous" async></script>

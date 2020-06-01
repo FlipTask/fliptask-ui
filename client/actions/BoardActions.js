@@ -52,7 +52,7 @@ export const fetchTaskListsForBoard = (boardId) => async (dispatch, getState, { 
         dispatch({ type: FETCH_TASKLIST_PENDING });
         const res = await api.get(`/board/get/${boardId}`, {
             params: {
-                extras: "tasks,task_list"
+                extras: "tasks,task_list,teams"
             }
         });
         dispatch({ type: FETCH_TASKLIST_SUCCESS, payload: res.data });

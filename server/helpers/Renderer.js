@@ -17,7 +17,7 @@ export default (req, store, context) => new Promise((resolve) => {
             </StaticRouter>
         </Provider>
     );
-    const webExtractor = new ChunkExtractor({ statsFile: webStats, entrypoints: ["main"] });
+    const webExtractor = new ChunkExtractor({ statsFile: webStats });
 
     const JSX = webExtractor.collectChunks(InitialComponent);
     // const html = renderToString(JSX);

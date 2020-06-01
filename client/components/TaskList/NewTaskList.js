@@ -90,7 +90,7 @@ class NewTaskList extends Component {
                             </button>
                             : <div className="create-new-list-form">
                                 <Input
-                                    className="form-input"
+                                    className="form-input bordered shadowed rounded"
                                     placeholder="List Name"
                                     type="text"
                                     name="title"

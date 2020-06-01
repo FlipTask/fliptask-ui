@@ -1,10 +1,10 @@
 $hotpink: #fe4066;
 $purple: #7b28c7;
 $blue: #2859c7;
-$skyblue: #549de1;
+$skyblue: #55a8fd;
 $orange: #c78f28;
-$red: #ed4c75;
-$green: #67e083;
+$red: #ff595e;
+$green: #5fd07a;
 $yellow: #f5c346;
 
 $darkBlue: #292c43;
@@ -24,3 +24,9 @@ $theme-warning-color: $yellow;
 
 $primary-font: 'Ubuntu', Helvetica sans-serif;
 $secondary-font: 'Open Sans', Helvetica sans-serif;
+
+:root{
+    --theme-color-dark-1: #4c5265;
+    --theme-color-dark-2: #2b2f3f;
+    --theme-color-dark-3: #242837;
+}

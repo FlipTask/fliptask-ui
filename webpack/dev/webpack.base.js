@@ -1,6 +1,7 @@
 const Dotenv = require("dotenv-webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const LoadablePlugin = require("@loadable/webpack-plugin");
+const path = require("path");
 
 module.exports = {
     // Tell webpack to run babel on every file it runs through
@@ -12,6 +13,17 @@ module.exports = {
                 test: /\.js?$/,
                 loader: "babel-loader",
                 exclude: /node_modules/
+            },
+            {
+                test: /ckeditor5-[^\/\\]+[\/\\].+\.js$/,
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            presets: [ require( '@babel/preset-env' ) ]
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -25,5 +37,6 @@ module.exports = {
             silent: true, // hide any errors
             defaults: false // load '.env.defaults' as the default values if empty.
         })
-    ]
+    ],
+    externals: ["react-portal-universal"]
 };

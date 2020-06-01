@@ -84,11 +84,14 @@ class InviteBox extends Component {
     }
 
     render() {
-        const { value } = this.props;
+        const {
+            value,
+            className
+        } = this.props;
         return (
             <div className="invite-box">
                 <TokenInput
-                    className="invite-box-wrapper"
+                    className={`invite-box-wrapper ${className || ""}`}
                     placeholder={this.state.cData.length > 0 ? "Add another email" : "Invite your team by email"}
                     defaultData={value || this.state.cData}
                     tokenRender={this.tokenRender}

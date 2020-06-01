@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import Animation from "../Animation";
+import Loader from "../Loader";
+import Button from "../Button";
 
 class ModalWrapper extends Component {
     constructor(props) {
@@ -8,33 +11,62 @@ class ModalWrapper extends Component {
         };
     }
 
-    onCancel = () => {
-        this.props.onCancel();
+    onCancel = (e) => {
+        this.props.onCancel(e);
     }
 
-    onSubmit = () => {
-        this.props.onSubmit();
+    onSubmit = (e) => {
+        this.props.onSubmit(e);
     }
 
     render() {
-        const { title, disableActions } = this.props;
+        const {
+            title,
+            disableActions,
+            afterClose,
+            open,
+            loader
+        } = this.props;
         return (
-            <div className="modal">
-                <div className="modal--header">
-                    <p>
-                        {title}
-                    </p>
-                </div>
-                <div className="modal--body">
+            <Animation
+                show={open}
+                afterClose={afterClose}
+                mountAnimation="rodal-zoom-enter"
+                unmountAnimation="rodal-zoom-leave"
+            >
+                <div className="modal">
+                    <span className="cancel-btn text-light" onClick={this.onCancel}>
+                        <i className="far fa-times"/>
+                    </span>
                     {
-                        this.props.children
+                        loader
+                            ? <Loader />
+                            : ""
                     }
+                    <div className="modal--header">
+                        <p>
+                            {title}
+                        </p>
+                    </div>
+                    <div className="modal--body">
+                        {
+                            this.props.children
+                        }
+                    </div>
+                    <div className="modal--footer">
+                        <Button
+                            text={"Cancel"}
+                            onClick={this.onCancel}
+                            className={`sm bg-danger floating-shadow ${disableActions ? "disabled" : ""}`}
+                        />
+                        <Button
+                            text={"Submit"}
+                            onClick={this.onSubmit}
+                            className={`sm bg-neutral floating-shadow ${disableActions ? "disabled" : ""}`}
+                        />
+                    </div>
                 </div>
-                <div className="modal--footer">
-                    <button className={`btn bg-warning text-white ${disableActions ? "disabled" : ""}`} onClick={this.onCancel}>Cancel</button>
-                    <button className={`btn text-white bg-primary ${disableActions ? "disabled" : ""}`} onClick={this.onSubmit}>Submit</button>
-                </div>
-            </div>
+            </Animation>
         );
     }
 }

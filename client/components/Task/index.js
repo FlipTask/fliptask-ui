@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
 import TaskModal from "./TaskModal";
 import Badge from "../Badge";
 import {
@@ -40,15 +42,21 @@ class Task extends Component {
 
     render() {
         const {
-            task, mouseEvents, index, listId
+            task,
+            mouseEvents,
+            index,
+            listId,
+            workspace
         } = this.props;
+        // console.log(this.props);
         return (
             <React.Fragment>
-                {
+                {/* {
                     this.getModal(task, listId)
-                }
-                <div
-                    className="dragable"
+                } */}
+                <Link
+                    to={`/workspace/${workspace._id}/list/${listId}/ticket/${task._id}`}
+                    className="dragable not-anchor"
                     id={task._id}
                     index={index}
                     list_id={listId}
@@ -56,7 +64,7 @@ class Task extends Component {
                     onMouseEnter={(e) => mouseEvents.onMouseEnter(e)}
                     onMouseLeave={(e) => mouseEvents.onMouseLeave(e)}
                     onMouseUp={(e) => mouseEvents.onMouseUp(e)}
-                    onClickCapture={(e) => this.onClick(e)}
+                    // onClickCapture={(e) => this.onClick(e)}
                 >
                     <div
                         className={"task-card card-shadow"}
@@ -77,10 +85,10 @@ class Task extends Component {
                         </div>
 
                     </div>
-                </div>
+                </Link>
             </React.Fragment>
         );
     }
 }
 
-export default Task;
+export default withRouter(Task);

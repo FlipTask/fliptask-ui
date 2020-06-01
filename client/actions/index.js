@@ -1,6 +1,6 @@
 export {
     tryLogin,
-    setAuthTokenInLocalStorage,
+    setAuthTokenInSession,
     setHeaderInApi,
     logout
 } from "./AuthActions";

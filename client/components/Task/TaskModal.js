@@ -22,12 +22,25 @@ const ImageUpload = loadable(() => import(
 class TaskModal extends Component {
     constructor(props) {
         super(props);
-        const { listId, task } = props;
+        const { workspace } = props;
+        const {
+            listId, ticketId
+        } = props.match.params;
+        const taskList = workspace.task_list.filter((t) => t._id === listId)[0];
+        let task;
+        if (ticketId === "create-new") {
+            task = null;
+        } else {
+            [task] = taskList.tasks.filter((t) => t._id === ticketId);
+        }
+
         this.state = {
+            openModal: true,
             loader: false,
             images: [],
             disableModalActions: false,
             edit: !((task && task._id)),
+            title: (task && task._id) ? task.title : "Create New Task",
             task: task || {
                 task_list: listId,
                 title: "",
@@ -42,6 +55,8 @@ class TaskModal extends Component {
     toggleModal = () => {
         this.setState({
             openModal: !this.state.openModal
+        }, () => {
+
         });
     }
 
@@ -120,9 +135,6 @@ class TaskModal extends Component {
     }
 
     render() {
-        if (!this.props.open) {
-            return null;
-        }
         const HeaderComponent = () => (
             <React.Fragment>
                 <p className="ellipsis">
@@ -131,7 +143,7 @@ class TaskModal extends Component {
                 {
                     !this.state.edit
                         ? <button onClick={this.toggleEditMode} className="btn sm bg-primary text-white rounded">
-                            <i className="fas fa-pencil-alt"></i> Edit Task</button>
+                            <i className="far fa-pencil-alt"></i> Edit Task</button>
                         : <button onClick={this.toggleEditMode} className="btn sm bg-warning text-white rounded">Cancel</button>
                 }
 
@@ -141,11 +153,19 @@ class TaskModal extends Component {
         const FooterComponent = () => (
             <React.Fragment>
                 <button
-                    className={`btn text-white bg-primary ${!this.state.edit ? "disabled" : ""}`}
+                    className={`btn text-white bg-primary rounded ${!this.state.edit ? "disabled" : ""}`}
                     onClick={this.createNewTask}
                 >
                     {!this.state.task._id ? "Save" : "Update"}
                 </button>
+                {
+                    !this.state.edit
+                        ? <i className="far fa-check text-success" style={{
+                            fontSize: "1.5em",
+                            marginLeft: "0.6em"
+                        }}></i>
+                        : ""
+                }
             </React.Fragment>
         );
         const dueDate = new Date(this.state.task.due_date);
@@ -153,14 +173,15 @@ class TaskModal extends Component {
         return (
             <React.Fragment>
                 <Drawer
+                    afterClose={() => this.props.history.push(`/workspace/${this.props.workspace._id}`)}
                     loader={this.state.loader}
                     FooterComponent={FooterComponent}
                     HeaderComponent={this.state.task._id ? HeaderComponent : null}
-                    open={this.props.open}
+                    open={this.state.openModal}
                     disableActions={this.state.disableModalActions}
-                    onCancel={this.props.toggleModal}
+                    onCancel={this.toggleModal}
                     onSubmit={this.createNewTask}
-                    title={this.props.title}
+                    title={this.state.title}
                 >
                     <div className="create-new-task--modal modal-form">
                         <div className="task-details">
@@ -226,8 +247,8 @@ class TaskModal extends Component {
     }
 }
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = ({ boards }) => ({
+    workspace: boards.activeBoard
 });
 
 export default connect(mapStateToProps, {

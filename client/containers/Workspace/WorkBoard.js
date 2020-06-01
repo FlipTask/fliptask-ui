@@ -5,7 +5,7 @@ import { changeActiveBoard, swapTaskCard, swapTaskList } from "../../actions";
 import TaskList from "../../components/TaskList";
 import NewTaskList from "../../components/TaskList/NewTaskList";
 import DropableList from "./DropableList";
-import BoardHeader from "../../components/Header/BoardHeader";
+import RenderRoutes from "../../components/RenderRoutes";
 
 class WorkBoard extends Component {
     constructor(props) {
@@ -48,8 +48,15 @@ class WorkBoard extends Component {
         });
     }
 
+    componentDidMount() {
+        const { workspace } = this.props;
+        if (workspace._id !== this.state.workspaceId) {
+            this.props.changeActiveBoard(this.state.workspaceId);
+        }
+    }
+
     static getDerivedStateFromProps(props, state) {
-        if (props.match && props.match.params.workspaceId && (props.match.params.workspaceId !== state.workspaceId)) {
+        if (props.match.params.workspaceId !== state.workspaceId) {
             props.changeActiveBoard(props.match.params.workspaceId);
             return {
                 ...state,
@@ -57,13 +64,6 @@ class WorkBoard extends Component {
             };
         }
         return null;
-    }
-
-    componentDidMount = () => {
-        const { match } = this.props;
-        if (match && match.params.workspaceId) {
-            this.props.changeActiveBoard(match.params.workspaceId);
-        }
     }
 
     onMouseMove = (e) => {
@@ -104,7 +104,8 @@ class WorkBoard extends Component {
         return (
 
             <React.Fragment>
-                <BoardHeader board={workspace}/>
+
+                <RenderRoutes routes={this.props.route.routes} />
                 <div className="container-fluid dropable-list"
                     onMouseMove={(e) => {
                         this.onMouseMove(e);

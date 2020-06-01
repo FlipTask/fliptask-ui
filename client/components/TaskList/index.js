@@ -19,7 +19,8 @@ class TaskList extends Component {
             mouseEvents,
             dropableTasks,
             dropableList,
-            index
+            index,
+            workspace
         } = this.props;
         return (
             <React.Fragment>
@@ -33,13 +34,14 @@ class TaskList extends Component {
                     <div className="task-list">
                         <div className="task-list--header">
                             <p className="task-list--title ellipsis">{data.title}</p>
-                            <span className="task-list--options-btn"><i className="fas fa-ellipsis-v text-light"></i></span>
+                            <span className="task-list--options-btn"><i className="far fa-ellipsis-v text-light"></i></span>
                         </div>
                         <div className="task-list--body">
                             {
                                 data.tasks && data.tasks.length === 0
                                     ? <TaskCardPlaceHolder />
                                     : data.tasks && data.tasks.map((task, i) => <Task
+                                        workspace={workspace}
                                         dropableTasks={dropableTasks}
                                         listId={data._id}
                                         mouseEvents={mouseEvents}
@@ -50,7 +52,7 @@ class TaskList extends Component {
                             }
                         </div>
                         <div className="task-list--footer">
-                            <NewTaskButton listId={data._id}/>
+                            <NewTaskButton listId={data._id} workspace={workspace}/>
                         </div>
                     </div>
                 </div>

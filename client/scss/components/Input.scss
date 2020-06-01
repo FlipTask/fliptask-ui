@@ -61,6 +61,7 @@ label{
     }
     &::placeholder {
         color: $placeholder-color;
+        font-family: $secondary-font;
     }
 }
 input{

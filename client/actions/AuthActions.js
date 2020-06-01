@@ -15,12 +15,12 @@ export const setHeaderInApi = (token) => async () => {
     }
 };
 
-export const setAuthTokenInLocalStorage = (token) => async (dispatch, getState, { cookies }) => {
+export const setAuthTokenInSession = (token) => async (dispatch, getState, { cookies }) => {
     dispatch(setHeaderInApi(token));
     if (token) {
         cookies.set(tokenCookieName, token, { path: "/" });
     } else {
-        cookies.remove(tokenCookieName);
+        cookies.remove(tokenCookieName, { path: "/" });
     }
 };
 
@@ -32,7 +32,7 @@ export const tryLogin = (obj = {}) => async (dispatch, getState, { api }) => {
         const res = await api.post("/user/login", {
             ...obj
         });
-        dispatch(setAuthTokenInLocalStorage(res.data.data.token));
+        dispatch(setAuthTokenInSession(res.data.data.token));
         dispatch({
             type: USER_LOGIN_SUCCESS,
             payload: res.data
@@ -53,8 +53,9 @@ export const logout = () => async (dispatch, getState, { api }) => {
             type: USER_LOGOUT,
             payload: res.data
         });
-        dispatch(setAuthTokenInLocalStorage());
+        dispatch(setAuthTokenInSession());
     } catch (err) {
+        dispatch(setAuthTokenInSession());
         // console.log(err.response.status);
     }
 };

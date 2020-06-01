@@ -1,17 +1,13 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const CompressionPlugin = require("compression-webpack-plugin");
-
-const extractSass = new ExtractTextPlugin({
-    filename: "[name].css",
-    disable: process.env.NODE_ENV === "development"
-});
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const webpack = require("webpack");
+const TerserJsPlugin = require("terser-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
-
+const BrotliPlugin = require("brotli-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const LoadablePlugin = require("@loadable/webpack-plugin");
 module.exports = {
     // Tell webpack to run babel on every file it runs through
     devtool: "source-map",
+    mode: "production",
     module: {
         rules: [
             {
@@ -21,22 +17,12 @@ module.exports = {
                 options: {
                     presets: ["es2015", "react", "stage-2"]
                 }
-            }, {
-                test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: [
-                        {
-                            loader: "css-loader"
-                        }, {
-                            loader: "sass-loader"
-                        }
-                    ]
-                })
             }
         ]
     },
     plugins: [
+        new LoadablePlugin(),
+        new CleanWebpackPlugin(),
         new Dotenv({
             path: "./env/prod.env", // load this now instead of the ones in '.env'
             safe: true, // load '.env.example' to verify the '.env' variables are all set. Can also be a string to a different file.
@@ -44,17 +30,9 @@ module.exports = {
             silent: true, // hide any errors
             defaults: false // load '.env.defaults' as the default values if empty.
         }),
-        new webpack.EnvironmentPlugin({
-            HASH_ID: (new Date()).getTime()
-        }),
-        extractSass,
-        new UglifyJsPlugin(),
-        new webpack
-            .optimize
-            .AggressiveMergingPlugin(),
-        new CompressionPlugin({
-            asset: "[path].gz[query]", algorithm: "gzip", test: /\.js$|\.css$|\.html$/, threshold: 10240, minRatio: 0.8
+        new BrotliPlugin({
+            asset: "[path].br[query]",
+            test: /\.js$|\.css$|\.html$/
         })
-        // new BundleAnalyzerPlugin(),
     ]
 };

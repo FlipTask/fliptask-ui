@@ -1,3 +1,19 @@
 .header{
-    padding: 0 1em;
+    height: 60px;
+    background-color: #2b2f3f;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    &--transparent{
+        background-color: transparent;
+    }
+    &--partition{
+        height: inherit;
+        display: flex;
+        align-items: center;
+    }
+    &--logo{
+        max-width: 60%;
+        height: auto;
+    }
 }
