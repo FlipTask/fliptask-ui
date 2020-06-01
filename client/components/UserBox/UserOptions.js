@@ -6,9 +6,17 @@ class UserOptions extends Component {
     }
 
     render() {
+        const {
+            user
+        } = this.props;
         return (
             <div className="user-options-list">
                 <div className="user-options-list--wrapper">
+                    <div className="user-option-list-item">
+                        <span className="text-success">
+                            {user.first_name} {user.last_name}
+                        </span>
+                    </div>
                     <div className="user-option-list-item" onClick={this.onLogout}>
                         <div className="btn">
                             Logout

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import UserBox from "../SideNav/UserBox";
+import UserBox from "../UserBox";
 
 class BoardHeader extends Component {
     render() {

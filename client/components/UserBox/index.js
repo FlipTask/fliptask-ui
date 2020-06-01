@@ -66,7 +66,10 @@ class UserBox extends Component {
                     }
                     {
                         this.state.openList
-                            ? <UserOptions logout={this.props.logout}/>
+                            ? <UserOptions
+                                logout={this.props.logout}
+                                user={user}
+                            />
                             : ""
                     }
                 </div>

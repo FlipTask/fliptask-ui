@@ -14,7 +14,7 @@
         clear: both;
     }
 }
-$borderRadius: .375rem;
+$borderRadius: 3px;
 @mixin borderRadius {
     border-radius: $borderRadius !important;
 }
