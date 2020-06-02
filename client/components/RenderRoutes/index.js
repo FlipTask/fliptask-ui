@@ -16,7 +16,6 @@ class RenderRoutes extends Component {
         if (!routes) {
             return null;
         }
-        // const isAuthenticated = isAuthenticated;
         return (
             <Switch {...switchProps}>
                 {

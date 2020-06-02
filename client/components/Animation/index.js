@@ -16,8 +16,7 @@ const Animation = ({
     unmountAnimation,
     afterClose
 }) => {
-    const [shouldRender,
-        setRender] = useState(show);
+    const [shouldRender, setRender] = useState(show);
 
     useEffect(() => {
         if (show) {
@@ -27,7 +26,6 @@ const Animation = ({
     [show]);
 
     const onAnimationEnd = () => {
-        console.log("Animation End");
         if (!show) {
             setRender(false);
             if (afterClose) {

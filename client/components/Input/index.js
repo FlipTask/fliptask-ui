@@ -23,7 +23,7 @@ class Input extends Component {
                     <div className="input-group">
                         {
                             label
-                                ? <label className="label">{label}</label>
+                                ? <label className="label text-light-grey">{label}</label>
                                 : ""
                         }
                         <textarea
@@ -44,7 +44,7 @@ class Input extends Component {
                     <div className="input-group">
                         {
                             label
-                                ? <label className="label">{label}</label>
+                                ? <label className="label text-light-grey">{label}</label>
                                 : ""
                         }
                         <input
@@ -69,7 +69,7 @@ class Input extends Component {
                 <div className={`input-group ${icon ? "with-icon" : ""}`}>
                     {
                         label
-                            ? <label className="label">{label}</label>
+                            ? <label className="label text-light-grey">{label}</label>
                             : ""
                     }
                     {

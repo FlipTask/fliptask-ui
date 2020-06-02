@@ -55,8 +55,6 @@ class TaskModal extends Component {
     toggleModal = () => {
         this.setState({
             openModal: !this.state.openModal
-        }, () => {
-
         });
     }
 
@@ -173,7 +171,7 @@ class TaskModal extends Component {
         return (
             <React.Fragment>
                 <Drawer
-                    afterClose={() => this.props.history.push(`/workspace/${this.props.workspace._id}`)}
+                    afterClose={() => this.props.history.goBack(-1)}
                     loader={this.state.loader}
                     FooterComponent={FooterComponent}
                     HeaderComponent={this.state.task._id ? HeaderComponent : null}

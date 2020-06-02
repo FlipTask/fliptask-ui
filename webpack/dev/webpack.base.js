@@ -12,23 +12,11 @@ module.exports = {
                 test: /\.js?$/,
                 loader: "babel-loader",
                 exclude: /node_modules/
-            },
-            {
-                test: /ckeditor5-[^\/\\]+[\/\\].+\.js$/,
-                use: [
-                    {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: [ require( '@babel/preset-env' ) ]
-                        }
-                    }
-                ]
             }
         ]
     },
     plugins: [
         new LoadablePlugin(),
         new CleanWebpackPlugin()
-    ],
-    externals: ["react-portal-universal"]
+    ]
 };

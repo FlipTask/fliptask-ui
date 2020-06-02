@@ -58,7 +58,9 @@
 }
 
 .nav-list {
+    @include transition;
     &.active{
+        @include transition;
         .nav-list-heading{
             background-color: rgba(0, 0, 0, 0.2);
         }

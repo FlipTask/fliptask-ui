@@ -1,14 +1,17 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Modal from "../Modal";
 import Input from "../Input";
 import DropDown from "../DropDown";
 import Button from "../Button";
+import { createNewBoard } from "../../actions";
 
 class WorkspaceModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
             title: "Create New Workspace",
+            loader: false,
             workspace: {
                 title: ""
             }
@@ -22,8 +25,26 @@ class WorkspaceModal extends Component {
         this.props.history.goBack(-1);
     }
 
-    onChange = () => {
+    onSubmit = async (e) => {
+        e.preventDefault();
+        this.setState({
+            loader: true
+        });
+        const res = await this.props.createNewBoard(this.state.workspace.title);
+        this.setState({
+            loader: false
+        });
+        if (!res.error) {
+            this.props.history.push(`/workspace/${res.data._id}`);
+        }
+    }
 
+    onChange = (e) => {
+        this.setState({
+            workspace: {
+                title: e.target.value
+            }
+        });
     }
 
     createNewTeam = () => {
@@ -32,10 +53,15 @@ class WorkspaceModal extends Component {
 
     render() {
         const {
-            workspace
+            workspace,
+            loader
         } = this.state;
         return (
             <Modal
+                onSubmit={this.onSubmit}
+                loader={loader}
+                cancelBtnText={"Close"}
+                submitBtnText={"Create"}
                 open={true}
                 onCancel={this.onCancel}
                 title={this.state.title}
@@ -75,4 +101,6 @@ class WorkspaceModal extends Component {
     }
 }
 
-export default WorkspaceModal;
+export default connect(() => ({}), {
+    createNewBoard
+})(WorkspaceModal);

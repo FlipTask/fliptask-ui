@@ -1,13 +1,14 @@
 import React, { Component } from "react";
-import Animation from "../Animation";
+import { withRouter } from "react-router";
 import NavListItem from "./NavListItem";
 
 class NavList extends Component {
     constructor(props) {
         super(props);
+        console.log("constructor");
         this.state = {
             accordian: props.accordian || false,
-            open: (props.accordian === true || props.accordian === "true") ? (props.open || false) : true
+            open: true
         };
     }
 
@@ -37,26 +38,26 @@ class NavList extends Component {
                     <span>{title}</span>
                     <i className={`far fa-angle-down ${open ? "rotate-clockwise" : "rotate-anticlockwise"}`}></i>
                 </div>
-                <Animation show={open} mountAnimation="slideDownOpen" unmountAnimation="slideUpClose">
-                    <div className={"nav--list"}>
-                        <div className="nav-list--wrapper">
-
-                            {
-                                list.map((listItem, i) => <NavListItem
-                                    active={listItem._id === activeItem._id}
-                                    listItem={listItem}
-                                    key={i}
-                                    urlPrefix={urlPrefix}
-                                />)
-                            }
-
+                {
+                    this.state.open
+                        ? <div className={"nav--list"}>
+                            <div className="nav-list--wrapper">
+                                {
+                                    list.map((listItem, i) => <NavListItem
+                                        active={listItem._id === activeItem._id}
+                                        listItem={listItem}
+                                        key={i}
+                                        urlPrefix={urlPrefix}
+                                    />)
+                                }
+                            </div>
+                            {addListItem()}
                         </div>
-                        {addListItem()}
-                    </div>
-                </Animation>
+                        : ""
+                }
             </div>
         );
     }
 }
 
-export default NavList;
+export default withRouter(NavList);

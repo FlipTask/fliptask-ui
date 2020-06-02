@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import NavList from "./NavList";
@@ -12,12 +13,10 @@ class SideNav extends Component {
             activeBoard,
             boards
         } = this.props;
-        const openWorkspace = this.props.match.path === "/workspace";
-        const openTeams = this.props.match.path === "/teams";
         return (
             <React.Fragment>
                 <div className="sidenav--primary">
-                    <div className="sidenav-head">
+                    <Link className="sidenav-head" to="/">
                         <img
                             src="/assets/logo-horizontal.png"
                             className="header--logo"
@@ -25,10 +24,9 @@ class SideNav extends Component {
                                 margin: "auto",
                                 maxWidth: "50%"
                             }}/>
-                    </div>
+                    </Link>
                     <div className="sidenav-body">
                         <NavList
-                            open={openTeams}
                             accordian={true}
                             title={"Teams"}
                             urlPrefix={"/teams"}
@@ -40,7 +38,6 @@ class SideNav extends Component {
                         />
                         <NavList
                             accordian={true}
-                            open={openWorkspace}
                             title={"Workspaces"}
                             urlPrefix={"/workspace"}
                             list={boards}

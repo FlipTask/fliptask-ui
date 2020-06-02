@@ -1,28 +1,34 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
+import SideNav from "../../components/SideNav";
+import RenderRoutes from "../../components/RenderRoutes";
+import { fetchBoards } from "../../actions";
+import BoardHeader from "../../components/Header/BoardHeader";
 
-const TeamCard = () => (
-    <div className="card">
-        Hello
-    </div>
-);
 class Home extends Component {
     render() {
-        const { meta } = this.props;
+        const {
+            activeWorkspace
+        } = this.props;
         return (
-            <div className="container">
-                <div className="row">
-                    Hellow
-                    {
-                        meta.team_list.map((team, i) => <TeamCard data={team} key={i}/>)
-                    }
+            <React.Fragment>
+                <SideNav />
+                <div className="board--wrapper">
+                    <BoardHeader board={ activeWorkspace }/>
+                    <RenderRoutes routes={this.props.route.routes} />
                 </div>
-            </div>
+            </React.Fragment>
         );
     }
 }
 
-const mapStateToProps = ({ user }) => ({
-    meta: user.user.meta
+const mapStateToProps = ({ user, boards }) => ({
+    activeWorkspace: boards.activeBoard,
+    workspaces: boards.boards,
+    user
 });
-export default connect(mapStateToProps, {})(Home);
+
+export default withRouter(connect(mapStateToProps, {
+    fetchBoards
+})(Home));
