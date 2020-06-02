@@ -125,12 +125,20 @@
         transform: rotateZ(180deg);
     }
 }
-.rotate-clockwise {
+.flip-down {
+    transform: rotateX(180deg);
+    transition: all 0.2s ease-in;
+}
+.flip-up {
+    transform: rotateX(0deg);
+    transition: all 0.2s ease-out;
+}
+
+.flip-left {
     transform: rotateZ(180deg);
     transition: all 0.2s ease-in;
 }
-.rotate-anticlockwise {
+.flip-right {
     transform: rotateZ(0deg);
     transition: all 0.2s ease-out;
-    // animation: anticlockwise 0.3s;
 }

@@ -8,7 +8,7 @@ import Loader from "./components/Loader";
 const MIN_DELAY_CHUNK = 3000;
 const loadable = (func, options = {}) => baseLoadble(func, {
     ssr: true,
-    fallback: <Loader />
+    fallback: <h1>Loading....</h1>
 });
 
 const AppContainer = loadable(() => pMinDelay(import(
