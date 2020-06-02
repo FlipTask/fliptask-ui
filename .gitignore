@@ -6,3 +6,4 @@
 /upload/*.jpg
 /upload/*.png
 /upload/*.jpeg
+.env
