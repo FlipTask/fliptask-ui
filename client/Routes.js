@@ -68,6 +68,20 @@ export default [
         loadData: (store) => [store.dispatch(fetchUser())],
         routes: [
             {
+                exact: true,
+                path: "/onboard",
+                secureRoute: true,
+                component: CreateNewOrg
+            }, {
+                path: "/login",
+                component: Auth,
+                exact: true
+            }, {
+                path: "/signup",
+                component: Auth,
+                exact: true
+            },
+            {
                 path: "/",
                 // exact: true,
                 component: Home,
@@ -113,19 +127,6 @@ export default [
                         ]
                     }
                 ]
-            }, {
-                exact: true,
-                path: "/onboard",
-                secureRoute: true,
-                component: CreateNewOrg
-            }, {
-                path: "/login",
-                component: Auth,
-                exact: true
-            }, {
-                path: "/signup",
-                component: Auth,
-                exact: true
             }
         ]
     }
