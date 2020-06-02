@@ -1,26 +1,84 @@
 import React, { Component } from "react";
-import { createPortal } from "react-dom";
-import ModalWrapper from "./ModalWrapper";
+import Loader from "../Loader";
+import Button from "../Button";
+import DelayedPortal from "../DelayedPortal";
 
-const modalRoot = document.getElementById("root-modal");
 class Modal extends Component {
     constructor(props) {
         super(props);
-        this.element = document.createElement("div");
-        this.element.classList.add("modal--wrapper");
+        this.state = {
+            open: false
+        };
     }
 
-    componentDidMount() {
-        modalRoot.appendChild(this.element);
+    onCancel = (e) => {
+        this.props.onCancel(e);
     }
 
-    componentWillUnmount() {
-        modalRoot.removeChild(this.element);
+    onSubmit = (e) => {
+        this.props.onSubmit(e);
     }
 
     render() {
-        return createPortal(<ModalWrapper {...this.props}/>, this.element);
+        const {
+            title,
+            disableActions,
+            open,
+            loader,
+            afterClose,
+            submitBtnText,
+            cancelBtnText
+        } = this.props;
+        return (
+            <DelayedPortal
+                isOpen={open}
+                openDelay={300}
+                closeDelay={300}
+                afterClose={afterClose}
+            >
+                {({ isOpen, willOpen, willClose }) => (
+                    <div className={`
+                        modal--wrapper
+                        ${isOpen ? "open" : "closed"}
+                        ${willOpen ? "will-open" : ""}
+                        ${willClose ? "will-close" : ""}
+                    `}>
+                        <div className="modal">
+                            <span className="cancel-btn text-light" onClick={this.onCancel}>
+                                <i className="far fa-times"/>
+                            </span>
+                            {
+                                loader
+                                    ? <Loader />
+                                    : ""
+                            }
+                            <div className="modal--header">
+                                <p>
+                                    {title}
+                                </p>
+                            </div>
+                            <div className="modal--body">
+                                {
+                                    this.props.children
+                                }
+                            </div>
+                            <div className="modal--footer">
+                                <Button
+                                    text={cancelBtnText || "Cancel"}
+                                    onClick={this.onCancel}
+                                    className={`sm bg-danger floating-shadow ${disableActions ? "disabled" : ""}`}
+                                />
+                                <Button
+                                    text={submitBtnText || "Submit"}
+                                    onClick={this.onSubmit}
+                                    className={`sm bg-neutral floating-shadow ${disableActions ? "disabled" : ""}`}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </DelayedPortal>
+        );
     }
 }
-
 export default Modal;

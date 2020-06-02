@@ -1,18 +1,46 @@
 @keyframes drawerSlideIn {
-    from {
-        transform: translateX(60%);
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(100%,0,0);
+        transform: translate3d(100%,0,0);
     }
-    to {
-        transform: translateX(0%);
+    100% {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
     }
 }
 @keyframes drawerSlideOut {
     from {
-        transform: translateX(0%);
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
     }
     to {
-        transform: translateX(60%);
+        opacity: 0;
+        -webkit-transform: translate3d(100%,0,0);
+        transform: translate3d(100%,0,0);
     }
+}
+.drawer-slide-in {
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    animation-name: drawerSlideIn;
+    height: inherit;
+}
+.drawer-slide-out {
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    animation-name: drawerSlideOut;
+    height: inherit;
 }
 @keyframes slideDownOpen {
     from {
@@ -105,32 +133,4 @@
     transform: rotateZ(0deg);
     transition: all 0.2s ease-out;
     // animation: anticlockwise 0.3s;
-}
-
-@keyframes rodal-zoom-enter {
-    from {
-        -webkit-transform: scale3d(0.3, 0.3, 0.3);
-        transform: scale3d(0.3, 0.3, 0.3);
-        opacity: 0;
-    }
-}
-
-.rodal-zoom-enter {
-    opacity: 1;
-    -webkit-animation: rodal-zoom-enter both cubic-bezier(0.4, 0, 0, 1.5);
-    animation: rodal-zoom-enter both cubic-bezier(0.4, 0, 0, 1.5);
-    animation-duration: 0.3s;
-    transition: opacity 0.3s cubic-bezier(0,0,0.3,1);
-}
-@keyframes rodal-zoom-leave {
-    to {
-        -webkit-transform: scale3d(0.3, 0.3, 0.3);
-        transform: scale3d(0.3, 0.3, 0.3);
-    }
-}
-
-.rodal-zoom-leave {
-    -webkit-animation: rodal-zoom-leave both;
-    animation: rodal-zoom-leave both;
-    animation-duration: 0.3s;
 }

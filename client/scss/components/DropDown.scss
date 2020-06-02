@@ -63,7 +63,8 @@
                     border-right: 0;
                     text-align: left;
                     border-top: 0;
-                    @include borderRadius;
+                    // @include borderRadius;
+                    background-color: #fff;
                     &.fixed-at-bottom{
                         // position: absolute;
                         width: 100%;

@@ -106,6 +106,13 @@ class WorkBoard extends Component {
             <React.Fragment>
 
                 <RenderRoutes routes={this.props.route.routes} />
+                <h2 className="text-light-grey"
+                    style={{
+                        padding: "0.6em 1em",
+                        fontWeight: "300",
+                        margin: "0"
+                    }}
+                >{workspace.title}</h2>
                 <div className="container-fluid dropable-list"
                     onMouseMove={(e) => {
                         this.onMouseMove(e);

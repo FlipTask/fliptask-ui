@@ -91,13 +91,6 @@ const config = {
         // chunkFilename: '[name].bundle.js',
         path: path.resolve(__dirname, "../../client-build")
     },
-    // optimization: {
-    //     splitChunks: {
-    //         // include all types of chunks
-    //         chunks: "all"
-    //     },
-    //     runtimeChunk: true
-    // },
     plugins: [
         // extractSass,
         new CleanWebpackPlugin(),

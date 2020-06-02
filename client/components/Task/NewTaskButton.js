@@ -10,21 +10,15 @@ class NewTaskButton extends Component {
     }
 
     toggleModal = () => {
-        this.setState({
-            openModal: !this.state.openModal
-        }, () => {
-            if (this.state.openModal) {
-                const { listId, workspace } = this.props;
-                this.props.history.push(`/workspace/${workspace._id}/list/${listId}/ticket/create-new`);
-            }
-        });
+        const { listId, workspace } = this.props;
+        this.props.history.push(`/workspace/${workspace._id}/list/${listId}/ticket/create-new`);
     }
 
     render() {
         return (
             <React.Fragment>
                 <button type="button" className="btn text-primary shadowed rounded" onClick={this.toggleModal}>
-                    <i className="fa fa-plus" aria-hidden="true"></i>
+                    <i className="fal fa-plus" aria-hidden="true"></i>
                     Add New Task
                 </button>
             </React.Fragment>

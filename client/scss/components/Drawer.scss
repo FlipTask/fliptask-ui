@@ -4,77 +4,79 @@
     height: 100%;
     width: 100%;
     top: 0px;
-    // transform: translateX(100%);
-    transition: 0.3s ease all;
-    // background-color: rgba(0, 0, 0, 0.15);
-    background-color: rgba(0, 0, 0, 0.70);
-    .drawer{
-        background-color: #fff;
-        height: 100%;
-        width: 60%;
-        margin-left: auto;
-        position: relative;
-        top: 0;
-        padding: 0 1em;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.24);
+    background-color: rgba(0, 0, 0, 0.5);
+    font-family: $secondary-font;
+    transition: opacity 300ms all;
+    &.closed {
+        opacity: 0;
+    }
+    &.will-open {
+        opacity: 1;
+        transition-timing-function: ease-in;
+    }
+    &.will-close {
+        opacity: 0;
+        transition-timing-function: ease-out;
+    }
+}
+.drawer{
+    &.md{
+        width: 60vw;
+    }
+    outline: 0;
+    overflow: visible;
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #fff;
+    height: 100%;
+    padding: 0 1em;
+    display: flex;
+    flex-direction: column;
+    z-index: 499;
+    box-shadow: 0 4px 4px rgba(0,0,0,.12), 0 0 10px rgba(0,0,0,.06);
+    .drawer--header{
+        border-bottom: 1px solid #f6f6f6;
+        padding: 1em 0;
         display: flex;
-        flex-direction: column;
-        .drawer--header{
-            border-bottom: 1px solid #f6f6f6;
-            padding: 1em 0;
-            display: flex;
-            align-items: center;
-            // justify-content: space-between;
-            padding-right: 4em;
-            position: relative;
-            p{
-                font-size: 1.5em;
-                font-weight: 700;
-                margin: 0;
-                padding-right: 1.5em;
-            }
-            .drawer-cancel-btn{
-                position: absolute;
-                right: 0;
-                top: 25%;
-                font-size: 1.4em;
-                padding: 0.2em 0.4em;
-                &:hover{
-                    cursor: pointer;
-                    background-color: #f7f9fc;
-                    color: $theme-neutral-color !important;
-                }
+        align-items: center;
+        // justify-content: space-between;
+        padding-right: 4em;
+        position: relative;
+        p{
+            font-size: 1.5em;
+            // font-weight: 700;
+            margin: 0;
+            padding-right: 1.5em;
+        }
+        .drawer-cancel-btn{
+            position: absolute;
+            right: 0;
+            top: 25%;
+            font-size: 1.4em;
+            padding: 0.2em 0.4em;
+            &:hover{
+                cursor: pointer;
+                background-color: #f7f9fc;
+                color: $theme-neutral-color !important;
             }
         }
-        .drawer--body{
-            flex: 1;
-            max-height: 100%;
-            overflow: auto;
-            padding: 2em 0;
-        }
-        .drawer--footer{
-            border-top: 1px solid #f6f6f6;
-            padding: 1em 0;
-            display: flex;
-            align-items: center;
-        }
+    }
+    .drawer--body{
+        flex: 1;
+        max-height: 100%;
+        overflow: auto;
+        padding: 2em 0;
+    }
+    .drawer--footer{
+        border-top: 1px solid #f6f6f6;
+        padding: 1em 0;
+        display: flex;
+        align-items: center;
     }
 }
 
-.drawer-slide-in{
-    animation-direction: normal;
-    // transition: 0.2s ease all;
-    animation: drawerSlideIn 0.3s;
-    // animation-timing-function: ease-in-out;
-    height: inherit;
-}
-.drawer-slide-out{
-    animation-direction: normal;
-    // transition: 0.2s ease all;
-    animation: drawerSlideOut 0.3s;
-    // animation-timing-function: ease-in-out;
-    height: inherit;
-}
 .hide{
     display: none;
 }

@@ -14,11 +14,14 @@
         clear: both;
     }
 }
-$borderRadius: .375rem;
+$borderRadius: 3px;
 @mixin borderRadius {
     border-radius: $borderRadius !important;
 }
-
+$transition: 0.3s ease all;
+@mixin transition{
+    transition: $transition;
+}
 .ellipsis{
     white-space: pre;
     text-overflow: ellipsis;

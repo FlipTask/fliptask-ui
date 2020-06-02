@@ -1,18 +1,20 @@
-.header{
+.header {
     height: 60px;
     background-color: #2b2f3f;
     padding: 0 16px;
     display: flex;
     justify-content: space-between;
-    &--transparent{
-        background-color: transparent;
+    &--main {
+        background-color: var(--theme-color-dark-2);
+        box-shadow: 0 1px 6px 0 rgba(117, 117, 117, 0.25);
+        justify-content: flex-end;
     }
-    &--partition{
+    &--partition {
         height: inherit;
         display: flex;
         align-items: center;
     }
-    &--logo{
+    &--logo {
         max-width: 60%;
         height: auto;
     }
