@@ -1,3 +1,4 @@
+require("dotenv").config();
 const loadDependency = async (type, dep, moduleObj) => {
     try{
         const res = await import(`./${type}/${dep}`);

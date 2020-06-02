@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 import NavListItem from "./NavListItem";
+import Svg from "../Svg";
 
 class NavList extends Component {
     constructor(props) {
         super(props);
-        console.log("constructor");
         this.state = {
             accordian: props.accordian || false,
             open: true
@@ -13,6 +13,9 @@ class NavList extends Component {
     }
 
     toggleOpen = () => {
+        if (this.props.collapsed) {
+            this.props.openCollapsed();
+        }
         this.setState({
             open: !this.state.open
         });
@@ -24,7 +27,10 @@ class NavList extends Component {
             list = [],
             urlPrefix = "",
             activeItem = {},
-            addListItem
+            addListItem,
+            iconName,
+            collapsed,
+            collapsing
         } = this.props;
         const { accordian, open } = this.state;
         return (
@@ -35,26 +41,45 @@ class NavList extends Component {
                     }
                     return false;
                 }}>
-                    <span>{title}</span>
-                    <i className={`far fa-angle-down ${open ? "rotate-clockwise" : "rotate-anticlockwise"}`}></i>
+                    <div className="nav-list-name">
+                        <Svg name={iconName} className="side-nav-icon" height="30" width="30"/>
+                        {
+                            collapsing || collapsed
+                                ? ""
+                                : <span className="nav-list-name--title">{title}</span>
+                        }
+
+                    </div>
+                    {
+                        collapsing || collapsed
+                            ? ""
+                            : <i className={`far fa-angle-down ${open ? "flip-down" : "flip-up"}`}></i>
+                    }
                 </div>
                 {
-                    this.state.open
-                        ? <div className={"nav--list"}>
-                            <div className="nav-list--wrapper">
-                                {
-                                    list.map((listItem, i) => <NavListItem
-                                        active={listItem._id === activeItem._id}
-                                        listItem={listItem}
-                                        key={i}
-                                        urlPrefix={urlPrefix}
-                                    />)
-                                }
-                            </div>
-                            {addListItem()}
-                        </div>
-                        : ""
+                    collapsing || collapsed
+                        ? ""
+                        : <React.Fragment>
+                            {
+                                this.state.open
+                                    ? <div className={"nav--list"}>
+                                        <div className="nav-list--wrapper">
+                                            {
+                                                list.map((listItem, i) => <NavListItem
+                                                    active={listItem._id === activeItem._id}
+                                                    listItem={listItem}
+                                                    key={i}
+                                                    urlPrefix={urlPrefix}
+                                                />)
+                                            }
+                                        </div>
+                                        {addListItem()}
+                                    </div>
+                                    : ""
+                            }
+                        </React.Fragment>
                 }
+
             </div>
         );
     }
