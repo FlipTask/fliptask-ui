@@ -3,10 +3,15 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import SideNav from "../../components/SideNav";
 import RenderRoutes from "../../components/RenderRoutes";
-import { fetchBoards } from "../../actions";
+import { fetchBoards, fetchUser } from "../../actions";
 import BoardHeader from "../../components/Header/BoardHeader";
 
 class Home extends Component {
+    componentDidMount() {
+        this.props.fetchBoards();
+        this.props.fetchUser();
+    }
+
     render() {
         const {
             activeWorkspace
@@ -30,5 +35,6 @@ const mapStateToProps = ({ user, boards }) => ({
 });
 
 export default withRouter(connect(mapStateToProps, {
-    fetchBoards
+    fetchBoards,
+    fetchUser
 })(Home));
