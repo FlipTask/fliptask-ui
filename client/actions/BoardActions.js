@@ -2,9 +2,6 @@ import {
     FETCH_BOARDS_FAILURE,
     FETCH_BOARDS_PENDING,
     FETCH_BOARDS_SUCCESS,
-    FETCH_TASKLIST_FAILURE,
-    FETCH_TASKLIST_SUCCESS,
-    FETCH_TASKLIST_PENDING,
     SWAP_TASK_CARD,
     SWAP_LIST_CARD_FAILURE,
     SWAP_LIST_CARD_PENDING,
@@ -23,43 +20,14 @@ import {
 export const fetchBoards = () => async (dispatch, getState, { api }) => {
     try {
         dispatch({ type: FETCH_BOARDS_PENDING });
-        const res = await api.get("/board/get");
+        const res = await api.get("/workspace");
         await dispatch({
             type: FETCH_BOARDS_SUCCESS,
             payload: res.data
         });
-        /**
-         *  fetching list for activeBoard
-         */
-        // const currState = getState();
-        // if(currState.boards.activeBoard._id){
-        //     dispatch(fetchTaskListsForBoard(currState.boards.activeBoard._id));
-        // }
     } catch (e) {
         dispatch({
             type: FETCH_BOARDS_FAILURE,
-            payload: e.message
-                ? {
-                    message: e.message
-                }
-                : e.response.data
-        });
-    }
-};
-
-export const fetchTaskListsForBoard = (boardId) => async (dispatch, getState, { api }) => {
-    try {
-        dispatch({ type: FETCH_TASKLIST_PENDING });
-        const res = await api.get(`/board/get/${boardId}`, {
-            params: {
-                extras: "tasks,task_list,teams"
-            }
-        });
-        dispatch({ type: FETCH_TASKLIST_SUCCESS, payload: res.data });
-    } catch (e) {
-        console.log(e);
-        dispatch({
-            type: FETCH_TASKLIST_FAILURE,
             payload: e.message
                 ? {
                     message: e.message
@@ -86,15 +54,12 @@ export const swapTaskList = (boardId, to = {}) => async (dispatch, getState, { a
     try {
         const res = await api.post(`/board/update/${boardId}`, {
             at_index: to.index,
-            task_list_id: to.id
+            task_listid: to.id
         });
         dispatch({
             type: SWAP_LIST_CARD_SUCCESS,
             payload: to
         });
-        if (!res.data.error) {
-            dispatch(fetchTaskListsForBoard(boardId));
-        }
     } catch (e) {
         console.log(e);
         dispatch({
@@ -126,17 +91,43 @@ export const createNewTaskList = (tasklist = {}) => async (dispatch, getState, {
     }
 };
 
+export const getTaskListById = (id) => async (dispatch, getState, { api }) => {
+    try {
+        // dispatch({ type: FETCH_TASKLIST_PENDING });
+        const res = await api.get(`/task-list/${id}?include=tasks`);
+        // dispatch({
+        //     type: FETCH_TASKLIST_SUCCESS,
+        //     payload: res.data
+        // });
+        return res.data;
+    } catch (e) {
+        // dispatch({
+        //     type: FETCH_TASKLIST_FAILURE,
+        //     payload: e.response.data
+        // });
+        return e.response.data;
+    }
+};
+
 export const changeActiveBoard = (boardId) => async (dispatch, getState, { api }) => {
     dispatch({
         type: CHANGE_ACTIVE_BOARD_PENDING
     });
     try {
-        const res = await api.get(`/board/get/${boardId}?extras=task_list,tasks`);
-        return await dispatch({
-            type: CHANGE_ACTIVE_BOARD_SUCCESS,
-            payload: res.data
-        });
-        // await dispatch(fetchTaskListsForBoard(boardId));
+        const res = await api.get(`/workspace/${boardId}?include=task_lists`);
+        if (!res.data.error) {
+            const response = await Promise.all(res.data.data.task_lists.map((taskList) => dispatch(getTaskListById(taskList.id))));
+            await dispatch({
+                type: CHANGE_ACTIVE_BOARD_SUCCESS,
+                payload: {
+                    ...res.data,
+                    data: {
+                        ...res.data.data,
+                        task_lists: response.map((r) => r.data)
+                    }
+                }
+            });
+        }
     } catch (e) {
         console.log(e);
         dispatch({

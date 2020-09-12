@@ -37,7 +37,7 @@ class SideNav extends Component {
         } = this.state;
         return (
             <React.Fragment>
-                <div className={`sidenav--primary ${open ? "collapsed-in" : ""} ${collapsing ? "collapsing" : ""}`}>
+                <div className={`sidenav--primary hidden-sm-down ${open ? "collapsed-in" : ""} ${collapsing ? "collapsing" : ""}`}>
                     <Link className="sidenav-head" to="/">
                         <img
                             src={`/assets/${open ? "logo" : "logo-horizontal"}.png`}
@@ -52,7 +52,7 @@ class SideNav extends Component {
 
                             <Link to="/" className="nav-list-heading text-light not-anchor">
                                 <div className="nav-list-name">
-                                    <Svg name={"home"} className="side-nav-icon" height="30" width="30"/>
+                                    <Svg name={"home"} className="side-nav-icon" height="20" width="20"/>
                                     {
                                         open || collapsing
                                             ? ""
@@ -112,7 +112,7 @@ class SideNav extends Component {
 const mapStateToProps = ({ user, boards }) => ({
     activeBoard: boards.activeBoard,
     user: user.user,
-    boards: boards.boards
+    boards: boards.boards.rows
 });
 export default withRouter(connect(mapStateToProps, {
 })(SideNav));

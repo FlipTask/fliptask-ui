@@ -1,7 +1,10 @@
 import {
     NEW_TASK_FAILURE,
     NEW_TASK_PENDING,
-    NEW_TASK_SUCCESS
+    NEW_TASK_SUCCESS,
+    FETCH_TASKLIST_FAILURE,
+    FETCH_TASKLIST_PENDING,
+    FETCH_TASKLIST_SUCCESS
 } from "../constants/ActionTypes";
 
 export const createNewTask = (task) => async (dispatch, getState, { api }) => {
@@ -9,7 +12,7 @@ export const createNewTask = (task) => async (dispatch, getState, { api }) => {
         dispatch({
             type: NEW_TASK_PENDING
         });
-        const res = await api.post("/task/create", {
+        const res = await api.post("/task", {
             ...task
         });
         dispatch({
@@ -72,7 +75,6 @@ export const uploadTaskDescriptionImages = (images = [], taskId) => async (dispa
         });
         return res.data;
     } catch (e) {
-        console.log(e);
         dispatch({
             type: NEW_TASK_FAILURE,
             payload: e.message ? { message: e.message } : e.response.data

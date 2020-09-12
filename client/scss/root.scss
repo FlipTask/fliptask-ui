@@ -1,8 +1,12 @@
 // @import "./reset.scss";
 @import "./vars/color-themes.scss";
+@import "./vars/functions";
+@import "./vars/gridSystem";
+@import "./vars/typography";
+
 @import "./normalize.scss";
 @import "./vars/mixins.scss";
-@import "./vars//global.scss";
+@import "./vars/global.scss";
 
 @import "./Animations.scss";
 

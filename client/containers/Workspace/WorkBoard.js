@@ -50,7 +50,7 @@ class WorkBoard extends Component {
 
     componentDidMount() {
         const { workspace } = this.props;
-        if (workspace._id !== this.state.workspaceId) {
+        if (workspace.id !== this.state.workspaceId) {
             this.props.changeActiveBoard(this.state.workspaceId);
         }
     }
@@ -74,12 +74,12 @@ class WorkBoard extends Component {
         this.dropableTasks.onMouseUp(e, (ins) => {
             this.props.swapTaskCard({
                 to: {
-                    list_id: ins.currentTargetList.getAttribute("list_id"),
+                    listid: ins.currentTargetList.getAttribute("listid"),
                     index: ins.targetIndex
                 },
                 from: {
-                    list_id: ins.sourceElement.getAttribute("list_id"),
-                    task_id: ins.sourceElement.getAttribute("id")
+                    listid: ins.sourceElement.getAttribute("listid"),
+                    taskid: ins.sourceElement.getAttribute("id")
                 }
             });
         });
@@ -112,7 +112,7 @@ class WorkBoard extends Component {
                         fontWeight: "300",
                         margin: "0"
                     }}
-                >{workspace.title}</h2>
+                >{workspace.name}</h2>
                 <div className="container-fluid dropable-list"
                     onMouseMove={(e) => {
                         this.onMouseMove(e);
@@ -120,7 +120,7 @@ class WorkBoard extends Component {
                     }}
                 >
                     {
-                        workspace.task_list.map((t, i) => (
+                        workspace.task_lists.map((t, i) => (
                             <TaskList
                                 workspace={workspace}
                                 index={i}

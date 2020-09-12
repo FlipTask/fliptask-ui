@@ -80,12 +80,12 @@ class NewTaskList extends Component {
                             ? <button
                                 type="button"
                                 onClick={this.toggleForm}
-                                className="btn md btn-task rounded shadowed"
+                                className="btn md btn-default rounded shadowed"
                                 style={{
                                     width: "100%"
                                 }}
                             >
-                                <i className="fa fa-plus" aria-hidden="true"></i>
+                                <i className="far fa-plus" aria-hidden="true"></i>
                                 Create New List
                             </button>
                             : <div className="create-new-list-form">
@@ -101,12 +101,12 @@ class NewTaskList extends Component {
                                     <button
                                         onClick={(e) => this.createTaskList(e, this.props.boardId)}
                                         type="button"
-                                        className="btn sm bg-success text-white shadowed rounded">Create</button>
+                                        className="btn sm btn-success shadowed rounded">Create</button>
                                     <button
                                         onClick={this.toggleForm}
                                         style={{ marginLeft: "1em" }}
                                         type="button"
-                                        className="btn sm bg-warning text-white shadowed rounded">Cancel</button>
+                                        className="btn sm btn-danger shadowed rounded">Cancel</button>
                                 </div>
                             </div>
                     }
@@ -117,7 +117,7 @@ class NewTaskList extends Component {
 }
 
 const mapStateToProps = ({ boards }) => ({
-    boardId: boards.activeBoard._id
+    boardId: boards.activeBoard.id
 });
 
 export default connect(mapStateToProps, {

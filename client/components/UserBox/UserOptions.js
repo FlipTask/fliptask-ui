@@ -14,7 +14,7 @@ class UserOptions extends Component {
                 <div className="user-options-list--wrapper">
                     <div className="user-option-list-item">
                         <span className="text-success">
-                            {user.first_name} {user.last_name}
+                            {user.firstName} {user.lastName}
                         </span>
                     </div>
                     <div className="user-option-list-item" onClick={this.onLogout}>

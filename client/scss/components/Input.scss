@@ -17,13 +17,11 @@ input:-webkit-autofill:focus{
 }
 label{
     font-weight: 600;
-    // padding-left: 0.7rem;
     font-size: 0.8em;
     display: block;
     margin-bottom: 0.6em;
 }
 .form-control{
-    color: inherit;
     font-size: 1rem;
     line-height: 1.5;
     display: block;
@@ -31,7 +29,6 @@ label{
     height: calc(2.05rem + 0.7em);
     padding: .625rem .75rem;
     transition: all .2s cubic-bezier(.68, -.55, .265, 1.55);
-    background-color: #fff;
     background-clip: padding-box;
     border: 1px solid transparent;
     @include borderRadius;
@@ -55,6 +52,10 @@ label{
     }
     &.rounded{
         @include borderRadius;
+    }
+    &.focused{
+        outline: none;
+        box-shadow: 0 4px 6px rgba(30, 30, 37, 0.11), 0 1px 3px rgba(0, 0, 0, .08);
     }
     &:focus,&:active, &:-webkit-autofill:focus, &:-webkit-autofill:active{
         outline: none;
@@ -196,7 +197,7 @@ textarea.form-input, input.form-input{
     border-radius: 3px !important;
     &.ck-editor__editable_inline{
         padding: 0rem .75rem !important;
-        background-color: rgba(183, 214, 242, 0.08) !important;
+        // background-color: rgba(183, 214, 242, 0.08) !important;
     }
     &.ck-read-only{
         border-color: #ececec !important;

@@ -9,8 +9,8 @@ class SignUp extends Component {
     state = {
         email: "",
         password: "",
-        first_name: "",
-        last_name: ""
+        firstName: "",
+        lastName: ""
     };
 
     handleOnChange = (e) => {
@@ -31,8 +31,8 @@ class SignUp extends Component {
 
     render() {
         const {
-            first_name: firstName,
-            last_name: lastName,
+            firstName,
+            lastName,
             email,
             password
         } = this.state;
@@ -41,7 +41,7 @@ class SignUp extends Component {
             return <Redirect to="/onboard"/>;
         }
         return (
-            <form className="login-form">
+            <form className="login-form  card card--focused rounded">
                 {error.message
                     ? <p className="inline--error">{error.message}</p>
                     : ""
@@ -54,7 +54,7 @@ class SignUp extends Component {
                         placeholder="First Name"
                         value={firstName}
                         onChange={this.handleOnChange}
-                        name="first_name"/>
+                        name="firstName"/>
                     <Input
                         icon="user-alt"
                         className="shadowed border"
@@ -62,7 +62,7 @@ class SignUp extends Component {
                         placeholder="Last Name"
                         value={lastName}
                         onChange={this.handleOnChange}
-                        name="last_name"/>
+                        name="lastName"/>
                 </div>
                 <Input
                     icon="envelope-open"

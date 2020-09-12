@@ -66,12 +66,12 @@ class Modal extends Component {
                                 <Button
                                     text={cancelBtnText || "Cancel"}
                                     onClick={this.onCancel}
-                                    className={`sm bg-danger floating-shadow ${disableActions ? "disabled" : ""}`}
+                                    className={`sm btn-danger-line floating-shadow ${disableActions ? "disabled" : ""}`}
                                 />
                                 <Button
                                     text={submitBtnText || "Submit"}
                                     onClick={this.onSubmit}
-                                    className={`sm bg-neutral floating-shadow ${disableActions ? "disabled" : ""}`}
+                                    className={`sm btn-neutral-line floating-shadow ${disableActions ? "disabled" : ""}`}
                                 />
                             </div>
                         </div>

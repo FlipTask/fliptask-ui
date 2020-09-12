@@ -35,7 +35,7 @@ class WorkspaceModal extends Component {
             loader: false
         });
         if (!res.error) {
-            this.props.history.push(`/workspace/${res.data._id}`);
+            this.props.history.push(`/workspace/${res.data.id}`);
         }
     }
 
@@ -71,7 +71,7 @@ class WorkspaceModal extends Component {
                         <Input
                             icon="clipboard-list"
                             onChange={this.onChange}
-                            className={"bordered-on-focus form-input border form-color"}
+                            className={"bordered-on-focus border form-color"}
                             placeholder="Workspace Name e.g., Development, Product Roadmap, etc..."
                             type="text"
                             value={workspace.title}
@@ -81,7 +81,7 @@ class WorkspaceModal extends Component {
                         <DropDown
                             name="team"
                             onSelect={this.onChange}
-                            className={"bordered-on-focus form-input border form-color"}
+                            className={"bordered-on-focus border form-color"}
                             placeholder="Choose a team for your workspace"
                             // value={[]}
                             selected={{}}
@@ -91,7 +91,7 @@ class WorkspaceModal extends Component {
                     <div className="form-field-block text-center">
                         <Button
                             text="CREATE NEW TEAM"
-                            className="bg-awesome floating-shadow"
+                            className="btn-primary-line floating-shadow rounded"
                             onClick={this.createNewTeam}
                         />
                     </div>

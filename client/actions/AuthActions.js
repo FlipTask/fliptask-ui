@@ -1,10 +1,12 @@
 import API from "../config/api";
 import {
-    USER_LOGIN_SUCCESS,
     USER_LOGIN_PENDING,
     USER_LOGIN_FAILURE,
     USER_LOGOUT
 } from "../constants/ActionTypes";
+import {
+    fetchUser
+} from "./index";
 
 const tokenCookieName = "token";
 export const setHeaderInApi = (token) => async () => {
@@ -33,12 +35,8 @@ export const tryLogin = (obj = {}) => async (dispatch, getState, { api }) => {
             ...obj
         });
         dispatch(setAuthTokenInSession(res.data.data.token));
-        dispatch({
-            type: USER_LOGIN_SUCCESS,
-            payload: res.data
-        });
+        dispatch(fetchUser());
     } catch (e) {
-        console.log(e.response.data);
         dispatch({
             type: USER_LOGIN_FAILURE,
             payload: e.response.data

@@ -19,7 +19,7 @@ class Home extends Component {
         return (
             <React.Fragment>
                 <SideNav />
-                <div className="board--wrapper">
+                <div className="board--wrapper col-xs-12 col-sm-12 col-md-10">
                     <BoardHeader board={ activeWorkspace }/>
                     <RenderRoutes routes={this.props.route.routes} />
                 </div>

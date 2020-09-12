@@ -55,11 +55,11 @@ class Task extends Component {
                     this.getModal(task, listId)
                 } */}
                 <Link
-                    to={`/workspace/${workspace._id}/list/${listId}/ticket/${task._id}`}
+                    to={`/workspace/${workspace.id}/list/${listId}/ticket/${task.id}`}
                     className="dragable not-anchor"
-                    id={task._id}
+                    id={task.id}
                     index={index}
-                    list_id={listId}
+                    listid={listId}
                     onMouseDown={(e) => mouseEvents.onMouseDown(e)}
                     onMouseEnter={(e) => mouseEvents.onMouseEnter(e)}
                     onMouseLeave={(e) => mouseEvents.onMouseLeave(e)}
@@ -77,7 +77,7 @@ class Task extends Component {
                         </div>
                         <div className="task-card--body">
                             <p className="task-card-title">
-                                {task.title}
+                                {task.name}
                             </p>
                         </div>
                         <div className="task-card--footer">

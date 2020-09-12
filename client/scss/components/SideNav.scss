@@ -24,7 +24,7 @@
 
     &.collapsed-in, &.collapsing{
         transition: all 0.3s ease-in-out;
-        width: 80px;
+        width: 40px !important;
         flex-grow: unset;
         .nav-list-heading{
             justify-content: center;

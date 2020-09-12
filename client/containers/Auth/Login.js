@@ -39,7 +39,7 @@ class Login extends Component {
             // return <Redirect to="/onboard" />;
         }
         return (
-            <form className="login-form">
+            <form className="login-form  card card--focused">
                 {
                     error.message
                         ? <p className="inline--error text-danger text-left">{error.message}</p> : ""

@@ -17,7 +17,7 @@ import {
 
 const INITIAL_STATE = {
     activeBoard: {
-        task_list: []
+        task_lists: []
     },
     boards: [],
     error: {},
@@ -80,7 +80,10 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             ...state,
             activeBoard: {
                 ...state.activeBoard,
-                task_list: payload.data.task_list
+                task_lists: [
+                    ...state.activeBoard.task_lists,
+                    payload.data
+                ]
             }
         };
 
@@ -104,11 +107,11 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             activeBoard: {
                 ...state.activeBoard,
                 task_list: state.activeBoard.task_list.map((taskList) => {
-                    if (taskList._id === payload.data.task_list) {
+                    if (taskList.id === payload.data.task_list) {
                         return {
                             ...taskList,
-                            tasks: taskList.tasks.filter((task) => task._id === payload.data._id).length > 0 ? taskList.tasks.map((task) => {
-                                if (task._id === payload.data._id) {
+                            tasks: taskList.tasks.filter((task) => task.id === payload.data.id).length > 0 ? taskList.tasks.map((task) => {
+                                if (task.id === payload.data.id) {
                                     return payload.data;
                                 }
                                 return task;
@@ -123,8 +126,8 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             }
         };
     case SWAP_LIST_CARD_SUCCESS:
-        const listToSwap = state.activeBoard.task_list.filter((task) => task._id === payload.id)[0];
-        const toList = state.activeBoard.task_list.filter((task) => task._id !== payload.id);
+        const listToSwap = state.activeBoard.task_list.filter((task) => task.id === payload.id)[0];
+        const toList = state.activeBoard.task_list.filter((task) => task.id !== payload.id);
         return {
             ...state,
             ...state,
@@ -143,11 +146,11 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         let taskToReplace = {};
         // finding task
         state.activeBoard.task_list.map((taskList) => {
-            if (taskList._id === from.list_id) {
+            if (taskList.id === from.listid) {
                 return {
                     ...taskList,
                     tasks: taskList.tasks.map((task) => {
-                        if (task._id === from.task_id) {
+                        if (task.id === from.taskid) {
                             taskToReplace = task;
                         }
                         return task;
@@ -158,10 +161,10 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         });
         // remove task from list;
         const fromList = state.activeBoard.task_list.map((taskList) => {
-            if (taskList._id === from.list_id) {
+            if (taskList.id === from.listid) {
                 return {
                     ...taskList,
-                    tasks: taskList.tasks.filter((task) => task._id !== from.task_id)
+                    tasks: taskList.tasks.filter((task) => task.id !== from.taskid)
                 };
             }
             return taskList;
@@ -169,7 +172,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 
         // add task into list at provided index:
         const updatedList = fromList.map((taskList) => {
-            if (taskList._id === to.list_id) {
+            if (taskList.id === to.listid) {
                 return {
                     ...taskList,
                     tasks: [
@@ -191,6 +194,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         };
 
     case CHANGE_ACTIVE_BOARD_SUCCESS:
+        console.log(payload);
         return {
             ...state,
             ...state,

@@ -1,0 +1,75 @@
+$themeColors: 
+    "danger" $red, 
+    "primary" $skyblue, 
+    "success" $green, 
+    "info" $blue, 
+    "warning" $yellow,
+    "default" #fff,
+    "neutral" $theme-neutral-color,
+    "transparent" transparent;
+
+@each $i in $themeColors {
+    .bg-#{nth($i, 1)} {
+        background-color: nth($i, 2);
+        color: #fff;
+        &.floating-shadow{
+            &::before{
+                box-shadow: 0 12px 7px nth($i, 2), 0 -4px 5px nth($i, 2);
+            }
+        }
+    }
+    .text-#{nth($i, 1)} {
+        color: nth($i, 2);
+    }
+    .border-#{nth($i, 1)} {
+        border: 1px solid nth($i, 2);
+    }
+    .btn-#{nth($i, 1)} {
+        background-color: nth($i, 2);
+        @if nth($i, 1) == "default" or nth($i, 1) == "transparent" {
+            color: $dark-grey;
+        } @else {
+            color: #fff;
+        }
+        &.disabled{
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        &.floating-shadow{
+            &::before{
+                box-shadow: 0 12px 7px nth($i, 2), 0 -4px 5px nth($i, 2);
+            }
+        }
+        
+        @if nth($i, 1) == "transparent"{
+            &:hover{
+                background-color: rgba(255, 255, 255, 0.3);
+                @extend .text-default;
+            }
+        }@else {
+            &:hover{
+                background-color: darken(nth($i, 2), 5%);
+                &.floating-shadow{
+                    &::before{
+                        box-shadow: 0 12px 7px darken(nth($i, 2), 5%), 0 -4px 5px darken(nth($i, 2), 5%);
+                    }
+                }
+            }
+        }
+    }
+    
+    .btn-#{nth($i, 1)}-line {
+        background-color: transparent;
+        color: nth($i, 2);
+        border: 1px solid nth($i, 2) !important;
+        &.disabled{
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        &:hover{
+            background-color: nth($i, 2);
+            color: #fff;
+        }
+    }
+}

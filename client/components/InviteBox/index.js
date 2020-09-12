@@ -71,7 +71,7 @@ class InviteBox extends Component {
         }
 
         return (
-            <div title={meta.error ? meta.error : ""} key={key} className={`token--item customize-token-input---token---2ASwp ${meta.error ? "bg-warning text-white" : "bg-primary text-white"}`}>
+            <div title={meta.error ? meta.error : ""} key={key} className={`token--item customize-token-input---token---2ASwp ${meta.error ? "bg-warning text-default" : "bg-primary text-default"}`}>
                 <div
                     onClick={() => onStartEdit()}
                     role="presentation"
@@ -91,7 +91,7 @@ class InviteBox extends Component {
         return (
             <div className="invite-box">
                 <TokenInput
-                    className={`invite-box-wrapper ${className || ""}`}
+                    className={`invite-box-wrapper rounded ${className || ""}`}
                     placeholder={this.state.cData.length > 0 ? "Add another email" : "Invite your team by email"}
                     defaultData={value || this.state.cData}
                     tokenRender={this.tokenRender}

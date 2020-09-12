@@ -42,7 +42,7 @@ class NavList extends Component {
                     return false;
                 }}>
                     <div className="nav-list-name">
-                        <Svg name={iconName} className="side-nav-icon" height="30" width="30"/>
+                        <Svg name={iconName} className="side-nav-icon" height="20" width="20"/>
                         {
                             collapsing || collapsed
                                 ? ""
@@ -66,7 +66,7 @@ class NavList extends Component {
                                         <div className="nav-list--wrapper">
                                             {
                                                 list.map((listItem, i) => <NavListItem
-                                                    active={listItem._id === activeItem._id}
+                                                    active={listItem.id === activeItem.id}
                                                     listItem={listItem}
                                                     key={i}
                                                     urlPrefix={urlPrefix}

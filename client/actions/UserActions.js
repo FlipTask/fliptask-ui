@@ -12,13 +12,17 @@ import {
     setAuthTokenInSession
 } from "./AuthActions";
 
-export const fetchUser = (fromServer) => async (dispatch, getState, { api }) => {
+export const fetchUser = () => async (dispatch, getState, { api }) => {
     // console.log("fromserver",fromServer);
     try {
         dispatch({
             type: FETCH_USER_PENDING
         });
-        const res = await api.get(`/user/me${fromServer ? "?fromserver=true" : ""}`);
+        const res = await api.get("/user/me", {
+            params: {
+                include: "organisations"
+            }
+        });
         dispatch({
             type: FETCH_USER_SUCCESS,
             payload: res.data

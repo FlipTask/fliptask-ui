@@ -7,7 +7,7 @@ const Button = ({
     children,
     ...rest
 }) => (
-    <button onClick={onClick} className={`btn text-white ${className}`} type="button" {...rest}>
+    <button onClick={onClick} className={`btn rounded ${className}`} type="button" {...rest}>
         {
             children || <span>{text}</span>
         }

@@ -39,7 +39,7 @@ class UserBox extends Component {
         return (
             <div
                 tabIndex="0"
-                title={`${user.first_name} ${user.last_name}`}
+                title={`${user.firstName} ${user.lastName}`}
                 className={`user-box ${isViewMin ? "user-box-min" : ""}`}
                 onClick={this.onClick}
                 onBlur={this.onBlur}
@@ -53,7 +53,7 @@ class UserBox extends Component {
                             ? ""
                             : <React.Fragment>
                                 <div className="user-box--info">
-                                    <span className="user-box--name text-white">{user.first_name} {user.last_name}</span>
+                                    <span className="user-box--name text-default">{user.firstName} {user.lastName}</span>
                                     {/* <span className="user-box--status text-light">
                                         <i className="fa fa-moon"></i>
                                         Away

@@ -16,14 +16,14 @@ class Auth extends Component {
         // console.log(this.props);
         return (
             <div className="page-wrapper">
-                <div className="row">
-                    <div className="column page-side-wrapper">
-                        <img src="/assets/help.png" alt="HELP.png"/>
+                <div className="row parent-height">
+                    <div className="col-md-6 hidden-md-down page-side-wrapper text-light-grey">
+                        {/* <img src="/assets/help.png" alt="HELP.png"/> */}
                         <h1>Plan</h1>
                         <h2>Collaborate</h2>
                         <h3>Succeed</h3>
                     </div>
-                    <div className="column">
+                    <div className="col-12 col-md-6">
                         <div className="login-form-wrapper">
                             <img src="/assets/logo.png" className="logo-img"/>
                             <RenderRoutes routes={[{

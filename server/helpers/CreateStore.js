@@ -14,10 +14,12 @@ const getUrl = () => {
 
 export default (req) => {
     const cookies = new Cookies(req.headers.cookie);
-
     const axiosInstance = axios.create({
-        baseURL: `${getUrl()}/api`,
-        headers: { cookie: req.get("cookie") || "" }
+        baseURL: `${getUrl()}`,
+        headers: {
+            cookie: req.get("cookie") || "",
+            Authorization: `Bearer ${cookies.get("token") || ""}`
+        }
     });
 
     axiosInstance.interceptors.request.use((request) => {

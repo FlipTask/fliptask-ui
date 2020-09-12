@@ -57,7 +57,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             isAuthorised: false,
             isLoading: false,
             error: {
-                message: payload.message
+                message: payload.messages.error
             }
         };
     case USER_LOGOUT:

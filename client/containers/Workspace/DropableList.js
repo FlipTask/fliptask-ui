@@ -48,7 +48,7 @@ class DropableList {
             transition: 0.1s linear all;
             opacity: 1;
         `);
-        // placeholder.setAttribute("list_id",list_id)
+        // placeholder.setAttribute("listid",listid)
         placeholder.style.height = `${height}px`;
         if (this.classForPlaceHolder) {
             placeholder.setAttribute("class", this.classForPlaceHolder);

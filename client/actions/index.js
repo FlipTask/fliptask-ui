@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 export {
     tryLogin,
     setAuthTokenInSession,
@@ -12,12 +13,12 @@ export {
 
 export {
     fetchBoards,
-    fetchTaskListsForBoard,
     swapTaskCard,
     swapTaskList,
     createNewTaskList,
     changeActiveBoard,
-    createNewBoard
+    createNewBoard,
+    getTaskListById
 } from "./BoardActions";
 
 export {

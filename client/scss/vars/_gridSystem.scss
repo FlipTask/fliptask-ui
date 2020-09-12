@@ -1,0 +1,147 @@
+%clearfix:after {
+    display: block;
+    clear: both;
+    content: '';
+}
+$gutter_directions: (
+    "top",
+    "left",
+    "right",
+    "bottom"
+);
+
+$gutter: 16;
+$grid__bp-sm: 576;
+$grid__bp-md: 768;
+$grid__bp-lg: 992;
+$grid__bp-xl: 1200;
+$grid__cols: 12;
+
+$map-grid-props: ( '': 0, '-sm': $grid__bp-sm, '-md': $grid__bp-md, '-lg': $grid__bp-lg, '-xl': $grid__bp-xl );
+
+@each $i in $gutter_directions{
+    .gutter-#{nth($i, 1)} {
+        margin-#{nth($i, 1)}: #{$gutter}px;
+    }
+}
+@mixin create-mq($breakpoint, $min-or-max) {
+     @if($breakpoint == 0){
+        @content;
+    }
+    @else {
+         @media screen and (#{$min-or-max}-width: $breakpoint *1px){
+            @content;
+        }
+    }
+}
+@mixin create-col-classes($modifier, $grid-cols, $breakpoint) {
+     @include create-mq($breakpoint, 'min'){
+        .col#{$modifier}-offset-0 {
+            margin-left: 0;
+        }
+        @for $i from 1 through $grid-cols {
+            $maxWidth: (100 / ($grid-cols / $i) ) * 1%;
+            .col#{$modifier}-#{$i} {
+                flex-basis: calc(#{$maxWidth} - #{$gutter*2}px);
+                // margin: 0 #{$gutter}px;
+            }
+            .col#{$modifier}-offset-#{$i} {
+                margin-left: calc(#{$maxWidth} - #{$gutter*2}px);
+            }
+        }
+    }
+}
+@each $modifier , $breakpoint in $map-grid-props {
+     @if($modifier == ''){
+        $modifier: '-xs';
+    }
+    @include create-mq($breakpoint - 1, 'max') {
+        .hidden#{$modifier}-down {
+            display: none !important;
+        }
+    }
+    @include create-mq($breakpoint, 'min') {
+        .hidden#{$modifier}-up {
+            display: none !important;
+        }
+    }
+}
+
+.gutter{
+    margin: 0 8px;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    &.space-between{
+        justify-content: space-between;
+    }
+}
+.container {
+    max-width: $grid__bp-md * 1px;
+    margin: 0 auto;
+    &-fluid {
+        margin: 0;
+        max-width: 100%;
+    }
+}
+@each $modifier , $breakpoint in $map-grid-props {
+    @include create-col-classes($modifier, $grid__cols, $breakpoint);
+}
+.full-height {
+    height: 100vh;
+}
+.parent-height{
+    height: inherit;
+}
+
+.shadow{
+    &::before, &::after{
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-transition: opacity 0.2s ease-in-out;
+        transition: opacity 0.2s ease-in-out;
+        pointer-events: none;
+        will-change: opacity;
+    }
+    &::before{
+        box-shadow: 0 35px 50px -30px rgba(0,0,0,0.2);
+    }
+    &::after {
+        opacity: 0;
+        box-shadow: 0 55px 50px -17px rgba(0,0,0,0.22);
+    }
+    &--focused{
+        transform: translateY(-5%);
+        &::before {
+            opacity: 0;
+        }
+        &::after {
+            opacity: 1;
+        }
+    }
+}
+.card{
+    margin: 16px;
+    padding: 20px;
+    background: #fff;
+    position: relative;
+    -webkit-transition: -webkit-transform 0.2s ease-in-out;
+    transition: -webkit-transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+    will-change: transform;
+    @extend .shadow;
+    &--focused{
+        @extend .shadow--focused;
+    }
+    &:hover{
+        @extend .shadow--focused;
+    }
+}

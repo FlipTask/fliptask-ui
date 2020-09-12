@@ -14,7 +14,7 @@ class Workspace extends Component {
             <React.Fragment>
                 <RenderRoutes routes={this.props.route.routes} />
                 {
-                    workspaces.length <= 0
+                    workspaces.rows && workspaces.rows.length <= 0
                         ? <div className="autoHeight--placeholder">
                             <div className="autoHeight--placeholder_wrapper text-light text-center">
                                 <div className="img-placeholder">
