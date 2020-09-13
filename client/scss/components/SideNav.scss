@@ -2,11 +2,9 @@
     0% {
         transform: scale(1);
     }
-
     50% {
         transform: scale(1.2);
     }
-
     100% {}
 }
 
@@ -21,16 +19,16 @@
     flex-grow: 1;
     flex-direction: column;
     transition: all 0.3s ease-in-out;
-
-    &.collapsed-in, &.collapsing{
+    &.collapsed-in,
+    &.collapsing {
         transition: all 0.3s ease-in-out;
         width: 40px !important;
         flex-grow: unset;
-        .nav-list-heading{
+        .nav-list-heading {
             justify-content: center;
         }
         .sidenav-head {
-            .header--logo{
+            .header--logo {
                 width: 90%;
             }
         }
@@ -39,7 +37,8 @@
         text-align: center;
         height: 60px;
         display: block;
-        .header--logo{
+        text-decoration: none;
+        .header--logo {
             width: 60%;
             height: auto;
             padding: 0.4em 1em;
@@ -56,13 +55,11 @@
         // width: 100%;
         // bottom: 0;
         // left: 0;
-
         .sidenav-footer--wrapper {
             p {
                 font-size: 0.7em;
                 text-align: center;
                 font-weight: 500;
-
                 i {
                     vertical-align: middle;
                     margin-left: 0.2em;
@@ -80,9 +77,9 @@
 
 .nav-list {
     @include transition;
-    &.active{
+    &.active {
         @include transition;
-        .nav-list-heading{
+        .nav-list-heading {
             background-color: rgba(0, 0, 0, 0.2);
         }
     }
@@ -94,10 +91,10 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         display: flex;
         justify-content: space-between;
-        .nav-list-name{
+        .nav-list-name {
             display: flex;
             align-items: center;
-            &--title{
+            &--title {
                 margin-left: 0.7em;
                 font-size: 1.1em;
             }
@@ -112,15 +109,12 @@
             background-color: rgba(0, 0, 0, 0.2);
         }
     }
-
     .nav--list {
         border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-
         .nav-list--wrapper {
             max-height: 14rem;
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.1);
-
             .nav-list-item {
                 font-size: 0.8rem;
                 display: flex;
@@ -128,11 +122,9 @@
                 transition: 0.3s ease all;
                 text-decoration: none;
                 padding: 0.8em 0.5em;
-
                 .nav-list-item--name {
                     margin-left: 1em;
                 }
-
                 .nav-list-item--lastactive {
                     i {
                         color: #696969;
@@ -146,15 +138,12 @@
                 }
             }
         }
-
         .new-workspace {
             padding: 0 0.5em;
-
-            > button {
+            >button {
                 text-align: left;
                 margin: 0.5em 0;
                 padding: 0.4em 0.5em;
-
                 // font-weight: 600;
                 // transition: 0.3s ease all;
                 i {
@@ -171,7 +160,7 @@
     }
 }
 
-.collapse-nav-btn{
+.collapse-nav-btn {
     position: absolute;
     bottom: 0.5em;
     right: -0.7em;
@@ -184,7 +173,7 @@
     border-radius: 3px;
     box-shadow: 0 1px 6px 0 rgba(47, 47, 47, 0.73);
     cursor: pointer;
-    &:hover{
+    &:hover {
         background-color: #fff;
         color: $dark-grey;
     }

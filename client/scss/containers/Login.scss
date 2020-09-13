@@ -1,43 +1,42 @@
-.page-wrapper{
+.page-wrapper {
     height: 100vh;
     flex: 1;
     flex-direction: column;
 }
 
-.page-side-wrapper{
+.page-side-wrapper {
     // background-image: radial-gradient( circle farthest-corner at 0.5% 97.2%, rgba(62,134,211,1) 0%, rgba(147,196,255,1) 100.2% );
     // background-image: radial-gradient( circle farthest-corner at 13.8% 22.8%, rgba(237,141,116,1) 0%, rgba(241,144,208,1) 90% );
-    background-color: #fff;
-    flex-direction: column;
+    // background-color: #fff;
+    // flex-direction: column;
+    // text-align: center;
+    // justify-content: center;
+    // position: relative;
     text-align: center;
-    justify-content: center;
-    position: relative;
+    flex: 1 1;
+    height: inherit;
+    margin: auto;
 }
-.logo-img{
+
+.logo-img {
     margin: 1em auto;
     margin-bottom: 1em;
     display: block;
     max-width: 30%;
     // filter: invert(2);
 }
-.login-form-wrapper{
-    padding: 0% 10%;
-    // margin: auto;
-    display: flex;
-    flex-basis: 100%;
-    flex-direction: column;
-    height: 100%;
 
-    .form-group{
+.login-form-wrapper {
+    .form-group {
         margin-bottom: 1.5em;
     }
-    .login-form{
+    .login-form {
         // margin: 0;
         display: block;
         box-sizing: border-box;
         // padding: 0 0.5em;
-        text-align: center;
-        .login-btn{
+        // text-align: center;
+        .login-btn {
             width: 100%;
             background-color: $theme-color;
             padding-left: 12px;
@@ -59,14 +58,15 @@
     }
 }
 
-.auth-back-link{
+.auth-back-link {
     display: inline-block;
     margin: auto;
     margin-top: 2em;
     text-align: center;
     text-decoration: none;
     color: inherit;
-    &:hover,&:active{
+    &:hover,
+    &:active {
         color: $theme-neutral-color;
         text-decoration: underline;
     }

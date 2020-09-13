@@ -6,6 +6,7 @@ import NavList from "./NavList";
 import Footer from "./Footer";
 import AddNewListItem from "./AddNewListItem";
 import Svg from "../Svg";
+import FontLogo from "../FontLogo";
 
 const delay = (time) => new Promise((res) => setTimeout(res, time));
 class SideNav extends Component {
@@ -39,13 +40,7 @@ class SideNav extends Component {
             <React.Fragment>
                 <div className={`sidenav--primary hidden-sm-down ${open ? "collapsed-in" : ""} ${collapsing ? "collapsing" : ""}`}>
                     <Link className="sidenav-head" to="/">
-                        <img
-                            src={`/assets/${open ? "logo" : "logo-horizontal"}.png`}
-                            className="header--logo"
-                            style={{
-                                width: `${!collapsing ? (open ? "90%" : "60%") : "0%"}`
-                            }}
-                        />
+                        <FontLogo fontSize="1" hideTail={this.state.collapsing || this.state.open}/>
                     </Link>
                     <div className="sidenav-body">
                         <div className="nav-list">

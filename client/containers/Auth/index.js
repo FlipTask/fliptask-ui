@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import loadable from "@loadable/component";
 import RenderRoutes from "../../components/RenderRoutes";
+import FontLogo from "../../components/FontLogo";
 
 const Login = loadable(() => import(/* webpackChunkName: "login", webpackPrefetch: true */ "./Login"), {
     ssr: true
@@ -17,22 +18,43 @@ class Auth extends Component {
         return (
             <div className="page-wrapper">
                 <div className="row parent-height">
-                    <div className="col-md-6 hidden-md-down page-side-wrapper text-light-grey">
-                        {/* <img src="/assets/help.png" alt="HELP.png"/> */}
-                        <h1>Plan</h1>
-                        <h2>Collaborate</h2>
-                        <h3>Succeed</h3>
+                    <div className="col-md-4 hidden-md-down"
+                        style={{
+                            display: "flex",
+                            backgroundImage: "radial-gradient(circle farthest-corner at 50% -7%,#3e4f61 0,#1e272f 70%)"
+                        }}>
+                        <div className="page-side-wrapper text-light-grey">
+                            <FontLogo/>
+                            <label className="text-light" style={{
+                                marginBottom: "2em"
+                            }}>Task Management System</label>
+                            <p style={{
+                                lineHeight: "1.7em",
+                                fontWeight: "100"
+                            }}>
+                                A powerful, yet easy-to-use <br/>
+                                application for managing <br/>
+                                your project and team.
+                            </p>
+                        </div>
                     </div>
-                    <div className="col-12 col-md-6">
-                        <div className="login-form-wrapper">
-                            <img src="/assets/logo.png" className="logo-img"/>
-                            <RenderRoutes routes={[{
-                                path: "/login",
-                                component: Login
-                            }, {
-                                path: "/signup",
-                                component: SignUp
-                            }]} />
+                    <div className="col-12 col-md-8" style={{
+                        display: "flex",
+                        flexDirection: "column"
+                    }}>
+                        <RenderRoutes routes={[{
+                            path: "/login",
+                            component: Login
+                        }, {
+                            path: "/signup",
+                            component: SignUp
+                        }]} />
+                        <div className="row">
+                            <div className="col-12 col-md-12 text-right">
+                                <p className="text-light text-sm">
+                                    Copyright <i className="far fa-copyright"></i> 2020 - FlipTask Labs.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -6,7 +6,7 @@ import ServeWeb from "../helpers/ServeWeb";
 import { useCompression, useProxy } from "../helpers/Middlewares";
 import DevServer from "../helpers/DevServer";
 
-const init = async () => {
+const init = async() => {
     const app = express();
 
     app.use(express.static(Path.resolve(__dirname, "./../public")));
