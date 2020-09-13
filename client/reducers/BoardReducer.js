@@ -94,8 +94,8 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             ...state,
             activeBoard: {
                 ...state.activeBoard,
-                task_list: [
-                    ...state.activeBoard.task_list,
+                task_lists: [
+                    ...state.activeBoard.task_lists,
                     payload.data
                 ]
             }
@@ -106,8 +106,8 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             ...state,
             activeBoard: {
                 ...state.activeBoard,
-                task_list: state.activeBoard.task_list.map((taskList) => {
-                    if (taskList.id === payload.data.task_list) {
+                task_lists: state.activeBoard.task_lists.map((taskList) => {
+                    if (taskList.id === payload.data.taskListId) {
                         return {
                             ...taskList,
                             tasks: taskList.tasks.filter((task) => task.id === payload.data.id).length > 0 ? taskList.tasks.map((task) => {

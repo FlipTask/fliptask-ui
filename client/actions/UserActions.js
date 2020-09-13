@@ -1,11 +1,9 @@
 import {
     FETCH_USER_PENDING,
     FETCH_USER_SUCCESS,
-
-    // using for creating user //  no need to create new action types
-    USER_LOGIN_SUCCESS,
-    USER_LOGIN_PENDING,
-    USER_LOGIN_FAILURE
+    SIGNUP_USER_FAILURE,
+    SIGNUP_USER_PENDING,
+    SIGNUP_USER_SUCCESS
 } from "../constants/ActionTypes";
 import {
     logout,
@@ -37,20 +35,20 @@ export const fetchUser = () => async (dispatch, getState, { api }) => {
 export const createNewUser = (obj = {}) => async (dispatch, getState, { api }) => {
     try {
         dispatch({
-            type: USER_LOGIN_PENDING
+            type: SIGNUP_USER_PENDING
         });
         const res = await api.post("/user/signup", {
             ...obj
         });
-        dispatch(setAuthTokenInSession(res.data.data.token));
         dispatch({
-            type: USER_LOGIN_SUCCESS,
+            type: SIGNUP_USER_SUCCESS,
             payload: res.data
         });
     } catch (e) {
+        console.log(e);
         dispatch({
-            type: USER_LOGIN_FAILURE,
-            payload: e.message ? { message: e.message } : e.response.data
+            type: SIGNUP_USER_FAILURE,
+            payload: e.response.data
         });
     }
 };

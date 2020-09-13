@@ -48,7 +48,7 @@ class Login extends Component {
                         <span className="toggle-button-auth" style={{ marginRight: "1em" }}>
                             Don't have an account ?
                         </span>
-                        <Link to="/signup" className="btn sm btn-info-line">CREATE ACCOUNT</Link>
+                        <Link to="/signup" className="btn sm btn-primary-line">CREATE ACCOUNT</Link>
                     </div>
                 </div>
                 <div className="row" style={{
@@ -91,7 +91,7 @@ class Login extends Component {
 
                             <Button
                                 text="SIGN IN"
-                                className={`bg-info floating-shadow ${isLoading ? "disabled" : ""}`}
+                                className={`bg-primary floating-shadow ${isLoading ? "disabled" : ""}`}
                                 onClick={this.submitLogin}
                             />
                         </form>

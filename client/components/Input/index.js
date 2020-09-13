@@ -4,6 +4,7 @@ import React, { Component } from "react";
 class Input extends Component {
     render() {
         const {
+            error = null,
             value,
             type,
             label,
@@ -20,6 +21,11 @@ class Input extends Component {
         if (type === "textarea") {
             return (
                 <div className="form-group">
+                    {
+                        error
+                            ? <p className="text-sm text-danger">{error}</p> 
+                            : ""
+                    }
                     <div className="input-group">
                         {
                             label
@@ -41,6 +47,11 @@ class Input extends Component {
         if (type === "dropdown") {
             return (
                 <div className="form-group">
+                    {
+                        error
+                            ? <p className="text-sm text-danger">{error}</p> 
+                            : ""
+                    }
                     <div className="input-group">
                         {
                             label
@@ -66,6 +77,11 @@ class Input extends Component {
         const classNameIfIcon = icon ? (iconPosition === "left" ? "to-left" : "to-right") : "";
         return (
             <div className="form-group">
+                {
+                    error
+                        ? <p className="text-sm text-danger">{error}</p> 
+                        : ""
+                }
                 <div className={`input-group ${icon ? "with-icon" : ""}`}>
                     {
                         label

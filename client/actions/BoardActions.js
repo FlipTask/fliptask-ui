@@ -72,8 +72,9 @@ export const swapTaskList = (boardId, to = {}) => async (dispatch, getState, { a
 export const createNewTaskList = (tasklist = {}) => async (dispatch, getState, { api }) => {
     dispatch({ type: CREATE_TASKLIST_PENDING });
     try {
-        const res = await api.post("/tasklist/create", {
-            ...tasklist
+        const res = await api.post("/task-list", {
+            name: tasklist.title,
+            workspaceId: tasklist.board
         });
         dispatch({ type: CREATE_TASKLIST_SUCCESS, payload: res.data });
         return true;
