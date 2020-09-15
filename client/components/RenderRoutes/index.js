@@ -54,7 +54,7 @@ class RenderRoutes extends Component {
                                     if (user.organisations.length === 0) {
                                         return <Redirect to="/onboard/create-new" />;
                                     }
-                                    return <Redirect to="/workspace" />;
+                                    return <Redirect to="/" />;
                                 }
                                 return <RequestedComponent {...props} {...extraProps} route={route} />;
                             }}

@@ -12,7 +12,7 @@ class App extends Component {
 
     render() {
         return (
-            <div className="page--container">
+            <div className="row" style={{ minHeight: "100vh" }}>
                 <RenderRoutes routes={Routes} />
             </div>
         );

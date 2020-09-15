@@ -34,3 +34,8 @@ export {
     createNewOrganization,
     sendInvitation
 } from "./OrganizationActions";
+
+export {
+    createNewTeam,
+    getAllTeams
+} from "./TeamActions";

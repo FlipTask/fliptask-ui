@@ -80,12 +80,15 @@ class NewTaskList extends Component {
                             ? <button
                                 type="button"
                                 onClick={this.toggleForm}
-                                className="btn md btn-default rounded shadowed"
+                                className="btn md btn-success rounded card-shadow"
                                 style={{
-                                    width: "100%"
+                                    width: "100%",
+                                    lineHeight: "5em",
+                                    fontSize: "1.2em",
+                                    fontWeight: "600"
                                 }}
                             >
-                                <i className="far fa-plus" aria-hidden="true"></i>
+                                <i className="fas fa-plus" aria-hidden="true"></i>
                                 Create New List
                             </button>
                             : <div className="create-new-list-form">

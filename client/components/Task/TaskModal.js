@@ -34,7 +34,7 @@ class TaskModal extends Component {
         } else {
             [task] = taskList.tasks.filter((t) => t.id === parseInt(ticketId, 10));
         }
-
+        this.task = task;
         this.state = {
             openModal: true,
             loader: false,
@@ -60,9 +60,9 @@ class TaskModal extends Component {
     }
 
     getOnlyChangedValues = () => {
-        const taskKeys = Object.keys(this.props.task);
+        const taskKeys = this.task ? Object.keys(this.task) : [];
         return taskKeys.reduce((acc, key) => {
-            if (this.state.task[key] !== this.props.task[key]) {
+            if (this.state.task[key] !== this.task[key]) {
                 acc[key] = this.state.task[key];
             }
             if (key === "taskListId" || key === "id") {

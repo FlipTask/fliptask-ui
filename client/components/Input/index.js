@@ -16,11 +16,12 @@ class Input extends Component {
             readOnly = false,
             icon = false,
             iconPosition = "left",
+            wrapperClass = "",
             ...rest
         } = this.props;
         if (type === "textarea") {
             return (
-                <div className="form-group">
+                <div className={`form-group ${wrapperClass}`}>
                     {
                         error
                             ? <p className="text-sm text-danger">{error}</p> 
@@ -46,7 +47,7 @@ class Input extends Component {
         }
         if (type === "dropdown") {
             return (
-                <div className="form-group">
+                <div className={`form-group ${wrapperClass}`}>
                     {
                         error
                             ? <p className="text-sm text-danger">{error}</p> 
@@ -76,7 +77,7 @@ class Input extends Component {
         // eslint-disable-next-line no-nested-ternary
         const classNameIfIcon = icon ? (iconPosition === "left" ? "to-left" : "to-right") : "";
         return (
-            <div className="form-group">
+            <div className={`form-group ${wrapperClass}`}>
                 {
                     error
                         ? <p className="text-sm text-danger">{error}</p> 

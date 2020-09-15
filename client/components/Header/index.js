@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import UserBox from "../UserBox";
+import FontLogo from "../FontLogo";
 
 class Header extends Component {
     render() {
         return (
-            <div className="header">
+            <div className="header col-12 col-md-12 no-padding">
                 <div className="header--partition">
-                    <img src="/assets/logo-horizontal.png" className="header--logo"/>
+                    <FontLogo fontSize="1"/>
                 </div>
                 <div className="header--partition">
                     <UserBox view="min"/>

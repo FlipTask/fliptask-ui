@@ -27,6 +27,7 @@ class NavList extends Component {
             list = [],
             urlPrefix = "",
             activeItem = {},
+            addListItemButton,
             addListItem,
             iconName,
             collapsed,
@@ -72,8 +73,13 @@ class NavList extends Component {
                                                     urlPrefix={urlPrefix}
                                                 />)
                                             }
+                                            {
+                                                addListItem
+                                                    ? addListItem()
+                                                    : null
+                                            }
                                         </div>
-                                        {addListItem()}
+                                        {addListItemButton()}
                                     </div>
                                     : ""
                             }

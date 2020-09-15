@@ -2,7 +2,9 @@
 import React from "react";
 import baseLoadble, { lazy } from "@loadable/component";
 import pMinDelay from "p-min-delay";
-import { fetchUser, fetchBoards, changeActiveBoard } from "./actions";
+import {
+    fetchUser, fetchBoards, changeActiveBoard, getAllTeams
+} from "./actions";
 import Loader from "./components/Loader";
 
 const MIN_DELAY_CHUNK = 3000;
@@ -54,6 +56,11 @@ const WorkBoard = loadable(() => pMinDelay(import(
 const Home = loadable(() => pMinDelay(import(
     /* webpackChunkName: "home", webpackPrefetch: true */
     "./containers/Home"
+)), MIN_DELAY_CHUNK);
+
+const DetailedHome = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "detailed_home", webpackPrefetch: true */
+    "./containers/Home/Detail"
 )), MIN_DELAY_CHUNK);
 
 const TaskModal = loadable(() => pMinDelay(import(
@@ -129,9 +136,17 @@ export default [
                         path: "/",
                         component: Home,
                         secureRoute: true,
-                        loadData: (store) => [store.dispatch(fetchBoards())],
+                        loadData: (store) => [
+                            store.dispatch(fetchBoards()),
+                            store.dispatch(getAllTeams())
+                        ],
                         routes: [
                             {
+                                path: "/",
+                                exact: true,
+                                component: DetailedHome,
+                                secureRoute: true
+                            }, {
                                 path: "/teams",
                                 component: TeamPage,
                                 secureRoute: true,

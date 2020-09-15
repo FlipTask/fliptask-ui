@@ -38,7 +38,7 @@ class CreateNew extends Component {
         return (
             <React.Fragment>
                 <Input
-                    className="rounded shadowed focused bordered-on-focus"
+                    className="rounded shadowed border-default"
                     type="text"
                     placeholder="Your Organization Name , e.g., Amazon Inc"
                     value={name}
@@ -53,10 +53,12 @@ class CreateNew extends Component {
                     type="button">
                     Create New Organization
                 </button>
-                <a
-                    href="#"
-                    onClick={this.toggleCreateNew}
-                    className="link back-link text-white">Go Back</a>
+                <div className="row">
+                    <a
+                        href="#"
+                        onClick={this.toggleCreateNew}
+                        className="link back-link text-white">Go Back</a>
+                </div>
             </React.Fragment>
         );
     }

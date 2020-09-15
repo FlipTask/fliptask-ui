@@ -22,6 +22,7 @@ export const setAuthTokenInSession = (token) => async (dispatch, getState, { coo
     if (token) {
         cookies.set(tokenCookieName, token, { path: "/" });
     } else {
+        cookies.remove("active-org");
         cookies.remove(tokenCookieName, { path: "/" });
     }
 };

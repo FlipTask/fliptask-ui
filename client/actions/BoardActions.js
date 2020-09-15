@@ -17,14 +17,26 @@ import {
     CREATE_BOARD_FAILURE
 } from "../constants/ActionTypes";
 
-export const fetchBoards = () => async (dispatch, getState, { api }) => {
+export const fetchBoards = (page = 1, limit = 5) => async (dispatch, getState, { api }) => {
+    const workspace = getState().boards.boards;
+    if (workspace.page === page) {
+        return;
+    }
     try {
         dispatch({ type: FETCH_BOARDS_PENDING });
-        const res = await api.get("/workspace");
-        await dispatch({
-            type: FETCH_BOARDS_SUCCESS,
-            payload: res.data
+        const res = await api.get("/workspace", {
+            params: {
+                include: "task_lists",
+                page,
+                limit
+            }
         });
+        if (res) {
+            await dispatch({
+                type: FETCH_BOARDS_SUCCESS,
+                payload: res.data
+            });
+        }
     } catch (e) {
         dispatch({
             type: FETCH_BOARDS_FAILURE,
@@ -94,18 +106,9 @@ export const createNewTaskList = (tasklist = {}) => async (dispatch, getState, {
 
 export const getTaskListById = (id) => async (dispatch, getState, { api }) => {
     try {
-        // dispatch({ type: FETCH_TASKLIST_PENDING });
         const res = await api.get(`/task-list/${id}?include=tasks`);
-        // dispatch({
-        //     type: FETCH_TASKLIST_SUCCESS,
-        //     payload: res.data
-        // });
         return res.data;
     } catch (e) {
-        // dispatch({
-        //     type: FETCH_TASKLIST_FAILURE,
-        //     payload: e.response.data
-        // });
         return e.response.data;
     }
 };
@@ -146,8 +149,8 @@ export const changeActiveBoard = (boardId) => async (dispatch, getState, { api }
 export const createNewBoard = (title) => async (dispatch, getState, { api }) => {
     try {
         dispatch({ type: CREATE_BOARD_PENDING });
-        const res = await api.post("/board/create", {
-            title
+        const res = await api.post("/workspace", {
+            name: title
         });
         dispatch({
             type: CREATE_BOARD_SUCCESS,
@@ -155,6 +158,7 @@ export const createNewBoard = (title) => async (dispatch, getState, { api }) => 
         });
         return res.data;
     } catch (e) {
+        console.log(e);
         dispatch({
             type: CREATE_BOARD_FAILURE,
             payload: e.response.data

@@ -20,10 +20,10 @@ class NewTaskButton extends Component {
             <React.Fragment>
                 <Button
                     type="button"
-                    className="btn-primary-line shadowed"
+                    className="btn-primary"
                     onClick={this.toggleModal}
                 >
-                    <i className="fal fa-plus" aria-hidden="true"></i>
+                    <i className="fas fa-plus" aria-hidden="true"></i>
                     Add New Task
                 </Button>
             </React.Fragment>

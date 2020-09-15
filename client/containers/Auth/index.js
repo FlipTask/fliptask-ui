@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import loadable from "@loadable/component";
 import RenderRoutes from "../../components/RenderRoutes";
 import FontLogo from "../../components/FontLogo";
+import CopyRightFooter from "../../components/Footer/CopyRightFooter";
 
 const Login = loadable(() => import(/* webpackChunkName: "login", webpackPrefetch: true */ "./Login"), {
     ssr: true
@@ -49,13 +50,7 @@ class Auth extends Component {
                             path: "/signup",
                             component: SignUp
                         }]} />
-                        <div className="row">
-                            <div className="col-12 col-md-12 text-right">
-                                <p className="text-light text-sm">
-                                    Copyright <i className="far fa-copyright"></i> 2020 - FlipTask Labs.
-                                </p>
-                            </div>
-                        </div>
+                        <CopyRightFooter/>
                     </div>
                 </div>
             </div>

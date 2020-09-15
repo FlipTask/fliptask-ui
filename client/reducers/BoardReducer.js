@@ -19,7 +19,13 @@ const INITIAL_STATE = {
     activeBoard: {
         task_lists: []
     },
-    boards: [],
+    boards: {
+        rows: [],
+        page_size: 0,
+        page: 0,
+        limit: 0,
+        count: 0
+    },
     error: {},
     isLoading: false
 };
@@ -29,7 +35,6 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case CREATE_BOARD_PENDING:
         return {
             ...state,
-            ...state,
             isLoading: true
         };
     case CREATE_BOARD_SUCCESS:
@@ -38,15 +43,18 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             ...state,
             isLoading: false,
             activeBoard: payload.data,
-            boards: [
+            boards: {
                 ...state.boards,
-                payload.data
-            ],
+                rows: [
+                    ...state.boards.rows,
+                    payload.data
+                ],
+                count: state.bodard.count + 1
+            },
             error: {}
         };
     case CREATE_BOARD_FAILURE:
         return {
-            ...state,
             ...state,
             isLoading: false,
             error: payload.data
@@ -54,20 +62,23 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case FETCH_BOARDS_PENDING:
         return {
             ...state,
-            ...state,
             isLoading: true
         };
     case FETCH_BOARDS_SUCCESS:
         return {
             ...state,
-            ...state,
             isLoading: false,
-            boards: payload.data,
+            boards: {
+                ...payload.data,
+                rows: [
+                    ...state.boards.rows,
+                    ...payload.data.rows
+                ]
+            },
             error: {}
         };
     case FETCH_BOARDS_FAILURE:
         return {
-            ...state,
             ...state,
             isLoading: false,
             error: {
@@ -76,7 +87,6 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         };
     case FETCH_TASKLIST_SUCCESS:
         return {
-            ...state,
             ...state,
             activeBoard: {
                 ...state.activeBoard,
@@ -88,9 +98,8 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         };
 
     case CREATE_TASKLIST_SUCCESS:
-        console.log("payload", payload);
+        // console.log("payload", payload);
         return {
-            ...state,
             ...state,
             activeBoard: {
                 ...state.activeBoard,
@@ -102,7 +111,6 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         };
     case NEW_TASK_SUCCESS:
         return {
-            ...state,
             ...state,
             activeBoard: {
                 ...state.activeBoard,
@@ -129,7 +137,6 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         const listToSwap = state.activeBoard.task_list.filter((task) => task.id === payload.id)[0];
         const toList = state.activeBoard.task_list.filter((task) => task.id !== payload.id);
         return {
-            ...state,
             ...state,
             activeBoard: {
                 ...state.activeBoard,
@@ -186,7 +193,6 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         });
         return {
             ...state,
-            ...state,
             activeBoard: {
                 ...state.activeBoard,
                 task_list: updatedList
@@ -194,9 +200,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         };
 
     case CHANGE_ACTIVE_BOARD_SUCCESS:
-        console.log(payload);
         return {
-            ...state,
             ...state,
             activeBoard: payload.data
         };

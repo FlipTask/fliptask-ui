@@ -1,8 +1,9 @@
-.active-card{
+.active-card {
     cursor: pointer;
     user-select: none;
 }
-.card-drop-box{
+
+.card-drop-box {
     content: "";
     height: 0px;
     padding: 0.3em;
@@ -10,7 +11,8 @@
     margin: 0.5em;
     border: 3px;
 }
-.task-card{
+
+.task-card {
     visibility: visible;
     scroll-behavior: smooth;
     user-select: none;
@@ -19,7 +21,7 @@
     padding: 0.5em;
     line-height: 1.5em;
     font-size: 1em;
-    margin: 1em;
+    margin: 0.5em;
     word-break: break-word;
     cursor: pointer;
     transition: 0.1s ease all;
@@ -28,31 +30,22 @@
     @include borderRadius;
     border-color: #fff;
     background-color: #fff;
-    &:last-child{
+    &:last-child {
         margin-bottom: 1em;
     }
-    p{
+    p {
         margin: 0px;
     }
-    &.task-placeholder{
+    &.task-placeholder {
         background-color: #e5eef5;
         box-shadow: none;
         border: 0px;
     }
-    &.task-card-placeholder{
+    &.task-card-placeholder {
         background-color: rgba(255, 255, 255, 0.46) !important;
         margin: 1em !important;
     }
-    .task-card--header{
+    .task-card--header {
         margin-bottom: 1em;
-    }
-    &:hover{
-        transform: scale(1.05);
-    }
-    .task-card--body{
-        
-    }
-    .task-card--footer{
-        
     }
 }

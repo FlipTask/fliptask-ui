@@ -35,7 +35,7 @@ export const updateTask = (task) => async (dispatch, getState, { api }) => {
         dispatch({
             type: NEW_TASK_PENDING
         });
-        const res = await api.put("/task/update", {
+        const res = await api.patch(`/task/${task.id}`, {
             ...task
         });
         dispatch({

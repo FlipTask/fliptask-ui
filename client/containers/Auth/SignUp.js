@@ -123,41 +123,47 @@ class SignUp extends Component {
                                 ? <p className="inline--error">{error.message}</p>
                                 : ""
                             }
-                            <div>
+                            <div className="form-group-inline row">
                                 <Input
                                     error={error.firstName}
-                                    icon="user-alt"
-                                    className={`shadowed ${error.firstName ? "border-danger" : "border"}`}
+                                    // icon="user-alt"
+                                    wrapperClass="col-12 col-md-6"
+                                    label="First Name"
+                                    className={`shadowed rounded ${error.firstName ? "border-danger" : "border"}`}
                                     type="text"
-                                    placeholder="First Name"
+                                    placeholder="John"
                                     value={firstName}
                                     onChange={this.handleOnChange}
                                     name="firstName"/>
                                 <Input
                                     error={error.lastName}
-                                    icon="user-alt"
-                                    className={`shadowed ${error.lastName ? "border-danger" : "border"}`}
+                                    wrapperClass="col-12 col-md-6"
+                                    // icon="user-alt"
+                                    label="Last Name"
+                                    className={`shadowed rounded ${error.lastName ? "border-danger" : "border"}`}
                                     type="text"
-                                    placeholder="Last Name"
+                                    placeholder="Doe"
                                     value={lastName}
                                     onChange={this.handleOnChange}
                                     name="lastName"/>
                             </div>
                             <Input
                                 error={error.email}
-                                icon="envelope-open"
-                                className={`shadowed ${error.email ? "border-danger" : "border"}`}
+                                // icon="envelope-open"
+                                className={`shadowed rounded ${error.email ? "border-danger" : "border"}`}
                                 type="email"
-                                placeholder="Email"
+                                label="Email"
+                                placeholder="xyz@abc.com"
                                 value={email}
                                 onChange={this.handleOnChange}
                                 name="email"/>
                             <Input
                                 error={error.password}
-                                icon="unlock-alt"
-                                className={`shadowed ${error.password ? "border-danger" : "border"}`}
+                                // icon="unlock-alt"
+                                className={`shadowed rounded ${error.password ? "border-danger" : "border"}`}
                                 type="password"
-                                placeholder="password"
+                                label="Password"
+                                placeholder="********"
                                 value={password}
                                 onChange={this.handleOnChange}
                                 name="password"/>

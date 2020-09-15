@@ -10,8 +10,7 @@ import {
     setAuthTokenInSession
 } from "./AuthActions";
 
-export const fetchUser = () => async (dispatch, getState, { api }) => {
-    // console.log("fromserver",fromServer);
+export const fetchUser = () => async (dispatch, getState, { api, cookies }) => {
     try {
         dispatch({
             type: FETCH_USER_PENDING
@@ -21,12 +20,21 @@ export const fetchUser = () => async (dispatch, getState, { api }) => {
                 include: "organisations"
             }
         });
-        dispatch({
-            type: FETCH_USER_SUCCESS,
-            payload: res.data
-        });
+        if (res) {
+            /**
+             * adding orgId in cookie if the user has single organisation
+            */
+            if ((res.data.data.organisations && res.data.data.organisations.length === 1) && !cookies.get("active-org")) {
+                cookies.set("active-org", res.data.data.organisations[0].id, { path: "/" });
+            }
+
+            dispatch({
+                type: FETCH_USER_SUCCESS,
+                payload: res.data
+            });
+        }
     } catch (e) {
-        // console.error(e);
+        console.error(e);
         dispatch(setAuthTokenInSession());
         dispatch(logout());
     }

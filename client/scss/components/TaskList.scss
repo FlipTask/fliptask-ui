@@ -3,11 +3,13 @@
     width: 300px;
     vertical-align: top;
     min-width: 300px;
-    margin: 0 1em;
+    padding: 0.5em;
+    margin: 0 0.5em;
     max-height: 80vh;
-    // transition: 0.1s ease all;
     height: 100%;
-    &:first-child{
+    border: 1px solid #f3f3f3;
+    border-radius: 3px;
+    &:first-child {
         // margin-left: 0;
     }
     .task-list {
@@ -16,8 +18,8 @@
         max-height: inherit;
         @include borderRadius;
         border-color: #fff;
-        background-color: transparent;
-        background-color: #f7f9fc;
+        // background-color: transparent;
+        // background-color: #f7f9fc;
         .task-list--header {
             font-size: 1em;
             font-weight: 700;
@@ -28,17 +30,19 @@
             justify-content: space-between;
             padding: 0.5em 0;
             position: relative;
-            p{
+            p {
                 margin: 0;
                 padding-left: 1em;
                 padding-right: 3em;
             }
-            .task-list--options-btn{
+            .task-list--options-btn {
                 padding: 0.4em 1em;
                 position: absolute;
                 right: 0;
                 top: 0.2em;
-                &:hover,&:focus,&.active{
+                &:hover,
+                &:focus,
+                &.active {
                     background-color: #e5eef5;
                     @include borderRadius;
                     box-shadow: inset 0px 0px 3px #ddd;
@@ -61,26 +65,30 @@
             float: left;
             margin-top: 1em;
             // padding: 0em 0.5em;
-            button{
+            button {
                 width: 100%;
             }
         }
     }
 }
 
-
-.card-shadow{
+.card-shadow {
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+    &:hover {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
 }
 
-.active-list-item{
+.active-list-item {
     cursor: all-scroll;
 }
-#new-task-list-placeholder{
-    margin-top: 3.4em;
+
+#new-task-list-placeholder {
+    // margin-top: 3.4em;
 }
-.create-new-list-form{
-    .form-group{
+
+.create-new-list-form {
+    .form-group {
         margin-bottom: 1em;
     }
 }

@@ -10,10 +10,16 @@ const shouldCompress = (req, res) => {
 
 export const useProxy = proxy(`${process.env.API_URL}`, {
     proxyReqOptDecorator(opts, req) {
+        console.log(`${process.env.API_URL} ${req.method} ${req.originalUrl}`);
         const cookies = new Cookies(req.headers.cookie);
         opts.headers["x-forwarded-host"] = process.env.HOST_URL;
         opts.headers.Authorization = `Bearer ${cookies.get("token") || ""}`;
         return opts;
+    },
+    proxyReqBodyDecorator(bodyContent, srcReq) {
+        const cookies = new Cookies(srcReq.headers.cookie);
+        bodyContent.organisationId = cookies.get("active-org");
+        return bodyContent;
     }
 });
 

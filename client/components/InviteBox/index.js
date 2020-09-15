@@ -71,7 +71,7 @@ class InviteBox extends Component {
         }
 
         return (
-            <div title={meta.error ? meta.error : ""} key={key} className={`token--item customize-token-input---token---2ASwp ${meta.error ? "bg-warning text-default" : "bg-primary text-default"}`}>
+            <div title={meta.error ? meta.error : ""} key={key} className={`token--item customize-token-input---token---2ASwp text-dark ${meta.error ? "badge badge-danger-imp border-danger" : "badge badge-success-imp border-success"}`}>
                 <div
                     onClick={() => onStartEdit()}
                     role="presentation"

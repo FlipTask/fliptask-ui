@@ -13,6 +13,9 @@ const getUrl = () => {
 };
 
 export default (req) => {
+    /**
+     *  Getting cookie from browser and sendind to API
+     */
     const cookies = new Cookies(req.headers.cookie);
     const axiosInstance = axios.create({
         baseURL: `${getUrl()}`,
@@ -23,14 +26,18 @@ export default (req) => {
     });
 
     axiosInstance.interceptors.request.use((request) => {
-        console.log(`[AXIOS Request][${request.baseURL}] ${request.method} ${request.url}`);
+        // console.log(`[AXIOS Request][${request.baseURL}] ${request.method} ${request.url}`);
         return request;
     });
 
     axiosInstance.interceptors.response.use((response) => {
-        console.log(`[AXIOS Response][${response.config.baseURL}] ${response.status} ${response.config.url}`);
+        // console.log(`[AXIOS Response][${response.config.baseURL}] ${response.status} ${response.config.url}`);
         return response;
-    }, (err) => err.response.data);
+    }, (error) => {
+        if (error.response.status === 400) {
+            console.log(`[REQUEST_FAILED] ${error.response.config.url} ${error.response.status}`);
+        }
+    });
 
     const store = createStore(reducers, {}, applyMiddleware(thunk.withExtraArgument({
         api: axiosInstance,

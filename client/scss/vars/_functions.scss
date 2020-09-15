@@ -3,8 +3,9 @@ $themeColors: "danger" $red,
 "success" $green,
 "info" $blue,
 "warning" $yellow,
-"default" #fff,
+"default" #ccc,
 "neutral" $theme-neutral-color,
+"white" #ffffff,
 "transparent" transparent;
 @each $i in $themeColors {
     .bg-#{nth($i, 1)} {
@@ -15,6 +16,9 @@ $themeColors: "danger" $red,
                 box-shadow: 0 12px 7px nth($i, 2), 0 -4px 5px nth($i, 2);
             }
         }
+    }
+    .bg-#{nth($i, 1)}-light {
+        background-color: rgba(nth($i, 2), 0.2);
     }
     .text-#{nth($i, 1)} {
         color: nth($i, 2);
@@ -27,7 +31,7 @@ $themeColors: "danger" $red,
     }
     .btn-#{nth($i, 1)} {
         background-color: nth($i, 2);
-        @if nth($i, 1)=="default" or nth($i, 1)=="transparent" {
+        @if nth($i, 1)=="default" or nth($i, 1)=="transparent" or nth($i, 1)=="white" {
             color: $dark-grey;
         }
         @else {
@@ -70,6 +74,28 @@ $themeColors: "danger" $red,
         &:hover {
             background-color: nth($i, 2);
             color: #fff;
+        }
+    }
+    .badge {
+        font-size: 0.8em;
+        font-family: $secondary-font;
+        font-weight: 600;
+        padding: 0.1em 0.6em;
+        margin: 0 0.5em;
+        border-radius: 3px;
+        &:first-child {
+            margin-left: 0px;
+        }
+        &:last-child {
+            margin-right: 0px;
+        }
+        &.badge-#{nth($i, 1)} {
+            background-color: rgba(nth($i, 2), 0.15);
+            color: nth($i, 2);
+        }
+        &.badge-#{nth($i, 1)}-imp {
+            background-color: rgba(nth($i, 2), 0.15) !important;
+            color: nth($i, 2);
         }
     }
 }

@@ -120,7 +120,7 @@ class WorkBoard extends Component {
                     }}
                 >
                     {
-                        workspace.task_lists.map((t, i) => (
+                        workspace.task_lists && workspace.task_lists.map((t, i) => (
                             <TaskList
                                 workspace={workspace}
                                 index={i}

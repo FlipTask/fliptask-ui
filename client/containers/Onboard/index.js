@@ -1,25 +1,23 @@
 import React, { Component } from "react";
 import RenderRoutes from "../../components/RenderRoutes";
 import Header from "../../components/Header";
+import CopyRightFooter from "../../components/Footer/CopyRightFooter";
 
 class OnBoard extends Component {
     render() {
         return (
             <React.Fragment>
-                <div className="page-wrapper row">
+                <div className="row">
                     <Header/>
-
-                    <div className="column page-side-wrapper">
-                        <div style={{
-                            width: "50%",
-                            margin: "auto"
-                        }}>
-                            <form className="login-form">
-                                <RenderRoutes routes={this.props.route.routes} />
-                            </form>
-                        </div>
+                </div>
+                <div className="row">
+                    <div className="col-12 col-md-6" style={{ margin: "auto" }}>
+                        <form className="login-form">
+                            <RenderRoutes routes={this.props.route.routes} />
+                        </form>
                     </div>
                 </div>
+                <CopyRightFooter />
             </React.Fragment>
         );
     }
