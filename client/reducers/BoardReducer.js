@@ -11,7 +11,8 @@ import {
     CHANGE_ACTIVE_BOARD_SUCCESS,
     CREATE_BOARD_PENDING,
     CREATE_BOARD_SUCCESS,
-    CREATE_BOARD_FAILURE
+    CREATE_BOARD_FAILURE,
+    USER_LOGOUT
 } from "../constants/ActionTypes";
 
 
@@ -134,13 +135,13 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             }
         };
     case SWAP_LIST_CARD_SUCCESS:
-        const listToSwap = state.activeBoard.task_list.filter((task) => task.id === payload.id)[0];
-        const toList = state.activeBoard.task_list.filter((task) => task.id !== payload.id);
+        const listToSwap = state.activeBoard.task_lists.filter((task) => task.id === payload.id)[0];
+        const toList = state.activeBoard.task_lists.filter((task) => task.id !== payload.id);
         return {
             ...state,
             activeBoard: {
                 ...state.activeBoard,
-                task_list: [
+                task_lists: [
                     ...toList.slice(0, payload.index),
                     listToSwap,
                     ...toList.slice(payload.index)
@@ -152,7 +153,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         const { to, from } = payload;
         let taskToReplace = {};
         // finding task
-        state.activeBoard.task_list.map((taskList) => {
+        state.activeBoard.task_lists.map((taskList) => {
             if (taskList.id === from.listid) {
                 return {
                     ...taskList,
@@ -167,7 +168,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             return taskList;
         });
         // remove task from list;
-        const fromList = state.activeBoard.task_list.map((taskList) => {
+        const fromList = state.activeBoard.task_lists.map((taskList) => {
             if (taskList.id === from.listid) {
                 return {
                     ...taskList,
@@ -195,7 +196,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             ...state,
             activeBoard: {
                 ...state.activeBoard,
-                task_list: updatedList
+                task_lists: updatedList
             }
         };
 
@@ -204,6 +205,8 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             ...state,
             activeBoard: payload.data
         };
+    case USER_LOGOUT:
+        return INITIAL_STATE;
     default:
         return state;
     }

@@ -28,7 +28,7 @@ class TaskList extends Component {
         } = this.props;
         return (
             <React.Fragment>
-                <div className="drop-list dragable-list task-list--wrapper"
+                <div className="drop-list dragable-list task-list--wrapper col-12 col-md-6"
                     listid={data.id}
                     onMouseDown={(e) => dropableList.onMouseDown(e)}
                     onMouseLeave={(e) => dropableList.onMouseLeave(e)}

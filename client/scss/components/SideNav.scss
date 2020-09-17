@@ -91,6 +91,16 @@
     }
 }
 
+.active-list-item {
+    background-color: rgba(0, 0, 0, 0.32);
+    cursor: pointer;
+    transition: 0.3s ease all;
+    @extend .text-success;
+    i {
+        @extend .text-success;
+    }
+}
+
 .nav-list {
     @include transition;
     &.active {
@@ -143,14 +153,14 @@
                 }
                 .nav-list-item--lastactive {
                     i {
-                        color: #696969;
                         font-size: 0.8em;
                     }
                 }
+                &.active-workspace {
+                    @extend .active-list-item;
+                }
                 &:hover {
-                    cursor: pointer;
-                    background-color: rgba(0, 0, 0, 0.12);
-                    transition: 0.3s ease all;
+                    @extend .active-list-item;
                 }
             }
         }
@@ -192,5 +202,17 @@
     &:hover {
         background-color: #fff;
         color: $dark-grey;
+    }
+}
+
+.not-side-nav {
+    transition: all 0.3s ease-in-out 0s;
+    @include responsive ($sm, "min") {
+        margin-left: 250px;
+        width: calc(100% - 250px);
+        &.collapsed-in,
+        &.collapsing {
+            margin-left: 40px;
+        }
     }
 }

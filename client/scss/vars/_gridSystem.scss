@@ -4,21 +4,43 @@
     content: '';
 }
 
+
+/*
+    Break-points
+*/
+
+$xs: 480;
+$sm: 576;
+$md: 768;
+$lg: 992;
+$xl: 1200;
+
+/*
+    Gutter direction
+    Gutter: Space between two columns
+*/
+
 $gutter_directions: ( "top", "left", "right", "bottom");
 $gutter: 16;
-$grid__bp-sm: 576;
-$grid__bp-md: 768;
-$grid__bp-lg: 992;
-$grid__bp-xl: 1200;
+
+/*
+    Grid Mapping
+*/
+
+$grid__bp-xs: $xs;
+$grid__bp-sm: $sm;
+$grid__bp-md: $md;
+$grid__bp-lg: $lg;
+$grid__bp-xl: $xl;
 $grid__cols: 12;
-$map-grid-props: ( '': 0, '-sm': $grid__bp-sm, '-md': $grid__bp-md, '-lg': $grid__bp-lg, '-xl': $grid__bp-xl);
+$map-grid-props: ( '-xs': 0, '-sm': $grid__bp-sm, '-md': $grid__bp-md, '-lg': $grid__bp-lg, '-xl': $grid__bp-xl);
 @each $i in $gutter_directions {
     .gutter-#{nth($i, 1)} {
         margin-#{nth($i, 1)}: #{$gutter}px;
     }
 }
 
-@mixin create-mq($breakpoint, $min-or-max) {
+@mixin responsive($breakpoint, $min-or-max) {
     @if($breakpoint==0) {
         @content;
     }
@@ -30,7 +52,7 @@ $map-grid-props: ( '': 0, '-sm': $grid__bp-sm, '-md': $grid__bp-md, '-lg': $grid
 }
 
 @mixin create-col-classes($modifier, $grid-cols, $breakpoint) {
-    @include create-mq($breakpoint, 'min') {
+    @include responsive($breakpoint, 'min') {
         .col#{$modifier}-offset-0 {
             margin-left: 0;
         }
@@ -56,12 +78,12 @@ $breakpoint in $map-grid-props {
     @if($modifier=='') {
         $modifier: '-xs';
     }
-    @include create-mq($breakpoint - 1, 'max') {
+    @include responsive($breakpoint - 1, 'max') {
         .hidden#{$modifier}-down {
             display: none !important;
         }
     }
-    @include create-mq($breakpoint, 'min') {
+    @include responsive($breakpoint, 'min') {
         .hidden#{$modifier}-up {
             display: none !important;
         }

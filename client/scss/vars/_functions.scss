@@ -7,6 +7,14 @@ $themeColors: "danger" $red,
 "neutral" $theme-neutral-color,
 "white" #ffffff,
 "transparent" transparent;
+$primary-color: $skyblue;
+$success-color: $green;
+$info-color: $blue;
+$warning-color: $yellow;
+$default-color: #ccc;
+$neutral-color: $theme-neutral-color;
+$white-color: #fff;
+$transparent: transparent;
 @each $i in $themeColors {
     .bg-#{nth($i, 1)} {
         background-color: nth($i, 2);

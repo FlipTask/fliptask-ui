@@ -1,21 +1,20 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class NavListItem extends Component {
     render() {
         const { listItem, active, urlPrefix } = this.props;
         return (
-            <NavLink
+            <Link
                 title={listItem.title || listItem.name}
                 to={`${urlPrefix}/${listItem.id}`}
-                activeClassName="active-workspace"
-                className={"nav-list-item text-default"}
+                className={`nav-list-item text-default ${active ? "active-workspace" : ""}`}
             >
                 <span className="nav-list-item--lastactive">
                     <i className={`fas fa-circle ${active ? "text-success" : ""}`}></i>
                 </span>
                 <span className="nav-list-item--name ellipsis">{listItem.title || listItem.name}</span>
-            </NavLink>
+            </Link>
         );
     }
 }

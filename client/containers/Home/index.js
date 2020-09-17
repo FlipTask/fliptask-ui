@@ -45,10 +45,7 @@ class Home extends Component {
                     onCollapsing={this.onCollapsing}
                     onEnd={this.onEnd}
                 />
-                <div className={`row ${!sideNavOpen ? "collapsed-in" : ""} ${sideNavCollapsing ? "collapsing" : ""}`} style={{
-                    marginLeft: (sideNavOpen && !sideNavCollapsing) ? "250px" : "40px",
-                    transition: "all 0.3s ease-in-out"
-                }}>
+                <div className={`not-side-nav ${!sideNavOpen ? "collapsed-in" : ""} ${sideNavCollapsing ? "collapsing" : ""}`}>
                     <div className="board--wrapper col-xs-12 col-sm-12 col-md-12 no-padding">
                         <BoardHeader board={ activeWorkspace }/>
                         <RenderRoutes routes={this.props.route.routes} />

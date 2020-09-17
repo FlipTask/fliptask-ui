@@ -117,7 +117,7 @@ class SideNav extends Component {
                             title={"Teams"}
                             urlPrefix={"/teams"}
                             list={teams.rows}
-                            activeItem={activeBoard}
+                            // activeItem={activeBoard}
                             addListItem={() => {
                                 if (teams.page < teams.page_size) {
                                     return (

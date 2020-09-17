@@ -9,8 +9,13 @@
     height: 100%;
     border: 1px solid #f3f3f3;
     border-radius: 3px;
-    &:first-child {
-        // margin-left: 0;
+    @include responsive($sm, "max") {
+        width: 100%;
+        min-width: auto;
+        margin: 1em 0px 1em;
+        max-height: 100%;
+        background-color: #fff;
+        padding: 1em;
     }
     .task-list {
         display: flex;
@@ -70,12 +75,9 @@
             }
         }
     }
-}
-
-.card-shadow {
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
-    &:hover {
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    &.active-list-item {
+        // background-color: $success-color !important;
+        @extend .bg-success-light;
     }
 }
 
@@ -83,12 +85,18 @@
     cursor: all-scroll;
 }
 
-#new-task-list-placeholder {
-    // margin-top: 3.4em;
-}
-
 .create-new-list-form {
     .form-group {
         margin-bottom: 1em;
+    }
+}
+
+.dropable-list {
+    @include responsive($sm, "min") {
+        display: flex;
+        overflow-x: auto;
+    }
+    @include responsive($sm, "max") {
+        padding: 1em;
     }
 }

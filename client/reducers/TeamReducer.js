@@ -4,7 +4,8 @@ import {
     CREATE_NEW_TEAM_PENDING,
     FETCH_TEAMS_FAILURE,
     FETCH_TEAMS_PENDING,
-    FETCH_TEAMS_SUCCESS
+    FETCH_TEAMS_SUCCESS,
+    USER_LOGOUT
 } from "../constants/ActionTypes";
 
 const INITIAL_STATE = {
@@ -74,6 +75,8 @@ export default (state = INITIAL_STATE, { type, payload }) => {
                 count: state.teams.count + 1
             }
         };
+    case USER_LOGOUT:
+        return INITIAL_STATE;
     default:
         return state;
     }

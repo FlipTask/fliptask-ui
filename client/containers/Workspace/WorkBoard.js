@@ -113,7 +113,7 @@ class WorkBoard extends Component {
                         margin: "0"
                     }}
                 >{workspace.name}</h2>
-                <div className="container-fluid dropable-list"
+                <div className="dropable-list col-12 col-md-12"
                     onMouseMove={(e) => {
                         this.onMouseMove(e);
                         this.dropableList.onMouseMove(e);

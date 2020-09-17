@@ -8,7 +8,6 @@ import DevServer from "../helpers/DevServer";
 
 const init = async() => {
     const app = express();
-
     app.use(express.static(Path.resolve(__dirname, "./../public")));
     // app.use("/assets/", express.static(Path.resolve(__dirname, "./../public/assets")));
     app.use("/static", express.static(Path.resolve(__dirname, "./../client-build")));
@@ -19,13 +18,13 @@ const init = async() => {
     app.use(useCompression);
     DevServer(app);
     app.use("/api", useProxy);
+    app.get("/*", ServeWeb);
     app.get("*.js", (req, res, next) => {
         req.url += ".gz";
         res.set("Content-Encoding", "gzip");
         res.set("Content-Type", "text/javascript");
         next();
     });
-    app.get(/\/((?!assets|static).)*/, ServeWeb);
     const PORT = process.env.PORT || 8080;
     app.listen(PORT, () => {
         console.log(`App listening to ${PORT}....`);

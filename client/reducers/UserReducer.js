@@ -95,7 +95,6 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case USER_LOGOUT:
         return {
             ...state,
-            ...state,
             ...INITIAL_STATE
         };
     default:
