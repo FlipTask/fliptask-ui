@@ -1,14 +1,14 @@
 .task-list--wrapper {
-    display: inline-block;
+    display: block;
     width: 300px;
-    vertical-align: top;
     min-width: 300px;
     padding: 0.5em;
     margin: 0 0.5em;
     max-height: 80vh;
-    height: 100%;
+    // height: 100%;
     border: 1px solid #f3f3f3;
     border-radius: 3px;
+    background-color: #fff;
     @include responsive($sm, "max") {
         width: 100%;
         min-width: auto;
@@ -95,8 +95,39 @@
     @include responsive($sm, "min") {
         display: flex;
         overflow-x: auto;
+        height: 84vh;
     }
     @include responsive($sm, "max") {
         padding: 1em;
     }
 }
+
+.smooth-dnd-container.horizontal {
+    >.smooth-dnd-draggable-wrapper {
+        // padding: 0 1em;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.task_list-drop-preview {
+    background-color: rgba(150, 150, 200, 0.1);
+    border: 1px dashed #abc;
+    margin: 5px 45px 5px 5px;
+    * {
+        visibility: hidden;
+    }
+}
+
+// .smooth-dnd-container {
+//     &.horizontal {
+//         display: flex !important;
+//         overflow-x: auto;
+//         .smooth-dnd-draggable-wrapper {
+//             height: auto !important;
+//             display: inline-table !important;
+//             vertical-align: top !important;
+//         }
+//     }
+// }

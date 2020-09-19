@@ -43,7 +43,6 @@ class Task extends Component {
     render() {
         const {
             task,
-            mouseEvents,
             index,
             listId,
             workspace
@@ -51,38 +50,25 @@ class Task extends Component {
         // console.log(this.props);
         return (
             <React.Fragment>
-                {/* {
-                    this.getModal(task, listId)
-                } */}
                 <Link
                     to={`/workspace/${workspace.id}/list/${listId}/ticket/${task.id}`}
-                    className="dragable not-anchor"
+                    className="not-anchor"
                     id={task.id}
                     index={index}
                     listid={listId}
-                    onMouseDown={(e) => mouseEvents.onMouseDown(e)}
-                    onMouseEnter={(e) => mouseEvents.onMouseEnter(e)}
-                    onMouseLeave={(e) => mouseEvents.onMouseLeave(e)}
-                    onMouseUp={(e) => mouseEvents.onMouseUp(e)}
-                    // onClickCapture={(e) => this.onClick(e)}
                 >
-                    <div
-                        className={"task-card card-shadow"}
-                    >
-                        <div className="task-card--header">
-                            <Badge
-                                text={sortedPriorityArray[task.priority]}
-                                className={`badge-${priorityCSSMap[sortedPriorityArray[task.priority]]} text-uppercase`}
-                            />
-                        </div>
-                        <div className="task-card--body">
-                            <p className="task-card-title">
-                                {task.name}
-                            </p>
-                        </div>
-                        <div className="task-card--footer">
-
-                        </div>
+                    <div className="task-card--header">
+                        <Badge
+                            text={sortedPriorityArray[task.priority]}
+                            className={`badge-${priorityCSSMap[sortedPriorityArray[task.priority]]} text-uppercase`}
+                        />
+                    </div>
+                    <div className="task-card--body">
+                        <p className="task-card-title">
+                            {task.name}
+                        </p>
+                    </div>
+                    <div className="task-card--footer">
 
                     </div>
                 </Link>

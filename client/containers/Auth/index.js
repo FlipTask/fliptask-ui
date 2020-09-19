@@ -39,7 +39,7 @@ class Auth extends Component {
                             </p>
                         </div>
                     </div>
-                    <div className="col-12 col-md-8" style={{
+                    <div className="col-12 col-xs-12 col-md-8" style={{
                         display: "flex",
                         flexDirection: "column"
                     }}>

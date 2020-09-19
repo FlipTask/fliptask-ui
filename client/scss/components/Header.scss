@@ -1,7 +1,6 @@
 .header {
-    height: 34px;
+    height: 60px;
     background-color: #2b2f3f;
-    padding: 0 16px;
     display: flex;
     justify-content: space-between;
     &--main {
@@ -20,5 +19,13 @@
     &--logo {
         max-width: 60%;
         height: auto;
+    }
+}
+
+.hamburger {
+    padding: 0.6em 0em;
+    font-size: 1.5em;
+    i {
+        color: $white-color;
     }
 }

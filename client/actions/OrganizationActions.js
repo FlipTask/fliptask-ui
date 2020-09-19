@@ -57,10 +57,10 @@ export const createNewOrganization = (name) => async (dispatch, getState, { api 
 };
 
 
-export const sendInvitation = (mailList) => async (dispatch, getState, { api }) => {
+export const sendInvitation = (mailList = []) => async (dispatch, getState, { api }) => {
     try {
-        await api.post("/onboard/invite", {
-            mailList
+        await api.post("/invitation/invite", {
+            emailList: mailList
         });
     } catch (e) {
         console.log(e);

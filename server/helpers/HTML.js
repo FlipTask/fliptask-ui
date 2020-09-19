@@ -24,7 +24,7 @@ const HTML = ({
     <meta name="msapplication-TileColor" content="#242837">
     <meta name="msapplication-TileImage" content="/favicon/ms-icon-144x144.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
         rel="stylesheet">

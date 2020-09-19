@@ -55,7 +55,7 @@ class Login extends Component {
                     flex: "1 1",
                     alignItems: "center"
                 }}>
-                    <div className="col-12 col-md-offset-1 col-md-4 login-form-wrapper">
+                    <div className="col-12 col-xs-12 col-md-offset-1 col-md-4 login-form-wrapper no-padding">
                         <h1 style={{
                             marginBottom: "0.5em"
                         }}>

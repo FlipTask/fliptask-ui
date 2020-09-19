@@ -13,7 +13,8 @@
 }
 
 .task-card {
-    visibility: visible;
+    // visibility: visible;
+    display: block;
     scroll-behavior: smooth;
     user-select: none;
     font-weight: 500;
@@ -21,17 +22,16 @@
     padding: 0.5em;
     line-height: 1.5em;
     font-size: 1em;
-    margin: 0.5em;
+    margin: 0.5em 0.5em 0em 0.5em;
     word-break: break-word;
     cursor: pointer;
     transition: 0.1s ease all;
-    vertical-align: middle;
     border: 1px solid transparent;
     @include borderRadius;
     border-color: #fff;
     background-color: #fff;
     &:last-child {
-        margin-bottom: 1em;
+        margin-bottom: 0.5em;
     }
     p {
         margin: 0px;

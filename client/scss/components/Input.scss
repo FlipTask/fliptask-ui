@@ -4,6 +4,7 @@ textarea {
     min-width: 100%;
     min-height: 10em;
     resize: none;
+    font-size: 1em;
 }
 
 input:-webkit-autofill,
@@ -76,19 +77,32 @@ label {
 
 input {
     font-family: inherit;
-    font-size: inherit;
+    font-size: 1em;
     &::placeholder {
         color: $placeholder-color;
     }
 }
 
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    select,
+    textarea,
+    input {
+        font-size: 1em;
+    }
+}
+
 .form-group-inline {
     .form-group {
-        &:first-child {
-            padding-left: 0px;
+        @include responsive($sm, "max") {
+            padding: 0px;
         }
-        &:last-child {
-            padding-right: 0px;
+        @include responsive($sm, "min") {
+            &:first-child {
+                padding-left: 0px;
+            }
+            &:last-child {
+                padding-right: 0px;
+            }
         }
     }
 }

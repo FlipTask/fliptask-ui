@@ -39,3 +39,7 @@ export {
     createNewTeam,
     getAllTeams
 } from "./TeamActions";
+
+export {
+    toggleSideNav
+} from "./AppActions";

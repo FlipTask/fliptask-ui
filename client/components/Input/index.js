@@ -96,6 +96,7 @@ class Input extends Component {
                     }
                     <input
                         {...rest}
+                        autoCapitalize="off"
                         value={value}
                         type={type || "text"}
                         placeholder={placeholder}

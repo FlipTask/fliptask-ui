@@ -127,7 +127,7 @@ class SignUp extends Component {
                                 <Input
                                     error={error.firstName}
                                     // icon="user-alt"
-                                    wrapperClass="col-12 col-md-6"
+                                    wrapperClass="col-12 col-xs-12 col-md-6"
                                     label="First Name"
                                     className={`shadowed rounded ${error.firstName ? "border-danger" : "border"}`}
                                     type="text"
@@ -137,7 +137,7 @@ class SignUp extends Component {
                                     name="firstName"/>
                                 <Input
                                     error={error.lastName}
-                                    wrapperClass="col-12 col-md-6"
+                                    wrapperClass="col-12 col-xs-12 col-md-6"
                                     // icon="user-alt"
                                     label="Last Name"
                                     className={`shadowed rounded ${error.lastName ? "border-danger" : "border"}`}

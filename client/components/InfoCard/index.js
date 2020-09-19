@@ -18,7 +18,7 @@ const InfoCard = ({
 }) => {
     const randomClass = colorClassList[random(0, colorClassList.length - 1)];
     return (
-        <div className="col-12 col-md-4">
+        <div className="col-12 col-xs-12 col-md-4">
             <Link to={to} className={`card info-card badge badge-${randomClass}`}>
                 <div className="card-char">
                     <span className={`card-char--circle border-${randomClass} text-${randomClass}`}>

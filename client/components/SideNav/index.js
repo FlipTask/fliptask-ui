@@ -9,7 +9,8 @@ import Svg from "../Svg";
 import FontLogo from "../FontLogo";
 import {
     fetchBoards,
-    getAllTeams
+    getAllTeams,
+    toggleSideNav
 } from "../../actions";
 
 const delay = (time) => new Promise((res) => setTimeout(res, time));
@@ -56,7 +57,8 @@ class SideNav extends Component {
         const {
             activeBoard,
             boards,
-            teams
+            teams,
+            isSideNavOpen
         } = this.props;
         const {
             open,
@@ -64,7 +66,12 @@ class SideNav extends Component {
         } = this.state;
         return (
             <React.Fragment>
-                <div className={`sidenav--primary hidden-sm-down ${!open ? "collapsed-in" : ""} ${collapsing ? "collapsing" : ""}`}>
+                {
+                    isSideNavOpen
+                        ? <div className={"sidenav-backdrop"} onClick={this.props.toggleSideNav}></div>
+                        : null
+                }
+                <div className={`sidenav--primary ${!open ? "collapsed-in" : ""} ${collapsing ? "collapsing" : ""} ${ isSideNavOpen ? "slideIn" : ""}`}>
                     <Link className="sidenav-head" to="/">
                         <FontLogo fontSize="1" hideTail={this.state.collapsing || !this.state.open}/>
                     </Link>
@@ -139,7 +146,7 @@ class SideNav extends Component {
                             : ""
                     }
 
-                    <div className="collapse-nav-btn" onClick={this.toggleCollapse}>
+                    <div className="collapse-nav-btn hidden-sm-down" onClick={this.toggleCollapse}>
                         <i className={`far fa-angle-left ${!open ? "flip-left" : "flip-right"}`}></i>
                     </div>
                 </div>
@@ -148,13 +155,20 @@ class SideNav extends Component {
     }
 }
 
-const mapStateToProps = ({ user, boards, team }) => ({
+const mapStateToProps = ({
+    user,
+    boards,
+    team,
+    app
+}) => ({
     activeBoard: boards.activeBoard,
     user: user.user,
     boards: boards.boards,
-    teams: team.teams
+    teams: team.teams,
+    isSideNavOpen: app.sideNavOpen
 });
 export default withRouter(connect(mapStateToProps, {
     fetchBoards,
-    getAllTeams
+    getAllTeams,
+    toggleSideNav
 })(SideNav));

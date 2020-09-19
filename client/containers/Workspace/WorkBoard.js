@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
+import { Container, Draggable } from "react-smooth-dnd";
 import { changeActiveBoard, swapTaskCard, swapTaskList } from "../../actions";
 import TaskList from "../../components/TaskList";
 import NewTaskList from "../../components/TaskList/NewTaskList";
-import DropableList from "./DropableList";
 import RenderRoutes from "../../components/RenderRoutes";
 
 class WorkBoard extends Component {
@@ -13,39 +13,6 @@ class WorkBoard extends Component {
         this.state = {
             workspaceId: props.match.params.workspaceId
         };
-        this.dropableTasks = new DropableList({
-            expandType: "vertical",
-            placeholder: {
-                className: "task-card task-card-placeholder"
-            },
-            source: {
-                item: {
-                    className: "dragable",
-                    activeClassName: "active-task-card-item"
-                }
-            },
-            target: {
-                container: {
-                    className: "task-list--wrapper"
-                }
-            }
-        });
-        this.dropableList = new DropableList({
-            expandType: "horizontal",
-            placeholder: {
-                className: "task-list--wrapper"
-            },
-            source: {
-                item: {
-                    className: "dragable-list"
-                }
-            },
-            target: {
-                container: {
-                    className: "dropable-list"
-                }
-            }
-        });
     }
 
     componentDidMount() {
@@ -66,35 +33,8 @@ class WorkBoard extends Component {
         return null;
     }
 
-    onMouseMove = (e) => {
-        this.dropableTasks.onMouseMove(e);
-    }
-
-    onMouseUp = (e) => {
-        this.dropableTasks.onMouseUp(e, (ins) => {
-            this.props.swapTaskCard({
-                to: {
-                    listid: ins.currentTargetList.getAttribute("listid"),
-                    index: ins.targetIndex
-                },
-                from: {
-                    listid: ins.sourceElement.getAttribute("listid"),
-                    taskid: ins.sourceElement.getAttribute("id")
-                }
-            });
-        });
-    }
-
-    onMouseLeave = (e) => {
-        this.dropableTasks.onMouseLeave(e);
-    }
-
-    onMouseEnter = (e) => {
-        this.dropableTasks.onMouseEnter(e);
-    }
-
-    onMouseDown = (ev) => {
-        this.dropableTasks.onMouseDown(ev);
+    onDragStart = ({ isSource, payload, willAcceptDrop }) => {
+        console.log(isSource, payload, willAcceptDrop);
     }
 
     render() {
@@ -113,34 +53,32 @@ class WorkBoard extends Component {
                         margin: "0"
                     }}
                 >{workspace.name}</h2>
-                <div className="dropable-list col-12 col-md-12"
-                    onMouseMove={(e) => {
-                        this.onMouseMove(e);
-                        this.dropableList.onMouseMove(e);
-                    }}
-                >
-                    {
-                        workspace.task_lists && workspace.task_lists.map((t, i) => (
-                            <TaskList
-                                workspace={workspace}
-                                index={i}
-                                data={t}
-                                key={i}
-                                swapTaskList={this.props.swapTaskList}
-                                dropableList={this.dropableList}
-                                dropableTasks={this.dropableTasks}
-                                mouseEvents={{
-                                    onMouseMove: this.onMouseMove,
-                                    onMouseDown: this.onMouseDown,
-                                    onMouseEnter: this.onMouseEnter,
-                                    onMouseLeave: this.onMouseLeave,
-                                    onMouseOver: this.onMouseOver,
-                                    onMouseUp: this.onMouseUp
-                                }}
-                            />
-                        ))
-                    }
-                    <NewTaskList />
+                <div className="dropable-list col-12 col-md-12">
+                    <Container
+                        dropClass="card-ghost-drop"
+                        dragClass="card-ghost"
+                        onDragStart={this.onDragStart}
+                        orientation="horizontal"
+                        dropPlaceholder={{
+                            animationDuration: 150,
+                            showOnTop: true,
+                            className: "task_list-drop-preview"
+                        }}
+                    >
+                        {
+                            workspace.task_lists && workspace.task_lists.map((t, i) => (
+                                <Draggable key={t.id} className="task--list">
+                                    <TaskList
+                                        workspace={workspace}
+                                        index={i}
+                                        data={t}
+                                        key={i}
+                                    />
+                                </Draggable>
+                            ))
+                        }
+                        <NewTaskList />
+                    </Container>
                 </div>
             </React.Fragment>
         );
