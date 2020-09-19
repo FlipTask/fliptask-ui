@@ -31,10 +31,10 @@ jobs:
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       
       - name: Building Docker image
-        run: docker build -t ${{secrets.DOCKER_IMAGE_NAME}}:${{env.APP_TAG}} .
+        run: docker build -t ${{env.APP_TAG}} .
 
       - name: Tag Docker image
-        run: docker tag ${{secrets.DOCKER_IMAGE_NAME}} ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_IMAGE_NAME}}:${{env.APP_TAG}}
+        run: docker tag ${{env.APP_TAG}} ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_IMAGE_NAME}}:${{env.APP_TAG}}
 
       - name: Publishing Docker image
         run: docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_IMAGE_NAME}}:${{env.APP_TAG}}
