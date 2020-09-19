@@ -1,6 +1,6 @@
 {
     "name": "tasker-ui",
-    "version": "1.0.0",
+    "version": "1.5.0",
     "description": "Task Management App",
     "main": "index.js",
     "scripts": {
@@ -11,7 +11,7 @@
         "build": "npm-run-all --print-label --parallel prod:build-server prod:build-client",
         "prod:build-server": "webpack --config webpack/production/webpack.server.js",
         "prod:build-client": "webpack --config webpack/production/webpack.client.js",
-        "start": "NODE_ENV=production node server-build/server.js",
+        "start": "node server-build/server.js",
         "lint": "./node_modules/eslint-watch/bin/esw --",
         "lint:watch": "npm run lint --watch"
     },
