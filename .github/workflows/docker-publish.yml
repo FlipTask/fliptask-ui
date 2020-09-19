@@ -30,12 +30,8 @@ jobs:
           DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
       
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64,linux/386
-          push: true
-          tags: ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_IMAGE_NAME}}:${{env.APP_TAG}}
+      - name: Building Docker image
+        run: docker build -t ${{secrets.DOCKER_IMAGE_NAME}}:${{env.APP_TAG}} .
+      
+      - name: Publishing Docker image
+        run: docker push ${{secrets.DOCKER_USERNAME}}/${{secrets.DOCKER_IMAGE_NAME}}:${{env.APP_TAG}}
