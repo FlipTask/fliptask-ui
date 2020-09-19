@@ -1,6 +1,7 @@
 const { version } = require("webpack");
 
-const { spawn, exec } = require("child_process");
+const { exec } = require("child_process");
+const appVersion = require("./version");
 
 const args = process.argv.slice(2);
 const versionTypes = [
@@ -12,16 +13,19 @@ const versionTypes = [
 
 if (versionTypes.indexOf(args[0]) > -1) {
     // valid argument type
-    const cmds = [{
-        success: "Current Version",
-        cmd: "npm --version"
-    }, {
-        success: `Updated version(${args[0]})`,
-        cmd: `npm version ${args[0]}`
-    }, {
-        success: "Pushing to git",
-        cmd: "git push && git push --tags"
-    }];
+    const cmds = [
+        {
+            success: "Current Version",
+            cmd: `node -e "console.log('${appVersion}')"`
+        }, {
+            success: `Updated version(${args[0]})`,
+            cmd: `npm version ${args[0]}`
+        },
+        {
+            success: "Pushing to git",
+            cmd: "git push && git push --tags"
+        }
+    ];
     for (let i = 0; i < cmds.length; i++) {
         const cmd = cmds[i];
         exec(cmd.cmd, (error, stdout, stderr) => {
