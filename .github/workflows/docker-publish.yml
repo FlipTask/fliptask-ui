@@ -1,14 +1,14 @@
 on:
   push:
     branches:
-      - dev
+      - ci_setup
 
 name: Dev Deployment
 
 jobs:
   deploy:
       name: Deploy
-      runs-on: self-hosted
+      runs-on: ubuntu-latest
       strategy:
         matrix:
           node-version: [12.x]
