@@ -36,3 +36,4 @@ change the permission to execute the bash script, run
 ```
 chmod 0700 install.sh
 ```
+
