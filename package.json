@@ -13,7 +13,8 @@
         "prod:build-client": "webpack --config webpack/production/webpack.client.js",
         "start": "node server-build/server.js",
         "lint": "./node_modules/eslint-watch/bin/esw --",
-        "lint:watch": "npm run lint --watch"
+        "lint:watch": "npm run lint --watch",
+        "release": "node ./tools/release.js"
     },
     "author": "Ashish Kumar",
     "license": "ISC",
