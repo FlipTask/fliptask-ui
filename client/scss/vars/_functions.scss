@@ -3,17 +3,17 @@ $themeColors: "danger" $red,
 "success" $green,
 "info" $blue,
 "warning" $yellow,
-"default" #ccc,
+"default" var(--color-default),
 "neutral" $theme-neutral-color,
-"white" #ffffff,
+"white" var(--color-white),
 "transparent" transparent;
 $primary-color: $skyblue;
 $success-color: $green;
 $info-color: $blue;
 $warning-color: $yellow;
-$default-color: #ccc;
+$default-color: var(--color-default);
 $neutral-color: $theme-neutral-color;
-$white-color: #fff;
+$white-color: var(--color-white);
 $transparent: transparent;
 @each $i in $themeColors {
     .bg-#{nth($i, 1)} {
@@ -62,10 +62,10 @@ $transparent: transparent;
         }
         @else {
             &:hover {
-                background-color: darken(nth($i, 2), 5%);
+                background-color: unquote("hsla(nth($i, 2), 5%)");
                 &.floating-shadow {
                     &::before {
-                        box-shadow: 0 12px 7px darken(nth($i, 2), 5%), 0 -4px 5px darken(nth($i, 2), 5%);
+                        box-shadow: 0 12px 7px unquote("hsla(nth($i, 2), 5%)"), 0 -4px 5px unquote("hsla(nth($i, 2), 5%)");
                     }
                 }
             }

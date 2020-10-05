@@ -1,4 +1,4 @@
-.drawer--wrapper{
+.drawer--wrapper {
     position: fixed;
     right: 0%;
     height: 100%;
@@ -7,6 +7,7 @@
     background-color: rgba(0, 0, 0, 0.5);
     font-family: $secondary-font;
     transition: opacity 300ms all;
+    z-index: 100;
     &.closed {
         opacity: 0;
     }
@@ -19,8 +20,9 @@
         transition-timing-function: ease-out;
     }
 }
-.drawer{
-    &.md{
+
+.drawer {
+    &.md {
         width: 60vw;
     }
     outline: 0;
@@ -29,48 +31,49 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: #fff;
+    background-color: var(--theme-color);
     height: 100%;
     padding: 0 1em;
     display: flex;
     flex-direction: column;
     z-index: 499;
-    box-shadow: 0 4px 4px rgba(0,0,0,.12), 0 0 10px rgba(0,0,0,.06);
-    .drawer--header{
-        border-bottom: 1px solid #f6f6f6;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, .12),
+    0 0 10px rgba(0, 0, 0, .06);
+    .drawer--header {
+        border-bottom: var(--theme-border);
         padding: 1em 0;
         display: flex;
         align-items: center;
         // justify-content: space-between;
         padding-right: 4em;
         position: relative;
-        p{
+        p {
             font-size: 1.5em;
             // font-weight: 700;
             margin: 0;
             padding-right: 1.5em;
         }
-        .drawer-cancel-btn{
+        .drawer-cancel-btn {
             position: absolute;
             right: 0;
             top: 25%;
             font-size: 1.4em;
             padding: 0.2em 0.4em;
-            &:hover{
+            &:hover {
                 cursor: pointer;
                 background-color: #f7f9fc;
                 color: $theme-neutral-color !important;
             }
         }
     }
-    .drawer--body{
+    .drawer--body {
         flex: 1;
         max-height: 100%;
         overflow: auto;
         padding: 1em 0;
     }
-    .drawer--footer{
-        border-top: 1px solid #f6f6f6;
+    .drawer--footer {
+        border-top: var(--theme-border);
         padding: 1em 0;
         display: flex;
         align-items: center;

@@ -191,20 +191,18 @@ class TaskModal extends Component {
                     onSubmit={this.createNewTask}
                     title={this.state.title}
                 >
-                    <div className="row space-between">
-                        <div className="task-details col-8">
-                            <div className="gutter-top">
-                                <Input
-                                    readOnly={!this.state.edit}
-                                    label="Title"
-                                    type="Input"
-                                    className={`bordered-on-focus form-input ${!this.state.edit ? "readOnly" : "border"}`}
-                                    placeholder="Title"
-                                    name="name"
-                                    value={this.state.task.name}
-                                    onChange={this.handleOnChange}
-                                />
-                            </div>
+                    <div className="row row--flex">
+                        <div className="col-12 col-xs-12 col-md-8 padding-left-0">
+                            <Input
+                                readOnly={!this.state.edit}
+                                label="Title"
+                                type="Input"
+                                className={`bordered-on-focus form-input rounded ${!this.state.edit ? "readOnly" : "border"}`}
+                                placeholder="Title"
+                                name="name"
+                                value={this.state.task.name}
+                                onChange={this.handleOnChange}
+                            />
                             <div className="gutter-top">
                                 <InputEditor
                                     readOnly={!this.state.edit}
@@ -216,38 +214,36 @@ class TaskModal extends Component {
                                 />
                             </div>
                             <div className="gutter-top">
-                                {/* <ImageUpload
+                                <ImageUpload
                                     name="desc_images"
                                     readOnly={!this.state.edit}
                                     onChange={this.updateImages}
-                                    files={this.state.task.desc_images}
-                                /> */}
+                                    files={this.state.task.desc_images || []}
+                                />
                             </div>
                             <div className="gutter-top">
                                 <Comment/>
                             </div>
-
-
                         </div>
-                        <div className="task-meta-info col-4">
-                            <div className="gutter-top">
-                                <DropDown
-                                    readOnly={!this.state.edit}
-                                    label="Priority"
-                                    placeholder="Task Priority"
-                                    options={priority}
-                                    name="priority"
-                                    onSelect={this.handleOnChange}
-                                    selected={this.state.task.priority}
-                                    className={`bordered-on-focus form-input ${!this.state.edit ? "readOnly" : "border"}`}
-                                />
-                            </div>
+                        <div className="col-12 col-xs-12 col-md-4 padding-right-0" style={{
+                            borderLeft: "var(--theme-border)"
+                        }}>
+                            <DropDown
+                                readOnly={!this.state.edit}
+                                label="Priority"
+                                placeholder="Task Priority"
+                                options={priority}
+                                name="priority"
+                                onSelect={this.handleOnChange}
+                                selected={this.state.task.priority}
+                                className={`bordered-on-focus form-input rounded ${!this.state.edit ? "readOnly" : "border"}`}
+                            />
                             <div className="gutter-top">
                                 <Input
                                     readOnly={!this.state.edit}
                                     label="Due Date"
                                     type="date"
-                                    className={`bordered-on-focus form-input ${!this.state.edit ? "readOnly" : "border"}`}
+                                    className={`bordered-on-focus form-input rounded ${!this.state.edit ? "readOnly" : "border"}`}
                                     placeholder="Due Date"
                                     name="dueDate"
                                     value={date}

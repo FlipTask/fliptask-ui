@@ -8,7 +8,7 @@ class NavListItem extends Component {
             <Link
                 title={listItem.title || listItem.name}
                 to={`${urlPrefix}/${listItem.id}`}
-                className={`nav-list-item text-default ${active ? "active-workspace" : ""}`}
+                className={`nav-list-item ${active ? "active-workspace" : ""}`}
             >
                 <span className="nav-list-item--lastactive">
                     <i className={`fas fa-circle ${active ? "text-success" : ""}`}></i>

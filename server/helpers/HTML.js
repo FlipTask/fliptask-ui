@@ -28,6 +28,8 @@ const HTML = ({
     <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap"
         rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link
         href="https://fonts.googleapis.com/css?family=Ubuntu:400,500,700&display=swap"
         rel="stylesheet">
@@ -36,7 +38,7 @@ const HTML = ({
     ${linkTags}
     ${styleTags}
 </head>
-<body style="margin:0px">
+<body style="margin:0px" data-theme="${store.app.theme}">
 <script>
 window.INITIAL_STATE = ${JSON.stringify(store).replace(
         /</g,

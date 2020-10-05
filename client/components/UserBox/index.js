@@ -1,21 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import UserOptions from "./UserOptions";
-import {
-    logout
-} from "../../actions";
 
 class UserBox extends Component {
-    state = {
-        openList: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            openList: false
+        };
+        this.optionListElement = React.createRef();
+        this.t = null;
     }
 
-    t = null;
-
-    onClick = () => {
+    onClick = (e) => {
+        // e.preventDefault();
+        e.stopPropagation();
         this.t = null;
         this.setState({
             openList: !this.state.openList
+        }, () => {
+            if (this.state.openList) {
+                this.optionListElement.current.focus();
+            }
         });
     }
 
@@ -27,7 +33,7 @@ class UserBox extends Component {
                 openList: false
             });
             clearTimeout(this.t);
-        }, 100);
+        }, 800);
     }
 
     render() {
@@ -38,14 +44,13 @@ class UserBox extends Component {
         const isViewMin = !!((view === "min" || view === "minimum"));
         return (
             <div
+                onBlur={this.onBlur}
                 tabIndex="0"
                 title={`${user.firstName} ${user.lastName}`}
                 className={`user-box ${isViewMin ? "user-box-min" : ""}`}
-                onClick={this.onClick}
-                onBlur={this.onBlur}
             >
                 <div className={`user-box--wrapper ${this.state.openList ? "active" : ""}`}>
-                    <div className="user-box--img">
+                    <div className="user-box--img" onClick={this.onClick}>
                         <img src="/assets/avatars/64px/1.png" alt="1.png"/>
                     </div>
                     {
@@ -54,10 +59,6 @@ class UserBox extends Component {
                             : <React.Fragment>
                                 <div className="user-box--info">
                                     <span className="user-box--name text-default">{user.firstName} {user.lastName}</span>
-                                    {/* <span className="user-box--status text-light">
-                                        <i className="fa fa-moon"></i>
-                                        Away
-                                    </span> */}
                                 </div>
                                 <div className="user-box--dropdown">
                                     <i className="far fa-chevron-down"></i>
@@ -66,10 +67,7 @@ class UserBox extends Component {
                     }
                     {
                         this.state.openList
-                            ? <UserOptions
-                                logout={this.props.logout}
-                                user={user}
-                            />
+                            ? <UserOptions onBlur={this.onBlur} domRef={this.optionListElement}/>
                             : ""
                     }
                 </div>
@@ -82,5 +80,5 @@ const mapStateToProps = ({ user }) => ({
     user: user.user
 });
 export default connect(mapStateToProps, {
-    logout
+
 })(UserBox);

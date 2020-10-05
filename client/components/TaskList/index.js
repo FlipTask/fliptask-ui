@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Container, Draggable } from "react-smooth-dnd";
 import NewTaskButton from "../Task/NewTaskButton";
 import Task from "../Task";
-import TaskCardPlaceHolder from "../Task/TaskCardPlaceHolder";
 import {
     getTaskListById
 } from "../../actions";
@@ -39,19 +38,17 @@ class TaskList extends Component {
                                 dropPlaceholderAnimationDuration={200}
                             >
                                 {
-                                    data.tasks && data.tasks.length === 0
-                                        ? <TaskCardPlaceHolder />
-                                        : data.tasks && data.tasks.map((task, i) => (
-                                            <Draggable key={i} className="task-card card-shadow">
-                                                <Task
-                                                    workspace={workspace}
-                                                    dropableTasks={dropableTasks}
-                                                    listId={data.id}
-                                                    index={i}
-                                                    task={task}
-                                                />
-                                            </Draggable>
-                                        ))
+                                    data.tasks && data.tasks.map((task, i) => (
+                                        <Draggable key={i} className="task-card card-shadow">
+                                            <Task
+                                                workspace={workspace}
+                                                dropableTasks={dropableTasks}
+                                                listId={data.id}
+                                                index={i}
+                                                task={task}
+                                            />
+                                        </Draggable>
+                                    ))
                                 }
                             </Container>
                         </div>

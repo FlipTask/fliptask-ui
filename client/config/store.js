@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import Cookies from "universal-cookie";
 import reducers from "../reducers";
 import api from "./api";
+import getTheme from "./theme";
 
 const cookies = new Cookies();
 // eslint-disable-next-line no-underscore-dangle
@@ -23,12 +24,13 @@ if (process.env.NODE_ENV === "production") {
         }))
     );
 }
+
+
 const preloadedState = window.INITIAL_STATE;
 const store = createStore(
     reducers, // reducers
     preloadedState,
     enhancer
 );
-
-
+getTheme(store, cookies);
 export default store;

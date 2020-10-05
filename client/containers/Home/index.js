@@ -4,8 +4,8 @@ import { withRouter } from "react-router";
 import SideNav from "../../components/SideNav";
 import RenderRoutes from "../../components/RenderRoutes";
 import { fetchBoards, fetchUser, getAllTeams } from "../../actions";
-import BoardHeader from "../../components/Header/BoardHeader";
 import CopyRightFooter from "../../components/Footer/CopyRightFooter";
+import Header from "../../components/Header";
 
 class Home extends Component {
     state = {
@@ -41,16 +41,15 @@ class Home extends Component {
         } = this.state;
         return (
             <React.Fragment>
+                <Header />
                 <SideNav
                     onCollapsing={this.onCollapsing}
                     onEnd={this.onEnd}
                 />
-                <div className={`not-side-nav col-12 col-xs-12 col-md-12 no-padding ${!sideNavOpen ? "collapsed-in" : ""} ${sideNavCollapsing ? "collapsing" : ""}`}>
-                    <div className="board--wrapper col-xs-12 col-sm-12 col-md-12 no-padding">
-                        <BoardHeader board={ activeWorkspace }/>
+                <div className="board--wrapper col-xs-12 col-sm-12 col-md-12 no-padding">
+                    <div className={`${!sideNavOpen ? "collapsed-in" : ""} ${sideNavCollapsing ? "collapsing" : ""} not-side-nav`}>
                         <RenderRoutes routes={this.props.route.routes} />
                     </div>
-                    <CopyRightFooter />
                 </div>
             </React.Fragment>
         );

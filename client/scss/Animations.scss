@@ -85,6 +85,8 @@
 .invite-box-wrapper {
     padding: 0.625rem 0.75rem !important;
     border-radius: 0;
+    border: none;
+    background-color: var(--theme-textbox-active-background) !important;
     &.customize-token-input---focused---2EN4q {
         box-shadow: 0 2px 3px rgba(50, 50, 93, 0.11), 0 0 2px rgba(0, 0, 0, 0.08) !important;
         // border-color: #1f89e5 !important;

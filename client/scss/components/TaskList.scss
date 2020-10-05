@@ -1,14 +1,12 @@
 .task-list--wrapper {
     display: block;
-    width: 300px;
-    min-width: 300px;
-    padding: 0.5em;
+    width: 270px;
+    min-width: 270px;
+    padding: 0.7em 0;
     margin: 0 0.5em;
     max-height: 80vh;
-    // height: 100%;
-    border: 1px solid #f3f3f3;
     border-radius: 3px;
-    background-color: #fff;
+    background-color: var(--nav-color);
     @include responsive($sm, "max") {
         width: 100%;
         min-width: auto;
@@ -35,6 +33,7 @@
             justify-content: space-between;
             padding: 0.5em 0;
             position: relative;
+            border-bottom: var(--theme-border);
             p {
                 margin: 0;
                 padding-left: 1em;
@@ -59,7 +58,6 @@
             display: block;
             height: inherit;
             width: 100%;
-            background-color: #e5eef5;
             @include borderRadius;
             float: left;
             flex: 1 1 auto;
@@ -68,8 +66,7 @@
         }
         .task-list--footer {
             float: left;
-            margin-top: 1em;
-            // padding: 0em 0.5em;
+            margin: 0.5em 1em 0 1em;
             button {
                 width: 100%;
             }
@@ -102,32 +99,38 @@
     }
 }
 
-.smooth-dnd-container.horizontal {
-    >.smooth-dnd-draggable-wrapper {
-        // padding: 0 1em;
-        &:hover {
-            cursor: pointer;
+.dropable-list {
+    .smooth-dnd-container.horizontal {
+        display: flex;
+        >.smooth-dnd-draggable-wrapper {
+            // padding: 0 1em;
+            height: 100%;
+            display: inline-flex;
+            vertical-align: top;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        >.smooth-dnd-ghost {
+            .dragable-list {
+                box-shadow: 0 1px 2px 0 rgba(9, 30, 66, .25);
+            }
+            // width: 270px !important;
         }
     }
 }
 
 .task_list-drop-preview {
+    @include borderRadius;
     background-color: rgba(150, 150, 200, 0.1);
     border: 1px dashed #abc;
-    margin: 5px 45px 5px 5px;
+    margin: 0 0.5em;
+    background-color: var(--nav-active-color);
     * {
         visibility: hidden;
     }
 }
 
-// .smooth-dnd-container {
-//     &.horizontal {
-//         display: flex !important;
-//         overflow-x: auto;
-//         .smooth-dnd-draggable-wrapper {
-//             height: auto !important;
-//             display: inline-table !important;
-//             vertical-align: top !important;
-//         }
-//     }
-// }
+.create-new-list-form {
+    padding: 1em;
+}

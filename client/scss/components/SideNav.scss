@@ -9,18 +9,33 @@
 }
 
 .sidenav--primary {
-    z-index: 110;
-    height: 100%;
+    z-index: 98;
+    height: calc(100% - 56px);
+    top: 56px;
     position: fixed;
     width: 250px;
     font-size: 1.2em;
-    background-color: var(--theme-color-dark-3);
-    color: #f7f7f7;
+    background-color: var(--nav-color);
     justify-content: space-between;
     display: flex;
     flex-grow: 1;
     flex-direction: column;
-    transition: all 0.3s ease-in-out;
+    transition: 0.3s ease-in-out width;
+    &::after {
+        background: linear-gradient(to left, rgba(0, 0, 0, 0.2) 0px, rgba(0, 0, 0, 0.2) 1px, rgba(0, 0, 0, 0.1) 1px, rgba(0, 0, 0, 0) 100%);
+        bottom: 0;
+        right: 0px;
+        opacity: 0.4;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        transition-duration: 0.22s;
+        transition-property: left, opacity, width;
+        transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+        width: 3px;
+        height: 100%;
+        content: "";
+    }
     @include responsive($sm, "max") {
         left: -280px;
     }
@@ -30,10 +45,10 @@
     &.collapsed-in,
     &.collapsing {
         transition: all 0.3s ease-in-out;
-        width: 40px !important;
+        width: 54px !important;
         flex-grow: unset;
         .nav-list-heading {
-            justify-content: center;
+            // justify-content: center;
         }
         .sidenav-head {
             .header--logo {
@@ -99,12 +114,12 @@
 }
 
 .active-list-item {
-    background-color: rgba(0, 0, 0, 0.32);
+    background-color: var(--nav-active-color);
     cursor: pointer;
     transition: 0.3s ease all;
-    @extend .text-success;
+    @extend .text-primary;
     i {
-        @extend .text-success;
+        @extend .text-primary;
     }
 }
 
@@ -113,15 +128,16 @@
     &.active {
         @include transition;
         .nav-list-heading {
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: var(--nav-active-color);
+            border-bottom: 1px solid var(--theme-color);
         }
     }
     .nav-list-heading {
         font-size: 0.8em;
         margin-bottom: 0;
         position: relative;
-        padding: 1em 0.5em;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        padding: 1em 16px;
+        border-bottom: var(--theme-border);
         display: flex;
         justify-content: space-between;
         .nav-list-name {
@@ -130,6 +146,8 @@
             &--title {
                 margin-left: 0.7em;
                 font-size: 1.1em;
+                font-weight: 500;
+                color: var(--theme-text-color);
             }
         }
         i {
@@ -139,22 +157,23 @@
         }
         &:hover {
             cursor: pointer;
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: var(--nav-active-color);
         }
     }
     .nav--list {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        border-bottom: var(--theme-border);
         .nav-list--wrapper {
-            max-height: 14rem;
+            max-height: 15rem;
             overflow: auto;
-            background-color: rgba(0, 0, 0, 0.1);
+            padding: 8px;
             .nav-list-item {
                 font-size: 0.8rem;
                 display: flex;
                 align-items: baseline;
-                transition: 0.3s ease all;
                 text-decoration: none;
                 padding: 0.8em 0.5em 0.8em 1em;
+                color: var(--theme-text-color);
+                font-weight: 500;
                 .nav-list-item--name {
                     margin-left: 1em;
                 }
@@ -168,6 +187,7 @@
                 }
                 &:hover {
                     @extend .active-list-item;
+                    @include borderRadius;
                 }
             }
         }
@@ -183,7 +203,7 @@
                     margin-right: 10px;
                 }
                 &:hover {
-                    background-color: rgba(0, 0, 0, 0.1) !important;
+                    background-color: var(--nav-active-color) !important;
                     border-radius: 0.2rem;
                     color: #fff !important;
                     box-shadow: none;
@@ -214,13 +234,14 @@
 
 .not-side-nav {
     transition: all 0.3s ease-in-out 0s;
+    flex-direction: column;
     @include responsive ($sm, "min") {
         margin-left: 250px;
         width: calc(100% - 250px);
         &.collapsed-in,
         &.collapsing {
-            margin-left: 40px;
-            width: calc(100% - 40px) !important;
+            margin-left: 54px;
+            width: calc(100% - 54px) !important;
         }
     }
 }

@@ -74,7 +74,7 @@ class Login extends Component {
                                 iconPosition="left"
                                 // icon="envelope-square"
                                 label="Email"
-                                className="shadowed border rounded"
+                                className="form-input rounded border"
                                 type="text"
                                 placeholder="Enter username"
                                 value={username}
@@ -84,7 +84,7 @@ class Login extends Component {
                                 iconPosition="left"
                                 // icon="unlock-alt"
                                 label="Password"
-                                className="shadowed border rounded"
+                                className="form-input rounded border"
                                 type="password"
                                 placeholder="Enter password"
                                 value={password}

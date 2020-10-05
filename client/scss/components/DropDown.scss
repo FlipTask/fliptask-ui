@@ -5,9 +5,12 @@
     .dropdown--wrapper {
         position: relative;
         .dropdown--input {
+            label {
+                padding-left: 12px;
+            }
             .form-group {
                 margin-bottom: 0;
-                .input-group{
+                .input-group {
                     position: relative;
                     input {
                         padding-right: 3em;
@@ -65,7 +68,7 @@
                     border-top: 0;
                     // @include borderRadius;
                     background-color: #fff;
-                    &.fixed-at-bottom{
+                    &.fixed-at-bottom {
                         // position: absolute;
                         width: 100%;
                         // bottom: 0em;

@@ -86,7 +86,7 @@ class DropDown extends Component {
                     <div className="dropdown--input">
                         {
                             label
-                                ? <label className="label">{label}</label>
+                                ? <label className="label text-light-grey">{label}</label>
                                 : ""
                         }
                         <Input

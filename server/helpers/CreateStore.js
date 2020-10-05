@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import reducers from "../../client/reducers";
+import getTheme from "../../client/config/theme";
 
 const getUrl = () => {
     const apiUrl = process.env.API_URL;
@@ -21,20 +22,16 @@ export default (req) => {
         baseURL: `${getUrl()}`,
         headers: {
             cookie: req.get("cookie") || "",
-            Authorization: `Bearer ${cookies.get("token") || ""}`
+            Authorization: `Bearer ${cookies.get("token") || ""}`,
+            organisationid: cookies.get("active-org")
         }
     });
 
-    axiosInstance.interceptors.request.use((request) => {
-        // console.log(`[AXIOS Request][${request.baseURL}] ${request.method} ${request.url}`);
-        return request;
-    });
-
     axiosInstance.interceptors.response.use((response) => {
-        // console.log(`[AXIOS Response][${response.config.baseURL}] ${response.status} ${response.config.url}`);
         return response;
     }, (error) => {
-        if (error.response.status === 400) {
+        console.log(error);
+        if (error.response && error.response.status === 400) {
             console.log(`[REQUEST_FAILED] ${error.response.config.url} ${error.response.status}`);
         }
     });
@@ -43,5 +40,6 @@ export default (req) => {
         api: axiosInstance,
         cookies
     })));
+    getTheme(store, cookies);
     return store;
 };

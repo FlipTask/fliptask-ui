@@ -36,7 +36,7 @@ class NavList extends Component {
         const { accordian, open } = this.state;
         return (
             <div className={`nav-list ${open ? "active" : ""}`}>
-                <div className="nav-list-heading text-light" onClick={(e) => {
+                <div className="nav-list-heading" onClick={(e) => {
                     if (accordian) {
                         this.toggleOpen(e);
                     }

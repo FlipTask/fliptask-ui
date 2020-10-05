@@ -71,14 +71,14 @@ class SideNav extends Component {
                         ? <div className={"sidenav-backdrop"} onClick={this.props.toggleSideNav}></div>
                         : null
                 }
-                <div className={`sidenav--primary ${!open ? "collapsed-in" : ""} ${collapsing ? "collapsing" : ""} ${ isSideNavOpen ? "slideIn" : ""}`}>
-                    <Link className="sidenav-head" to="/">
+                <nav className={`sidenav--primary ${!open ? "collapsed-in" : ""} ${collapsing ? "collapsing" : ""} ${isSideNavOpen ? "slideIn" : ""}`}>
+                    {/* <Link className="sidenav-head" to="/">
                         <FontLogo fontSize="1" hideTail={this.state.collapsing || !this.state.open}/>
-                    </Link>
+                    </Link> */}
                     <div className="sidenav-body">
                         <div className="nav-list">
 
-                            <Link to="/" className="nav-list-heading text-light not-anchor">
+                            <Link to="/" className="nav-list-heading not-anchor">
                                 <div className="nav-list-name">
                                     <Svg name={"home"} className="side-nav-icon" height="20" width="20"/>
                                     {
@@ -149,7 +149,7 @@ class SideNav extends Component {
                     <div className="collapse-nav-btn hidden-sm-down" onClick={this.toggleCollapse}>
                         <i className={`far fa-angle-left ${!open ? "flip-left" : "flip-right"}`}></i>
                     </div>
-                </div>
+                </nav>
             </React.Fragment>
         );
     }

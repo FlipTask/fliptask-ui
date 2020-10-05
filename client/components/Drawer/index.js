@@ -51,7 +51,7 @@ class DrawerWrapper extends Component {
                                 {
                                     HeaderComponent
                                         ? <HeaderComponent />
-                                        : <p className="text-light-grey">
+                                        : <p>
                                             {title}
                                         </p>
                                 }

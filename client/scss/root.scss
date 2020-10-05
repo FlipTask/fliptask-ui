@@ -1,4 +1,7 @@
-// @import "./reset.scss";
+/*
+* Theme, Var SCSS
+*/
+
 @import "./vars/color-themes.scss";
 @import "./vars/functions";
 @import "./vars/gridSystem";
@@ -7,6 +10,11 @@
 @import "./vars/mixins.scss";
 @import "./vars/global.scss";
 @import "./Animations.scss";
+
+/*
+* Component SCSS
+*/
+
 @import "./components/Loader.scss";
 @import "./components/Userbox.scss";
 @import "./components/Input.scss";
@@ -22,7 +30,18 @@
 @import "./components/Drawer.scss";
 @import "./components/ImageUpload.scss";
 @import "./components/Logo.scss";
+@import "./components/Card.scss";
+@import "./components/Switch.scss";
+
+/*
+* Container SCSS
+*/
+
 @import "./containers/Home.scss";
 @import "./containers/Login.scss";
-@import "./components/Card.scss";
+
+/*
+* Third party scss
+*/
+
 @import "~react-customize-token-input/dist/react-customize-token-input.css";

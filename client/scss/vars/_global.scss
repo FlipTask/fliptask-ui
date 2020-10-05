@@ -40,11 +40,6 @@
     }
 }
 
-.readOnly {
-    pointer-events: none !important;
-    border: 1px solid #ececec !important;
-}
-
 .text-uppercase {
     text-transform: uppercase;
 }
@@ -64,4 +59,16 @@
 
 .no-padding {
     padding: 0px;
+}
+
+.padding-left-0 {
+    padding-left: 0px;
+}
+
+.padding-right-0 {
+    padding-right: 0px;
+}
+
+hr {
+    border: var(--theme-border);
 }

@@ -1,31 +1,109 @@
-$hotpink: #fe4066;
-$purple: #7b28c7;
-$blue: #2859c7;
-$skyblue: #55a8fd;
-$orange: #c78f28;
-$red: #ff595e;
-$green: #5fd07a;
-$yellow: #f5c346;
+:root {
+    --theme-color-dark-1: #4c5265;
+    --theme-color-dark-2: #2b2f3f;
+    --theme-color-dark-3: #5969a7;
+    --color-pink: #fe4066;
+    --color-purple: #7b28c7;
+    --color-blue: #2859c7;
+    --color-skyblue: #55a8fd;
+    --color-orange: #c78f28;
+    --color-red: #ff595e;
+    --color-green: #5fd07a;
+    --color-yellow: #f5c346;
+    --color-darkBlue: #292c43;
+    --color-dark-grey: #617083;
+    --color-light-color: #8898aa;
+    --color-placeholder-color: #adb5bd;
+    --color-white: #fff;
+    --color-default: #ccc;
+    --theme-color-1: #1c3448;
+    --theme-page-bg: #1c3448;
+    --theme-neutral-color: #5e72e4;
+    /*
+        component level colors
+    */
+}
 
-$darkBlue: #292c43;
 
-$dark-grey: #617083;
-$light-color: #8898aa;
-$placeholder-color: #adb5bd;
-$theme-color: #1c3448;
-$theme-page-bg: #1c3448;
+/*
+* Themes
+*/
 
-$theme-neutral-color: #5e72e4;
+body,
+[data-theme="night"] {
+    --theme-color: #2b2f3f;
+    --header-color: var(--theme-color);
+    --theme-text-color: #d3d3d3;
+    --body-color: #212531;
+    --nav-color: var(--theme-color);
+    --nav-active-color: #373e52;
+    --card-background: var(--nav-active-color);
+    --card-text-color: var(--theme-text-color);
+    color: var(--theme-text-color);
+    background-color: var(--body-color);
+    --theme-border: 1px solid var(--nav-active-color);
+    --theme-textbox-background: transparent;
+    --theme-textbox-active-background: var(--body-color);
+    --theme-textbox-placeholder-color: var(--nav-active-color);
+}
+
+body,
+[data-theme="day"] {
+    --theme-color: #ffffff;
+    --header-color: var(--theme-color);
+    --theme-text-color: #42526E;
+    --body-color: #fff;
+    --nav-color: #f5f5f5;
+    --nav-active-color: #EBECF0;
+    --card-background: var(--body-color);
+    --card-text-color: #172b4d;
+    color: var(--theme-text-color);
+    background-color: var(--body-color);
+    --theme-border: 1px solid var(--nav-active-color);
+    --theme-textbox-background: transparent;
+    --theme-textbox-active-background: var(--nav-color);
+    --theme-textbox-placeholder-color: var(--theme-text-color);
+}
+
+
+/*
+* var colors
+*/
+
+$hotpink: var(--color-pink);
+$purple: var(--color-purple);
+$blue: var(--color-blue);
+$skyblue: var(--color-skyblue);
+$orange: var(--color-orange);
+$red: var(--color-red);
+$green: var(--color-green);
+$yellow: var(--color-yellow);
+$darkBlue: var(--color-darkBlue);
+$dark-grey: var(--color-dark-grey);
+$light-color: var(--color-light-color);
+$placeholder-color: var(--color-placeholder-color);
+$theme-color: var(--theme-color-1);
+$theme-page-bg: var(--theme-page-bg);
+$theme-neutral-color: var(--theme-neutral-color);
 $theme-danger-color: $red;
 $theme-primary-color: $skyblue;
 $theme-success-color: $green;
 $theme-warning-color: $yellow;
 
-$primary-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;;
-$secondary-font: 'Open Sans', Helvetica sans-serif;
+/*
+* Fonts
+*/
 
-:root{
-    --theme-color-dark-1: #4c5265;
-    --theme-color-dark-2: #2b2f3f;
-    --theme-color-dark-3: #242837;
-}
+$primary-font: -apple-system,
+BlinkMacSystemFont,
+'Segoe UI',
+Roboto,
+Oxygen,
+Ubuntu,
+Cantarell,
+'Open Sans',
+'Helvetica Neue',
+sans-serif;
+;
+$secondary-font: 'Poppins',
+sans-serif;

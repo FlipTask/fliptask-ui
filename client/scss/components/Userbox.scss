@@ -1,22 +1,10 @@
 .user-box {
     padding: 0.5em;
     &.user-box-min {
-        padding: 0;
-        height: inherit;
-        display: inline-flex;
         float: right;
-        padding: 1.2em 0;
+        padding: 0.5em 0;
         .user-box--wrapper {
-            background-color: transparent !important;
-            margin: auto;
-            border-radius: 100% !important;
             padding: 0.2em;
-            box-shadow: inset 0 0 0 3px rgba(0, 0, 0, 0.18);
-            .user-box--img {
-                height: 20px;
-                width: 20px;
-                border-radius: 100% !important;
-            }
         }
         .user-options-list {
             min-width: 180px;
@@ -24,18 +12,14 @@
             right: 0;
         }
     }
-    // margin-bottom: 2em;
     .user-box--wrapper {
-        background-color: var(--theme-color-dark-1);
         position: relative;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         padding: 0.5em;
-        @include borderRadius;
         transition: 0.3s ease all;
-        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.18);
         .user-options-list {
             position: absolute;
             width: 100%;
@@ -43,19 +27,25 @@
             top: 2.8rem;
             z-index: 2;
             .user-options-list--wrapper {
-                box-shadow: 0 2px 3px -1px rgba(0, 0, 0, 0.57);
+                box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.31) 0px 0px 1px;
                 @include borderRadius;
-                background-color: var(--theme-color-dark-1);
+                background-color: var(--theme-color);
                 .user-option-list-item {
                     padding: 0.5em 1em;
                     font-size: 1em;
-                    color: #fff;
+                    color: var(--theme-text-color);
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: center;
                     &:first-child {
-                        background-color: #585c6d;
+                        background-color: var(--theme-color);
                         line-height: 1.6em;
                     }
+                    &:last-child {
+                        border-top: var(--theme-border);
+                    }
                     &:not(:first-child):hover {
-                        background-color: var(--theme-color-dark-2);
+                        background-color: var(--nav-active-color);
                     }
                 }
             }
@@ -116,9 +106,9 @@
             cursor: pointer;
             color: #fff !important;
             transition: 0.3s ease all;
-            background-color: rgba(255, 255, 255, 0.08);
+            // background-color: rgba(255, 255, 255, 0.08);
             box-shadow: none;
-            background-color: var(--theme-color-dark-2);
+            // background-color: var(--theme-color-dark-2);
         }
     }
     &:focus {

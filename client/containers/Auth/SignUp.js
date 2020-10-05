@@ -129,7 +129,7 @@ class SignUp extends Component {
                                     // icon="user-alt"
                                     wrapperClass="col-12 col-xs-12 col-md-6"
                                     label="First Name"
-                                    className={`shadowed rounded ${error.firstName ? "border-danger" : "border"}`}
+                                    className={`form-input rounded ${error.firstName ? "border-danger" : "border"}`}
                                     type="text"
                                     placeholder="John"
                                     value={firstName}
@@ -140,7 +140,7 @@ class SignUp extends Component {
                                     wrapperClass="col-12 col-xs-12 col-md-6"
                                     // icon="user-alt"
                                     label="Last Name"
-                                    className={`shadowed rounded ${error.lastName ? "border-danger" : "border"}`}
+                                    className={`form-input rounded ${error.lastName ? "border-danger" : "border"}`}
                                     type="text"
                                     placeholder="Doe"
                                     value={lastName}
@@ -150,7 +150,7 @@ class SignUp extends Component {
                             <Input
                                 error={error.email}
                                 // icon="envelope-open"
-                                className={`shadowed rounded ${error.email ? "border-danger" : "border"}`}
+                                className={`form-input rounded ${error.email ? "border-danger" : "border"}`}
                                 type="email"
                                 label="Email"
                                 placeholder="xyz@abc.com"
@@ -160,7 +160,7 @@ class SignUp extends Component {
                             <Input
                                 error={error.password}
                                 // icon="unlock-alt"
-                                className={`shadowed rounded ${error.password ? "border-danger" : "border"}`}
+                                className={`form-input rounded ${error.password ? "border-danger" : "border"}`}
                                 type="password"
                                 label="Password"
                                 placeholder="********"

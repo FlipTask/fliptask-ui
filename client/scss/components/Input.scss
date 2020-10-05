@@ -10,12 +10,14 @@ textarea {
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
-    font-size: 1rem;
+    // font-size: 1rem;
     // border: 1px solid #1f89e5 !important;
-    -webkit-text-fill-color: inherit !important;
-    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
-    transition: background-color 5000s ease-in-out 0s;
+    // -webkit-text-fill-color: inherit !important;
+    // -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    // transition: background-color 5000s ease-in-out 0s;
     color: inherit;
+    box-shadow: none !important;
+    background-color: var(--nav-color) !important;
 }
 
 label {
@@ -34,52 +36,32 @@ label {
     padding: .625rem .75rem;
     transition: all .2s cubic-bezier(.68, -.55, .265, 1.55);
     background-clip: padding-box;
-    // border: 1px solid transparent;
-    &.border {
-        border: 1px solid #d6d6d6;
-        &:active,
-        &:focus {
-            border: 1px solid #1f89e5;
-        }
-    }
-    &.bordered {
-        border: 1px solid #d6d6d6;
-    }
-    &.bordered-on-focus {
-        &:hover {
-            border: 1px solid #d6d6d6;
-        }
-        &:focus,
-        &:active {
-            border: 1px solid #1f89e5;
-            box-shadow: inset 0px 0px 6px 0px rgba(39, 127, 204, 0.18) !important;
-        }
-    }
+    border: transparent;
     &.rounded {
         @include borderRadius;
     }
-    &.focused {
-        outline: none;
-        box-shadow: 0 4px 6px rgba(30, 30, 37, 0.11), 0 1px 3px rgba(0, 0, 0, .08);
-    }
-    &:focus,
-    &:active,
-    &:-webkit-autofill:focus,
-    &:-webkit-autofill:active {
-        outline: none;
-        box-shadow: 0 4px 6px rgba(30, 30, 37, 0.11), 0 1px 3px rgba(0, 0, 0, .08);
+    &::focus,
+    &::active,
+    &::-webkit-autofill:focus,
+    &::-webkit-autofill:active {
+        box-shadow: none !important;
+        background-color: var(--nav-color) !important;
     }
     &::placeholder {
-        color: $placeholder-color;
-        font-family: $secondary-font;
+        color: var(--theme-textbox-placeholder-color);
+        // font-family: $secondary-font;
     }
 }
 
-input {
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="date"],
+textarea {
     font-family: inherit;
     font-size: 1em;
     &::placeholder {
-        color: $placeholder-color;
+        color: var(--theme-textbox-placeholder-color);
     }
 }
 
@@ -117,12 +99,15 @@ input {
         width: 100%;
         flex-wrap: wrap;
         align-items: stretch;
+        label {
+            padding-left: 12px;
+        }
         &.with-icon {
             .icon {
                 position: absolute;
                 z-index: 1;
                 font-size: 1.5em;
-                color: #c5c5c5;
+                color: var(--theme-text-color);
                 padding: 0 0.5em;
                 height: 100%;
                 line-height: 2em;
@@ -151,16 +136,22 @@ input {
             flex: 1 1 auto;
             font-size: .875rem;
             transition: none;
+            background-color: var(--theme-textbox-background);
+            color: var(--theme-text-color);
             &.rounded {
                 @include borderRadius;
             }
+            &:hover,
             &:focus,
             &:active {
-                outline: none;
-                box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+                box-shadow: none;
+                background-color: var(--theme-textbox-active-background);
             }
             &::placeholder {
-                color: $placeholder-color;
+                color: var(--theme-textbox-placeholder-color);
+            }
+            &:not([readOnly]) {
+                background-color: var(--theme-textbox-active-background);
             }
         }
     }
@@ -176,8 +167,8 @@ input {
             padding: .625rem .75rem;
             text-align: center;
             white-space: nowrap;
-            color: #adb5bd;
-            background-color: #fff;
+            color: var(--theme-text-color);
+            background-color: var(--theme-textbox-background);
             align-items: center;
             &.rounded {
                 @include borderRadius;
@@ -191,75 +182,57 @@ input.form-input {
     &:focus,
     &:active {
         outline: none;
-        box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+        box-shadow: none !important;
+        background-color: var(--theme-textbox-active-background) !important;
     }
     &::placeholder {
-        color: $placeholder-color;
+        color: var(--theme-textbox-placeholder-color);
         // font-weight: 700;
     }
 }
 
-.auth-input {
-    font-weight: 700;
-    display: block;
-    width: 100%;
-    background-color: rgba($theme-color, 0.02);
-    height: 45px;
-    padding: 0 1em;
-    font-size: 14px;
-    color: #333;
-    padding-left: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    box-sizing: border-box;
-    border-radius: 4px;
-    border-width: 0;
-    border-style: initial;
-    border-color: initial;
-    border-image: initial;
-    outline: none;
-    &:focus,
-    &:active {
-        background-color: rgba($theme-color, 0.04);
-        border: 1px solid rgba($theme-color, 0.59);
-        outline: none;
-        box-shadow: inset 0 0 6px 1px rgba(51, 51, 51, 0.18);
-    }
-    &::placeholder {
-        color: #ddd;
-        font-weight: 700;
-    }
+.readOnly {
+    // pointer-events: none !important;
+    // border: var(--theme-border) !important;
 }
 
-.ck-editor__editable.ck.ck-content {
-    min-height: 100px !important;
-    // @include borderRadius;
-    border-radius: 3px !important;
-    &.ck-editor__editable_inline {
-        padding: 0rem .75rem !important;
-        // background-color: rgba(183, 214, 242, 0.08) !important;
+.input-editor {
+    label {
+        padding-left: 12px;
     }
-    &.ck-read-only {
-        border-color: #ececec !important;
-        // border: 1px solid #ececec !important;
-    }
-    &.ck-blurred {
-        border-color: #ececec !important;
-    }
-    &[contenteditable=true] {
-        border: 1px solid #d6d6d6 !important;
-        &.ck-focused {
-            outline: none;
-            box-shadow: inset 0px 0px 6px 0px rgba(39, 127, 204, 0.18) !important;
-            border: 1px solid #1f89e5 !important;
-            // border: 1px solid #f3f3f3 ;
+    .ck-editor__editable.ck.ck-content {
+        min-height: 100px !important;
+        @include borderRadius;
+        border-radius: 3px !important;
+        color: var(--theme-text-color);
+        &.ck-editor__editable_inline {
+            padding: 0rem .75rem !important;
+            background-color: var(--theme-color) !important;
+        }
+        &.ck-read-only {
+            border-color: transparent !important;
+            border: 1px solid transparent !important;
+        }
+        &.ck-blurred {
+            border-color: transparent !important;
+            &:hover {
+                background-color: var(--theme-textbox-active-background) !important;
+            }
+        }
+        &[contenteditable=true] {
+            border: 1px solid transparent !important;
+            background-color: var(--theme-textbox-active-background) !important;
+            &.ck-focused {
+                outline: none;
+                box-shadow: none !important;
+                background-color: var(--theme-textbox-active-background) !important;
+            }
+        }
+        &>.ck-placeholder::before {
+            color: var(--theme-textbox-placeholder-color);
         }
     }
-    &>.ck-placeholder::before {
-        color: $placeholder-color;
+    .ck.ck-editor__top.ck-reset_all {
+        display: none;
     }
-}
-
-.ck.ck-editor__top.ck-reset_all {
-    display: none;
 }

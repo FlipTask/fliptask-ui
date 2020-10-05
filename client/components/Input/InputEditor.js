@@ -256,7 +256,7 @@ class InputEditor extends Component {
             <div className="input-editor">
                 {
                     label
-                        ? <label className="label">{label}</label>
+                        ? <label className="label text-light-grey">{label}</label>
                         : ""
                 }
 

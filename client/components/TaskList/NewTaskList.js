@@ -82,10 +82,8 @@ class NewTaskList extends Component {
                                 onClick={this.toggleForm}
                                 className="btn md btn-success rounded card-shadow"
                                 style={{
-                                    width: "100%",
-                                    lineHeight: "5em",
-                                    fontSize: "1.2em",
-                                    fontWeight: "600"
+                                    fontWeight: "600",
+                                    margin: "0.5em 1em"
                                 }}
                             >
                                 <i className="fas fa-plus" aria-hidden="true"></i>

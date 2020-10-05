@@ -1,9 +1,11 @@
 import {
-    TOGGLE_SIDE_NAV
+    TOGGLE_SIDE_NAV,
+    TOGGLE_THEME
 } from "../constants/ActionTypes";
 
 const INITIAL_STATE = {
-    sideNavOpen: false
+    sideNavOpen: false,
+    theme: "day"
 };
 
 export default (state = INITIAL_STATE, { type, payload }) => {
@@ -12,6 +14,11 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         return {
             ...state,
             sideNavOpen: !state.sideNavOpen
+        };
+    case TOGGLE_THEME:
+        return {
+            ...state,
+            theme: payload
         };
     default:
         return state;

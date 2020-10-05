@@ -41,5 +41,6 @@ export {
 } from "./TeamActions";
 
 export {
-    toggleSideNav
+    toggleSideNav,
+    toggleTheme
 } from "./AppActions";

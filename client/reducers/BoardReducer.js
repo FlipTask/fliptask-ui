@@ -50,7 +50,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
                     ...state.boards.rows,
                     payload.data
                 ],
-                count: state.bodard.count + 1
+                count: state.boards.count + 1
             },
             error: {}
         };

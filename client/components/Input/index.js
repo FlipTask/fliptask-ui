@@ -34,6 +34,7 @@ class Input extends Component {
                                 : ""
                         }
                         <textarea
+                            readOnly={readOnly}
                             {...rest}
                             value={value}
                             placeholder={placeholder}
@@ -66,6 +67,7 @@ class Input extends Component {
                             placeholder={placeholder}
                             onChange={onChange}
                             name={name}
+                            readOnly={readOnly}
                             className={`${className || ""} form-control`}
                         />
                         <i className="far fa-chevron-down text-light" aria-hidden="true"></i>
@@ -101,6 +103,7 @@ class Input extends Component {
                         type={type || "text"}
                         placeholder={placeholder}
                         onChange={onChange}
+                        readOnly={readOnly}
                         name={name}
                         className={`${className || ""} form-control ${classNameIfIcon}`}
                     />

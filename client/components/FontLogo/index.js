@@ -3,7 +3,7 @@ import React from "react";
 const FontLogo = ({
     hideTail = false,
     fontSize = 2,
-    color = "#ffffff",
+    color = "var(--theme-text-color)",
     display = "block"
 }) => (
     <div className="font-logo" style={{
