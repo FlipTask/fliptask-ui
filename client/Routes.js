@@ -18,9 +18,24 @@ const AppContainer = loadable(() => pMinDelay(import(
     "./AppContainer"
 )), MIN_DELAY_CHUNK);
 
-const Auth = loadable(() => pMinDelay(import(
-    /* webpackChunkName: "auth" */
-    "./containers/Auth"
+const LoginPage = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "login-page" */
+    "./containers/Auth/Login"
+)), MIN_DELAY_CHUNK);
+
+const SignupPage = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "signup-page" */
+    "./containers/Auth/SignUp"
+)), MIN_DELAY_CHUNK);
+
+const VerifyEmailPage = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "verify-email-page" */
+    "./containers/Auth/VerifyEmail"
+)), MIN_DELAY_CHUNK);
+
+const NotFound = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "notfound-page" */
+    "./containers/Error/NotFound"
 )), MIN_DELAY_CHUNK);
 
 const OnBoard = loadable(() => pMinDelay(import(
@@ -73,11 +88,15 @@ const WorkspaceModal = loadable(() => pMinDelay(import(
     "./components/Workspace/WorkspaceModal"
 )), MIN_DELAY_CHUNK);
 
-const TeamPage = loadable(() => pMinDelay(import(
-    /* webpackChunkName: "team-page", webpackPrefetch: true */
+const TeamPageWrapper = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "team-page-wrapper", webpackPrefetch: true */
     "./containers/Team"
 )), MIN_DELAY_CHUNK);
 
+const TeamPage = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "team-page", webpackPrefetch: true */
+    "./containers/Team/Team"
+)), MIN_DELAY_CHUNK);
 
 const TeamModal = loadable(() => pMinDelay(import(
     /* webpackChunkName: "team-modal", webpackPrefetch: true */
@@ -95,14 +114,21 @@ export default [
         routes: [
             {
                 path: "/login",
-                component: Auth,
+                component: LoginPage,
                 exact: true
             }, {
                 path: "/signup",
-                component: Auth,
+                component: SignupPage,
                 exact: true
-            },
-            {
+            }, {
+                path: "/verify-email",
+                component: VerifyEmailPage,
+                exact: true
+            }, {
+                path: "/404",
+                exact: true,
+                component: NotFound
+            }, {
                 path: "/",
                 loadData: (store) => [store.dispatch(fetchUser())],
                 component: SecureRoute,
@@ -147,15 +173,20 @@ export default [
                                 component: DetailedHome,
                                 secureRoute: true
                             }, {
-                                path: "/teams",
-                                component: TeamPage,
+                                path: "/team",
+                                component: TeamPageWrapper,
                                 secureRoute: true,
                                 routes: [
                                     {
-                                        path: "/teams/create-new",
+                                        path: "/team/create-new",
                                         secureRoute: true,
                                         exact: true,
                                         component: TeamModal
+                                    }, {
+                                        path: "/team/:teamId",
+                                        secureRoute: true,
+                                        exact: true,
+                                        component: TeamPage
                                     }
                                 ]
                             }, {

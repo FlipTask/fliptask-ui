@@ -3,6 +3,7 @@ export {
     tryLogin,
     setAuthTokenInSession,
     setHeaderInApi,
+    verifyEmail,
     logout
 } from "./AuthActions";
 
@@ -37,7 +38,8 @@ export {
 
 export {
     createNewTeam,
-    getAllTeams
+    getAllTeams,
+    getTeam
 } from "./TeamActions";
 
 export {

@@ -5,6 +5,9 @@ import Input from "../../components/Input";
 import { tryLogin } from "../../actions";
 import Button from "../../components/Button";
 import FontLogo from "../../components/FontLogo";
+import SVG from "../../components/Svg";
+import Auth from ".";
+
 class Login extends Component {
     state = {
         username: "",
@@ -39,7 +42,7 @@ class Login extends Component {
             // return <Redirect to="/onboard" />;
         }
         return (
-            <React.Fragment>
+            <Auth>
                 <div className="row">
                     <div className=" col-12 col-md-12 text-right" style={{
                         paddingTop: "1em",
@@ -99,7 +102,7 @@ class Login extends Component {
                         </form>
                     </div>
                 </div>
-            </React.Fragment>
+            </Auth>
         );
     }
 }

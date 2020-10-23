@@ -5,7 +5,7 @@ import FontLogo from "../FontLogo";
 class Header extends Component {
     render() {
         return (
-            <header className="header header--main col-12 col-md-12 no-padding">
+            <header className="header header--main col-12 col-md-12 col-xs-12 no-padding">
                 <div className="header--partition col-2 col-md-2 col-xs-2 hidden-sm-down">
                     <FontLogo fontSize="1"/>
                 </div>

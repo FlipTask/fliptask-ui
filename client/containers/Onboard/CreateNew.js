@@ -48,7 +48,7 @@ class CreateNew extends Component {
                     style={{
                         marginTop: "1em"
                     }}
-                    className={"w-100 btn bg-primary text-white floating-shadow"}
+                    className={"w-100 btn bg-primary text-white floating-shadow rounded"}
                     onClick={this.submitNewOrg}
                     type="button">
                     Create New Organization

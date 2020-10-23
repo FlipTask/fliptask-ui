@@ -45,6 +45,7 @@ body,
     --theme-textbox-background: transparent;
     --theme-textbox-active-background: var(--body-color);
     --theme-textbox-placeholder-color: var(--nav-active-color);
+    --input-focus-backgorund: #e8f0fe;
 }
 
 body,
@@ -62,7 +63,8 @@ body,
     --theme-border: 1px solid var(--nav-active-color);
     --theme-textbox-background: transparent;
     --theme-textbox-active-background: var(--nav-color);
-    --theme-textbox-placeholder-color: var(--theme-text-color);
+    --theme-textbox-placeholder-color: #7d7d7d;
+    --input-focus-backgorund: #e8f0fe;
 }
 
 

@@ -5,10 +5,16 @@ import {
     FETCH_TEAMS_FAILURE,
     FETCH_TEAMS_PENDING,
     FETCH_TEAMS_SUCCESS,
+    FETCH_TEAMINFO_FAILURE,
+    FETCH_TEAMINFO_PENDING,
+    FETCH_TEAMINFO_SUCCESS,
     USER_LOGOUT
 } from "../constants/ActionTypes";
 
 const INITIAL_STATE = {
+    active: {
+        members: []
+    },
     teams: {
         rows: [],
         page_size: 0,
@@ -74,6 +80,28 @@ export default (state = INITIAL_STATE, { type, payload }) => {
                 ],
                 count: state.teams.count + 1
             }
+        };
+    case FETCH_TEAMINFO_FAILURE:
+        return {
+            ...state,
+            isLoading: false,
+            error: {}
+        };
+    case FETCH_TEAMINFO_PENDING:
+        // const team = state.teams.rows.filter(team => payload.data.id === team.id);
+        return {
+            ...state,
+            isLoading: true,
+            error: {},
+            rows: state.teams.rows
+        };
+    case FETCH_TEAMINFO_SUCCESS:
+        console.log(payload);
+        return {
+            ...state,
+            isLoading: false,
+            error: {},
+            active: payload
         };
     case USER_LOGOUT:
         return INITIAL_STATE;

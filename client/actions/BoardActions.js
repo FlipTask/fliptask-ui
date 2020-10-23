@@ -146,11 +146,11 @@ export const changeActiveBoard = (boardId) => async (dispatch, getState, { api }
     }
 };
 
-export const createNewBoard = (title) => async (dispatch, getState, { api }) => {
+export const createNewBoard = (params) => async (dispatch, getState, { api }) => {
     try {
         dispatch({ type: CREATE_BOARD_PENDING });
         const res = await api.post("/workspace", {
-            name: title
+            ...params
         });
         dispatch({
             type: CREATE_BOARD_SUCCESS,

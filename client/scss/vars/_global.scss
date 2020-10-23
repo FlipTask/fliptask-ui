@@ -35,8 +35,10 @@
     width: 200px;
     margin: auto;
     img {
-        height: inherit;
-        width: inherit;
+        height: calc(100% - 5px);
+        width: calc(100% - 5px);
+        object-fit: contain;
+        object-position: center;
     }
 }
 

@@ -40,7 +40,7 @@ class Input extends Component {
                             placeholder={placeholder}
                             onChange={onChange}
                             name={name}
-                            className={`${className || ""} form-control`}
+                            className={`form-control ${className || ""} `}
                         />
                     </div>
                 </div>
@@ -68,7 +68,7 @@ class Input extends Component {
                             onChange={onChange}
                             name={name}
                             readOnly={readOnly}
-                            className={`${className || ""} form-control`}
+                            className={`form-control ${className || ""}`}
                         />
                         <i className="far fa-chevron-down text-light" aria-hidden="true"></i>
                     </div>
@@ -105,7 +105,7 @@ class Input extends Component {
                         onChange={onChange}
                         readOnly={readOnly}
                         name={name}
-                        className={`${className || ""} form-control ${classNameIfIcon}`}
+                        className={`form-control ${classNameIfIcon} ${className || ""}`}
                     />
                 </div>
             </div>

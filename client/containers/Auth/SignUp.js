@@ -5,7 +5,8 @@ import Button from "../../components/Button";
 import Input from "../../components/Input";
 import { createNewUser } from "../../actions";
 import FontLogo from "../../components/FontLogo";
-import Loader from "../../components/Loader";
+import SVG from "../../components/Svg";
+import Auth from ".";
 
 const EMPTY_ERROR_STATE = {
     email: null,
@@ -72,29 +73,24 @@ class SignUp extends Component {
         } = this.state.form;
         const { error } = this.state;
         const { isLoading, success } = this.props;
-        // console.log(error);
         if (success) {
             return (
                 <div className="row" style={{ flex: "1 1", alignItems: "center" }}>
-                    <div className="col-12 col-md-12  text-center">
+                    <div className="col-12 col-xs-12 col-md-12  text-center">
                         <div className="img-container">
-                            <img src="/assets/mail-sent.png" alt="Mail Sent Successfully" style={{
-                                maxWidth: "22%",
-                                margin: "auto",
-                                display: "block"
-                            }}/>
+                            <SVG name="mail_sent_2"/>
                         </div>
                         <div className="welcome-text">
                             <h2>You're nearly there!</h2>
                             <p className="text-light-grey">A verification mail has been sent on your email account. Please check your inbox to verify.</p>
                         </div>
-                        <Link to="/login" className="btn btn-sm btn-primary-line" style={{ marginTop: "1em" }}>GO TO SIGN-IN</Link>
+                        <Link to="/login" className="btn btn-sm btn-primary rounded floating-shadow" style={{ marginTop: "1em" }}>GO TO SIGN-IN</Link>
                     </div>
                 </div>
             );
         }
         return (
-            <React.Fragment>
+            <Auth>
                 <div className="row">
                     <div className="col-12 col-md-12 text-right" style={{
                         paddingTop: "1em",
@@ -118,9 +114,9 @@ class SignUp extends Component {
                             fontWeight: "100",
                             marginBottom: "3em"
                         }}>Enter your details below.</label>
-                        <form className="login-form">
-                            {error.message
-                                ? <p className="inline--error">{error.message}</p>
+                        <form className="login-form text-left">
+                            {error.error
+                                ? <p className="inline--error text-danger text-left">{error.error}</p>
                                 : ""
                             }
                             <div className="form-group-inline row">
@@ -129,7 +125,7 @@ class SignUp extends Component {
                                     // icon="user-alt"
                                     wrapperClass="col-12 col-xs-12 col-md-6"
                                     label="First Name"
-                                    className={`form-input rounded ${error.firstName ? "border-danger" : "border"}`}
+                                    className={`form-input rounded ${error.firstName ? "border-danger" : "border"} on-focus`}
                                     type="text"
                                     placeholder="John"
                                     value={firstName}
@@ -140,7 +136,7 @@ class SignUp extends Component {
                                     wrapperClass="col-12 col-xs-12 col-md-6"
                                     // icon="user-alt"
                                     label="Last Name"
-                                    className={`form-input rounded ${error.lastName ? "border-danger" : "border"}`}
+                                    className={`form-input rounded ${error.lastName ? "border-danger" : "border"} on-focus`}
                                     type="text"
                                     placeholder="Doe"
                                     value={lastName}
@@ -150,7 +146,7 @@ class SignUp extends Component {
                             <Input
                                 error={error.email}
                                 // icon="envelope-open"
-                                className={`form-input rounded ${error.email ? "border-danger" : "border"}`}
+                                className={`form-input rounded ${error.email ? "border-danger" : "border"} on-focus`}
                                 type="email"
                                 label="Email"
                                 placeholder="xyz@abc.com"
@@ -160,7 +156,7 @@ class SignUp extends Component {
                             <Input
                                 error={error.password}
                                 // icon="unlock-alt"
-                                className={`form-input rounded ${error.password ? "border-danger" : "border"}`}
+                                className={`form-input rounded ${error.password ? "border-danger" : "border"} on-focus`}
                                 type="password"
                                 label="Password"
                                 placeholder="********"
@@ -175,7 +171,7 @@ class SignUp extends Component {
                         </form>
                     </div>
                 </div>
-            </React.Fragment>
+            </Auth>
         );
     }
 }

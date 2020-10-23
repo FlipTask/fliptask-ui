@@ -4,7 +4,7 @@ import Modal from "../Modal";
 import Input from "../Input";
 import DropDown from "../DropDown";
 import Button from "../Button";
-import { createNewBoard } from "../../actions";
+import { createNewBoard, getAllTeams } from "../../actions";
 
 class WorkspaceModal extends Component {
     constructor(props) {
@@ -13,10 +13,11 @@ class WorkspaceModal extends Component {
             title: "Create New Workspace",
             loader: false,
             workspace: {
-                title: ""
-            }
+                name: "",
+                teamId: ""
+            },
+            selectedTeam: {}
         };
-        console.log("I AM WORKSPACE MODAL");
     }
 
 
@@ -30,7 +31,9 @@ class WorkspaceModal extends Component {
         this.setState({
             loader: true
         });
-        const res = await this.props.createNewBoard(this.state.workspace.title);
+        const res = await this.props.createNewBoard({
+            ...this.state.workspace
+        });
         this.setState({
             loader: false
         });
@@ -42,13 +45,27 @@ class WorkspaceModal extends Component {
     onChange = (e) => {
         this.setState({
             workspace: {
-                title: e.target.value
+                name: e.target.value
+            }
+        });
+    }
+
+    onTeamSelection = (e) => {
+        const { value } = e.target;
+        this.setState({
+            workspace: {
+                ...this.state.workspace,
+                teamId: value
             }
         });
     }
 
     createNewTeam = () => {
-        this.props.history.push("/teams/create-new");
+        this.props.history.push("/team/create-new");
+    }
+
+    onClickLoadTeams = () => {
+        this.props.getAllTeams(1, 50);
     }
 
     render() {
@@ -56,6 +73,7 @@ class WorkspaceModal extends Component {
             workspace,
             loader
         } = this.state;
+        console.log(workspace);
         return (
             <Modal
                 onSubmit={this.onSubmit}
@@ -71,21 +89,23 @@ class WorkspaceModal extends Component {
                         <Input
                             icon="clipboard-list"
                             onChange={this.onChange}
-                            className={"bordered-on-focus border form-color"}
+                            className={"form-color"}
                             placeholder="Workspace Name e.g., Development, Product Roadmap, etc..."
                             type="text"
-                            value={workspace.title}
+                            value={workspace.name}
                         />
                     </div>
                     <div className="form-field-block">
-                        <DropDown
-                            name="team"
-                            onSelect={this.onChange}
-                            className={"bordered-on-focus border form-color"}
-                            placeholder="Choose a team for your workspace"
-                            // value={[]}
-                            selected={{}}
-                        />
+                        <div className="form-block" onClick={this.onClickLoadTeams}>
+                            <DropDown
+                                name="team"
+                                className={"form-color"}
+                                placeholder="Choose a team for your workspace"
+                                options={this.props.teams.map((team) => ({ name: team.name, value: team.id }))}
+                                onSelect={this.onTeamSelection}
+                                selected={workspace.teamId}
+                            />
+                        </div>
                     </div>
                     <h3 className="text-center text-light">- OR -</h3>
                     <div className="form-field-block text-center">
@@ -101,6 +121,9 @@ class WorkspaceModal extends Component {
     }
 }
 
-export default connect(() => ({}), {
-    createNewBoard
+export default connect(({ team }) => ({
+    teams: team.teams.rows
+}), {
+    createNewBoard,
+    getAllTeams
 })(WorkspaceModal);

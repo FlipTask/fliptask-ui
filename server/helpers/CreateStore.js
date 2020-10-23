@@ -8,9 +8,9 @@ import getTheme from "../../client/config/theme";
 const getUrl = () => {
     const apiUrl = process.env.API_URL;
     if (apiUrl.indexOf("http://") > -1 || apiUrl.indexOf("https://") > -1) {
-        return process.env.API_URL;
+        return apiUrl;
     }
-    return `http://${process.env.API_URL}`;
+    return `http://${apiUrl}`;
 };
 
 export default (req) => {
@@ -23,16 +23,14 @@ export default (req) => {
         headers: {
             cookie: req.get("cookie") || "",
             Authorization: `Bearer ${cookies.get("token") || ""}`,
-            organisationid: cookies.get("active-org")
+            organisationid: cookies.get("active-org") || ""
         }
     });
 
-    axiosInstance.interceptors.response.use((response) => {
-        return response;
-    }, (error) => {
-        console.log(error);
-        if (error.response && error.response.status === 400) {
+    axiosInstance.interceptors.response.use((response) => response, (error) => {
+        if (error.response) {
             console.log(`[REQUEST_FAILED] ${error.response.config.url} ${error.response.status}`);
+            return Promise.reject(error);
         }
     });
 
@@ -41,5 +39,6 @@ export default (req) => {
         cookies
     })));
     getTheme(store, cookies);
+    console.log("Theme on serverside", store.getState());
     return store;
 };

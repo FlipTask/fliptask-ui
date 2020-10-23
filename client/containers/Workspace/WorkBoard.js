@@ -53,7 +53,7 @@ class WorkBoard extends Component {
                         margin: "0"
                     }}
                 >{workspace.name}</h2>
-                <div className="dropable-list col-12 col-md-12">
+                <div className="dropable-list col-12 col-xs-12 col-md-12">
                     <Container
                         dropClass="card-ghost-drop"
                         dragClass="card-ghost"

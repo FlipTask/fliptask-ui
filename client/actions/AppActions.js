@@ -4,7 +4,7 @@ import {
 } from "../constants/ActionTypes";
 
 const setThemeInCookie = (cookies, theme) => {
-    cookies.set("theme", theme);
+    cookies.set("theme", theme, { path: "/" });
 };
 
 export const toggleSideNav = () => async (dispatch) => {
@@ -14,7 +14,6 @@ export const toggleSideNav = () => async (dispatch) => {
 };
 
 export const toggleTheme = (payload) => async (dispatch, getState, { cookies }) => {
-    console.log("payload", payload);
     setThemeInCookie(cookies, payload);
     dispatch({
         type: TOGGLE_THEME,

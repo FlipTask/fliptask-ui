@@ -65,13 +65,16 @@ class Auth extends Component {
                         display: "flex",
                         flexDirection: "column"
                     }}>
-                        <RenderRoutes routes={[{
+                        {
+                            this.props.children
+                        }
+                        {/* <RenderRoutes routes={[{
                             path: "/login",
                             component: Login
                         }, {
                             path: "/signup",
                             component: SignUp
-                        }]} />
+                        }]} /> */}
                         <CopyRightFooter/>
                     </div>
                 </div>

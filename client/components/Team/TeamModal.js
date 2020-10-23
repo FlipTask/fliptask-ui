@@ -39,15 +39,18 @@ class TeamModal extends Component {
             ...this.state,
             team: {
                 ...this.state.team,
-                mail_llist: e
+                mail_list: e
             }
         });
     }
 
-    onSubmit = () => {
-        this.props.createNewTeam({
+    onSubmit = async () => {
+        const res = await this.props.createNewTeam({
             name: this.state.team.name
         });
+        if (res) {
+            this.props.history.goBack(-1);
+        }
     }
 
     render() {
@@ -67,7 +70,7 @@ class TeamModal extends Component {
                             name="name"
                             icon="user-plus"
                             onChange={this.onChange}
-                            className={"bordered-on-focus form-input border form-color"}
+                            className={"form-input form-color"}
                             placeholder="Enter A Team Name e.g., Backend Developers, Designers, Accounts, etc..."
                             type="text"
                             value={team.title}

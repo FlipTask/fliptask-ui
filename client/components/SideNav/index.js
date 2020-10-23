@@ -122,7 +122,7 @@ class SideNav extends Component {
                             iconName={"team"}
                             accordian={true}
                             title={"Teams"}
-                            urlPrefix={"/teams"}
+                            urlPrefix={"/team"}
                             list={teams.rows}
                             // activeItem={activeBoard}
                             addListItem={() => {
@@ -134,7 +134,7 @@ class SideNav extends Component {
                                 return null;
                             }}
                             addListItemButton={() => (
-                                <AddNewListItem urlPrefix={"/teams"} text="Create New Team" />
+                                <AddNewListItem urlPrefix={"/team"} text="Create New Team" />
                             )}
                         />
                     </div>

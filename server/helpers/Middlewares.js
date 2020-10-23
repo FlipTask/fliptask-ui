@@ -20,11 +20,6 @@ export const useProxy = proxy(`${process.env.API_URL}`, {
         }
         return opts;
     }
-    // proxyReqBodyDecorator(bodyContent, srcReq) {
-    //     const cookies = new Cookies(srcReq.headers.cookie);
-    //     bodyContent.organisationId = cookies.get("active-org");
-    //     return JSON.stringify(bodyContent);
-    // }
 });
 
 export const useCompression = compression({

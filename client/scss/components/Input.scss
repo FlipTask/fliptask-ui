@@ -7,6 +7,15 @@ textarea {
     font-size: 1em;
 }
 
+.on-focus {
+    &:focus {
+        outline: none;
+        box-shadow: none;
+        color: var(--theme-text-color);
+        background-color: var(--input-focus-backgorund) !important;
+    }
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
@@ -17,7 +26,7 @@ input:-webkit-autofill:focus {
     // transition: background-color 5000s ease-in-out 0s;
     color: inherit;
     box-shadow: none !important;
-    background-color: var(--nav-color) !important;
+    @extend .on-focus;
 }
 
 label {
@@ -138,12 +147,9 @@ textarea {
             transition: none;
             background-color: var(--theme-textbox-background);
             color: var(--theme-text-color);
-            &.rounded {
-                @include borderRadius;
-            }
             &:hover,
-            &:focus,
-            &:active {
+            &:focus {
+                outline: none;
                 box-shadow: none;
                 background-color: var(--theme-textbox-active-background);
             }
@@ -152,6 +158,15 @@ textarea {
             }
             &:not([readOnly]) {
                 background-color: var(--theme-textbox-active-background);
+            }
+            &.border {
+                border: var(--theme-border);
+            }
+            &.inverted {
+                background-color: var(--body-color);
+            }
+            &.rounded {
+                @include borderRadius;
             }
         }
     }
@@ -179,12 +194,12 @@ textarea {
 
 textarea.form-input,
 input.form-input {
-    &:focus,
-    &:active {
-        outline: none;
-        box-shadow: none !important;
-        background-color: var(--theme-textbox-active-background) !important;
-    }
+    // &:focus,
+    // // &:active {
+    // //     outline: none;
+    // //     box-shadow: none !important;
+    // //     background-color: var(--theme-textbox-active-background) !important;
+    // // }
     &::placeholder {
         color: var(--theme-textbox-placeholder-color);
         // font-weight: 700;
@@ -201,38 +216,101 @@ input.form-input {
         padding-left: 12px;
     }
     .ck-editor__editable.ck.ck-content {
-        min-height: 100px !important;
+        min-height: 100px;
         @include borderRadius;
-        border-radius: 3px !important;
+        border-radius: 3px;
         color: var(--theme-text-color);
         &.ck-editor__editable_inline {
-            padding: 0rem .75rem !important;
-            background-color: var(--theme-color) !important;
+            padding: 0rem .75rem;
+            background-color: var(--theme-color);
         }
         &.ck-read-only {
-            border-color: transparent !important;
-            border: 1px solid transparent !important;
+            border-color: transparent;
+            border: 1px solid transparent;
         }
         &.ck-blurred {
-            border-color: transparent !important;
+            border-color: transparent;
             &:hover {
-                background-color: var(--theme-textbox-active-background) !important;
+                background-color: var(--theme-textbox-active-background);
             }
         }
         &[contenteditable=true] {
-            border: 1px solid transparent !important;
-            background-color: var(--theme-textbox-active-background) !important;
+            // border: 1px solid transparent;
+            // background-color: var(--theme-textbox-active-background);
             &.ck-focused {
                 outline: none;
-                box-shadow: none !important;
-                background-color: var(--theme-textbox-active-background) !important;
+                box-shadow: none;
+                background-color: var(--theme-textbox-active-background);
             }
         }
-        &>.ck-placeholder::before {
+        .ck-placeholder::before {
             color: var(--theme-textbox-placeholder-color);
         }
     }
     .ck.ck-editor__top.ck-reset_all {
         display: none;
+    }
+}
+
+.editable__input {
+    position: relative;
+    .form-group {
+        .input-group {
+            input {
+                padding-right: 3em;
+            }
+        }
+    }
+    .edit-btn {
+        position: absolute;
+        right: 0em;
+        bottom: 0em;
+        border: 0;
+        background-color: transparent;
+        font-size: 1em;
+        padding: 1em 1em;
+        height: calc(2.05rem + 0.7em);
+        display: none;
+    }
+    &:hover {
+        .edit-btn {
+            display: block;
+        }
+    }
+    &[data-editable="false"] {
+        * {
+            cursor: pointer;
+        }
+    }
+    &[data-editable="true"] {
+        .edit-btn {
+            display: none;
+        }
+        .form-group {
+            .input-group {
+                .form-control {
+                    &:focus {
+                        background-color: var(--theme-textbox-active-background);
+                        outline: 0;
+                        box-shadow: inset 0 0 0 1px var(--color-blue);
+                    }
+                }
+            }
+        }
+        .input-editor {
+            .ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-focused {
+                border: 1px solid var(--color-blue);
+            }
+        }
+    }
+}
+
+.anchor {
+    color: var(--color-skyblue);
+    font-size: 1em;
+    font-weight: 400;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
     }
 }

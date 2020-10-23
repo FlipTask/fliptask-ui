@@ -12,6 +12,7 @@ import {
 import DropDown from "../DropDown";
 import { priority } from "../../constants/PriorityMap";
 import Comment from "../Comment";
+import InlineEditableInput from "../Input/InlineEditableInput";
 
 const InputEditor = loadable(() => import(
     /* webpackChunkName: "InputEditor" */ "./../Input/InputEditor"
@@ -193,25 +194,27 @@ class TaskModal extends Component {
                 >
                     <div className="row row--flex">
                         <div className="col-12 col-xs-12 col-md-8 padding-left-0">
-                            <Input
-                                readOnly={!this.state.edit}
-                                label="Title"
-                                type="Input"
-                                className={`bordered-on-focus form-input rounded ${!this.state.edit ? "readOnly" : "border"}`}
-                                placeholder="Title"
-                                name="name"
-                                value={this.state.task.name}
-                                onChange={this.handleOnChange}
-                            />
-                            <div className="gutter-top">
-                                <InputEditor
-                                    readOnly={!this.state.edit}
-                                    label="Description"
-                                    value={this.state.task.description}
+                            <InlineEditableInput editBtn={true}>
+                                <Input
+                                    label="Title"
+                                    type="Input"
+                                    className={"form-input rounded"}
+                                    placeholder="Add a title..."
+                                    name="name"
+                                    value={this.state.task.name}
                                     onChange={this.handleOnChange}
-                                    name="description"
-                                    placeholder="Description"
                                 />
+                            </InlineEditableInput>
+                            <div className="gutter-top">
+                                <InlineEditableInput>
+                                    <InputEditor
+                                        label="Description"
+                                        value={this.state.task.description}
+                                        onChange={this.handleOnChange}
+                                        name="description"
+                                        placeholder="Add a description..."
+                                    />
+                                </InlineEditableInput>
                             </div>
                             <div className="gutter-top">
                                 <ImageUpload
@@ -228,28 +231,30 @@ class TaskModal extends Component {
                         <div className="col-12 col-xs-12 col-md-4 padding-right-0" style={{
                             borderLeft: "var(--theme-border)"
                         }}>
-                            <DropDown
-                                readOnly={!this.state.edit}
-                                label="Priority"
-                                placeholder="Task Priority"
-                                options={priority}
-                                name="priority"
-                                onSelect={this.handleOnChange}
-                                selected={this.state.task.priority}
-                                className={`bordered-on-focus form-input rounded ${!this.state.edit ? "readOnly" : "border"}`}
-                            />
-                            <div className="gutter-top">
-                                <Input
-                                    readOnly={!this.state.edit}
-                                    label="Due Date"
-                                    type="date"
-                                    className={`bordered-on-focus form-input rounded ${!this.state.edit ? "readOnly" : "border"}`}
-                                    placeholder="Due Date"
-                                    name="dueDate"
-                                    value={date}
-                                    onChange={this.handleOnChange}
-                                    pattern="\d{4}-\d{2}-\d{2}"
+                            <InlineEditableInput>
+                                <DropDown
+                                    label="Priority"
+                                    placeholder="Select Task Priority"
+                                    options={priority}
+                                    name="priority"
+                                    onSelect={this.handleOnChange}
+                                    selected={this.state.task.priority}
+                                    className={"form-input rounded"}
                                 />
+                            </InlineEditableInput>
+                            <div className="gutter-top">
+                                <InlineEditableInput>
+                                    <Input
+                                        label="Due Date"
+                                        type="date"
+                                        className={"form-input rounded"}
+                                        placeholder="Select a Due Date"
+                                        name="dueDate"
+                                        value={date}
+                                        onChange={this.handleOnChange}
+                                        pattern="\d{4}-\d{2}-\d{2}"
+                                    />
+                                </InlineEditableInput>
                             </div>
                         </div>
                     </div>
