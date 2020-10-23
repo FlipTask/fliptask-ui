@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import UserCard from "../../components/ProfileCard";
+import DashBoard from "../Home";
 import {
     getTeam
 } from "../../actions";
@@ -22,11 +23,13 @@ class Team extends Component {
     render() {
         const { members } = this.props;
         return (
-            <div className="row card-group-grid">
-                {
-                    [1, 2, 3, 4, 5, 6, 7, 8].map((member, i) => <UserCard data={members[0] || {}} key={i}/>)
-                }
-            </div>
+            <DashBoard>
+                <div className="row card-group-grid">
+                    {
+                        [1, 2, 3, 4, 5, 6, 7, 8].map((member, i) => <UserCard data={members[0] || {}} key={i}/>)
+                    }
+                </div>
+            </DashBoard>
         );
     }
 }

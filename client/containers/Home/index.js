@@ -48,7 +48,8 @@ class Home extends Component {
                 />
                 <div className="board--wrapper col-xs-12 col-sm-12 col-md-12 no-padding">
                     <div className={`${!sideNavOpen ? "collapsed-in" : ""} ${sideNavCollapsing ? "collapsing" : ""} not-side-nav`}>
-                        <RenderRoutes routes={this.props.route.routes} />
+                        {/* <RenderRoutes routes={this.props.route.routes} /> */}
+                        { this.props.children }
                     </div>
                 </div>
             </React.Fragment>

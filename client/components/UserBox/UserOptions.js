@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import Switch from "../Switch";
 import {
     logout,
@@ -26,11 +27,11 @@ class UserOptions extends Component {
         return (
             <div className="user-options-list" onBlur={onBlur} ref={domRef}>
                 <div className="user-options-list--wrapper">
-                    <div className="user-option-list-item">
+                    <Link to="/profile" className="user-option-list-item">
                         <span className="text-success">
                             {user.firstName} {user.lastName}
                         </span>
-                    </div>
+                    </Link>
                     <div className="user-option-list-item">
                         <div className="theme-switch">
                             <i className="fas fa-sun"/>

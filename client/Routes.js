@@ -125,99 +125,89 @@ export default [
                 component: VerifyEmailPage,
                 exact: true
             }, {
-                path: "/404",
-                exact: true,
-                component: NotFound
-            }, {
                 path: "/",
-                loadData: (store) => [store.dispatch(fetchUser())],
                 component: SecureRoute,
+                loadData: (store) => [store.dispatch(fetchUser())],
+                secureRoute: true,
                 routes: [
                     {
+                        path: "/",
+                        exact: true,
+                        component: DetailedHome,
+                        secureRoute: true
+                    }, {
                         path: "/onboard",
-                        secureRoute: true,
-                        component: OnBoard,
+                        exact: true,
+                        component: SecureRoute,
                         routes: [
                             {
                                 secureRoute: true,
-                                path: "/onboard/create-new",
-                                exact: true,
-                                component: CreateNew
-                            },
-                            {
-                                secureRoute: true,
-                                path: "/onboard/invite",
-                                exact: true,
-                                component: Invite
-                            },
-                            {
-                                secureRoute: true,
-                                path: "/onboard/join-organisation",
-                                exact: true,
-                                component: JoinOrganisation
+                                component: OnBoard,
+                                routes: [
+                                    {
+                                        secureRoute: true,
+                                        path: "/onboard/create-new",
+                                        exact: true,
+                                        component: CreateNew
+                                    },
+                                    {
+                                        secureRoute: true,
+                                        path: "/onboard/invite",
+                                        exact: true,
+                                        component: Invite
+                                    },
+                                    {
+                                        secureRoute: true,
+                                        path: "/onboard/join-organisation",
+                                        exact: true,
+                                        component: JoinOrganisation
+                                    }
+                                ]
                             }
                         ]
+                    }, {
+                        path: "/team",
+                        exact: true,
+                        component: TeamPageWrapper,
+                        secureRoute: true
                     },
                     {
-                        path: "/",
-                        component: Home,
+                        path: "/team/create-new",
                         secureRoute: true,
-                        loadData: (store) => [
-                            store.dispatch(fetchBoards()),
-                            store.dispatch(getAllTeams())
-                        ],
+                        exact: true,
+                        component: TeamModal
+                    }, {
+                        path: "/team/:teamId",
+                        secureRoute: true,
+                        exact: true,
+                        component: TeamPage
+                    }, {
+                        path: "/workspace",
+                        secureRoute: true,
+                        exact: true,
+                        component: Workspace
+                    }, {
+                        path: "/workspace/create-new",
+                        secureRoute: true,
+                        exact: true,
+                        component: WorkspaceModal
+                    }, {
+                        // exact: true,
+                        path: "/workspace/:workspaceId",
+                        component: WorkBoard,
+                        secureRoute: true,
+                        loadData: (store, route, path, qParams, urlParams) => [store.dispatch(changeActiveBoard(route.params.workspaceId))],
                         routes: [
                             {
-                                path: "/",
-                                exact: true,
-                                component: DetailedHome,
+                                path: "/workspace/:workspaceId/list/:listId/ticket/:ticketId",
+                                component: TaskModal,
                                 secureRoute: true
-                            }, {
-                                path: "/team",
-                                component: TeamPageWrapper,
-                                secureRoute: true,
-                                routes: [
-                                    {
-                                        path: "/team/create-new",
-                                        secureRoute: true,
-                                        exact: true,
-                                        component: TeamModal
-                                    }, {
-                                        path: "/team/:teamId",
-                                        secureRoute: true,
-                                        exact: true,
-                                        component: TeamPage
-                                    }
-                                ]
-                            }, {
-                                path: "/workspace",
-                                component: Workspace,
-                                secureRoute: true,
-                                routes: [
-                                    {
-                                        path: "/workspace/create-new",
-                                        secureRoute: true,
-                                        exact: true,
-                                        component: WorkspaceModal
-                                    }, {
-                                        // exact: true,
-                                        path: "/workspace/:workspaceId",
-                                        component: WorkBoard,
-                                        secureRoute: true,
-                                        loadData: (store, route, path, qParams, urlParams) => [store.dispatch(changeActiveBoard(route.params.workspaceId))],
-                                        routes: [
-                                            {
-                                                path: "/workspace/:workspaceId/list/:listId/ticket/:ticketId",
-                                                component: TaskModal,
-                                                secureRoute: true
-                                            }
-                                        ]
-                                    }
-                                ]
                             }
                         ]
                     }
                 ]
+            }, {
+                component: NotFound
             }
         ]
     }

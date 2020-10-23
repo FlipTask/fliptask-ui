@@ -6,6 +6,7 @@ import { changeActiveBoard, swapTaskCard, swapTaskList } from "../../actions";
 import TaskList from "../../components/TaskList";
 import NewTaskList from "../../components/TaskList/NewTaskList";
 import RenderRoutes from "../../components/RenderRoutes";
+import Dashboard from "../Home";
 
 class WorkBoard extends Component {
     constructor(props) {
@@ -43,7 +44,7 @@ class WorkBoard extends Component {
         } = this.props;
         return (
 
-            <React.Fragment>
+            <Dashboard>
 
                 <RenderRoutes routes={this.props.route.routes} />
                 <h2 className="text-light-grey"
@@ -80,7 +81,7 @@ class WorkBoard extends Component {
                         <NewTaskList />
                     </Container>
                 </div>
-            </React.Fragment>
+            </Dashboard>
         );
     }
 }
