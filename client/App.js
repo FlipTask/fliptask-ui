@@ -26,7 +26,7 @@ class App extends Component {
     render() {
         return (
             <div className="container-fluid">
-                <div className="row" style={{ minHeight: "100vh" }}>
+                <div className="row">
                     <RenderRoutes routes={Routes} />
                 </div>
             </div>

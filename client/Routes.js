@@ -68,9 +68,9 @@ const WorkBoard = loadable(() => pMinDelay(import(
     "./containers/Workspace/WorkBoard"
 )), MIN_DELAY_CHUNK);
 
-const Home = loadable(() => pMinDelay(import(
-    /* webpackChunkName: "home", webpackPrefetch: true */
-    "./containers/Home"
+const Profile = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "profile-page", webpackPrefetch: true */
+    "./containers/Profile"
 )), MIN_DELAY_CHUNK);
 
 const DetailedHome = loadable(() => pMinDelay(import(
@@ -165,6 +165,11 @@ export default [
                                 ]
                             }
                         ]
+                    }, {
+                        path: "/profile",
+                        exact: true,
+                        secureRoute: true,
+                        component: Profile
                     }, {
                         path: "/team",
                         exact: true,

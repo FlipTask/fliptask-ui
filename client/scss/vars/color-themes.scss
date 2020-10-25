@@ -43,8 +43,8 @@ body,
     background-color: var(--body-color);
     --theme-border: 1px solid var(--nav-active-color);
     --theme-textbox-background: transparent;
-    --theme-textbox-active-background: var(--body-color);
-    --theme-textbox-placeholder-color: var(--nav-active-color);
+    --theme-textbox-active-background: var(--nav-color);
+    --theme-textbox-placeholder-color: #575e71;
     --input-focus-backgorund: #e8f0fe;
 }
 
