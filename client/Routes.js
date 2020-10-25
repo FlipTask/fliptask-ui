@@ -2,7 +2,9 @@
 import React from "react";
 import baseLoadble, { lazy } from "@loadable/component";
 import pMinDelay from "p-min-delay";
-import { fetchUser, fetchBoards, changeActiveBoard } from "./actions";
+import {
+    fetchUser, fetchBoards, changeActiveBoard, getAllTeams
+} from "./actions";
 import Loader from "./components/Loader";
 
 const MIN_DELAY_CHUNK = 3000;
@@ -16,14 +18,44 @@ const AppContainer = loadable(() => pMinDelay(import(
     "./AppContainer"
 )), MIN_DELAY_CHUNK);
 
-const Auth = loadable(() => pMinDelay(import(
-    /* webpackChunkName: "auth" */
-    "./containers/Auth"
+const LoginPage = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "login-page" */
+    "./containers/Auth/Login"
 )), MIN_DELAY_CHUNK);
 
-const CreateNewOrg = loadable(() => pMinDelay(import(
+const SignupPage = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "signup-page" */
+    "./containers/Auth/SignUp"
+)), MIN_DELAY_CHUNK);
+
+const VerifyEmailPage = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "verify-email-page" */
+    "./containers/Auth/VerifyEmail"
+)), MIN_DELAY_CHUNK);
+
+const NotFound = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "notfound-page" */
+    "./containers/Error/NotFound"
+)), MIN_DELAY_CHUNK);
+
+const OnBoard = loadable(() => pMinDelay(import(
     /* webpackChunkName: "createneworg", webpackPrefetch: true */
+    "./containers/Onboard"
+)), MIN_DELAY_CHUNK);
+
+const Invite = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "invitepage", webpackPrefetch: true */
+    "./containers/Onboard/Invite"
+)), MIN_DELAY_CHUNK);
+
+const CreateNew = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "createneworgpage", webpackPrefetch: true */
     "./containers/Onboard/CreateNew"
+)), MIN_DELAY_CHUNK);
+
+const JoinOrganisation = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "joinorganisation", webpackPrefetch: true */
+    "./containers/Onboard/JoinOrganisation"
 )), MIN_DELAY_CHUNK);
 
 const Workspace = loadable(() => pMinDelay(import(
@@ -41,6 +73,11 @@ const Home = loadable(() => pMinDelay(import(
     "./containers/Home"
 )), MIN_DELAY_CHUNK);
 
+const DetailedHome = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "detailed_home", webpackPrefetch: true */
+    "./containers/Home/Detail"
+)), MIN_DELAY_CHUNK);
+
 const TaskModal = loadable(() => pMinDelay(import(
     /* webpackChunkName: "taskmodal", webpackPrefetch: true */
     "./components/Task/TaskModal"
@@ -51,82 +88,126 @@ const WorkspaceModal = loadable(() => pMinDelay(import(
     "./components/Workspace/WorkspaceModal"
 )), MIN_DELAY_CHUNK);
 
-const TeamPage = loadable(() => pMinDelay(import(
-    /* webpackChunkName: "team-page", webpackPrefetch: true */
+const TeamPageWrapper = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "team-page-wrapper", webpackPrefetch: true */
     "./containers/Team"
 )), MIN_DELAY_CHUNK);
 
+const TeamPage = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "team-page", webpackPrefetch: true */
+    "./containers/Team/Team"
+)), MIN_DELAY_CHUNK);
 
 const TeamModal = loadable(() => pMinDelay(import(
     /* webpackChunkName: "team-modal", webpackPrefetch: true */
     "./components/Team/TeamModal"
 )), MIN_DELAY_CHUNK);
 
+const SecureRoute = loadable(() => pMinDelay(import(
+    /* webpackChunkName: "team-modal", webpackPrefetch: true */
+    "./components/SecureRoute"
+)), MIN_DELAY_CHUNK);
+
 export default [
     {
         component: AppContainer,
-        loadData: (store) => [store.dispatch(fetchUser())],
         routes: [
             {
-                exact: true,
-                path: "/onboard",
-                secureRoute: true,
-                component: CreateNewOrg
-            }, {
                 path: "/login",
-                component: Auth,
+                component: LoginPage,
                 exact: true
             }, {
                 path: "/signup",
-                component: Auth,
+                component: SignupPage,
                 exact: true
-            },
-            {
+            }, {
+                path: "/verify-email",
+                component: VerifyEmailPage,
+                exact: true
+            }, {
                 path: "/",
-                // exact: true,
-                component: Home,
+                component: SecureRoute,
+                loadData: (store) => [store.dispatch(fetchUser())],
                 secureRoute: true,
-                loadData: (store) => [store.dispatch(fetchBoards())],
                 routes: [
                     {
-                        path: "/teams",
-                        component: TeamPage,
-                        secureRoute: true,
-                        routes: [
-                            {
-                                path: "/teams/create-new",
-                                secureRoute: true,
-                                exact: true,
-                                component: TeamModal
-                            }
-                        ]
+                        path: "/",
+                        exact: true,
+                        component: DetailedHome,
+                        secureRoute: true
                     }, {
-                        path: "/workspace",
-                        component: Workspace,
-                        secureRoute: true,
+                        path: "/onboard",
+                        exact: true,
+                        component: SecureRoute,
                         routes: [
                             {
-                                path: "/workspace/create-new",
                                 secureRoute: true,
-                                exact: true,
-                                component: WorkspaceModal
-                            }, {
-                                // exact: true,
-                                path: "/workspace/:workspaceId",
-                                component: WorkBoard,
-                                secureRoute: true,
-                                loadData: (store, route, path, qParams, urlParams) => [store.dispatch(changeActiveBoard(route.params.workspaceId))],
+                                component: OnBoard,
                                 routes: [
                                     {
-                                        path: "/workspace/:workspaceId/list/:listId/ticket/:ticketId",
-                                        component: TaskModal,
-                                        secureRoute: true
+                                        secureRoute: true,
+                                        path: "/onboard/create-new",
+                                        exact: true,
+                                        component: CreateNew
+                                    },
+                                    {
+                                        secureRoute: true,
+                                        path: "/onboard/invite",
+                                        exact: true,
+                                        component: Invite
+                                    },
+                                    {
+                                        secureRoute: true,
+                                        path: "/onboard/join-organisation",
+                                        exact: true,
+                                        component: JoinOrganisation
                                     }
                                 ]
                             }
                         ]
+                    }, {
+                        path: "/team",
+                        exact: true,
+                        component: TeamPageWrapper,
+                        secureRoute: true
+                    },
+                    {
+                        path: "/team/create-new",
+                        secureRoute: true,
+                        exact: true,
+                        component: TeamModal
+                    }, {
+                        path: "/team/:teamId",
+                        secureRoute: true,
+                        exact: true,
+                        component: TeamPage
+                    }, {
+                        path: "/workspace",
+                        secureRoute: true,
+                        exact: true,
+                        component: Workspace
+                    }, {
+                        path: "/workspace/create-new",
+                        secureRoute: true,
+                        exact: true,
+                        component: WorkspaceModal
+                    }, {
+                        // exact: true,
+                        path: "/workspace/:workspaceId",
+                        component: WorkBoard,
+                        secureRoute: true,
+                        loadData: (store, route, path, qParams, urlParams) => [store.dispatch(changeActiveBoard(route.params.workspaceId))],
+                        routes: [
+                            {
+                                path: "/workspace/:workspaceId/list/:listId/ticket/:ticketId",
+                                component: TaskModal,
+                                secureRoute: true
+                            }
+                        ]
                     }
                 ]
+            }, {
+                component: NotFound
             }
         ]
     }

@@ -11,15 +11,22 @@ import {
     CHANGE_ACTIVE_BOARD_SUCCESS,
     CREATE_BOARD_PENDING,
     CREATE_BOARD_SUCCESS,
-    CREATE_BOARD_FAILURE
+    CREATE_BOARD_FAILURE,
+    USER_LOGOUT
 } from "../constants/ActionTypes";
 
 
 const INITIAL_STATE = {
     activeBoard: {
-        task_list: []
+        task_lists: []
     },
-    boards: [],
+    boards: {
+        rows: [],
+        page_size: 0,
+        page: 0,
+        limit: 0,
+        count: 0
+    },
     error: {},
     isLoading: false
 };
@@ -29,7 +36,6 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case CREATE_BOARD_PENDING:
         return {
             ...state,
-            ...state,
             isLoading: true
         };
     case CREATE_BOARD_SUCCESS:
@@ -38,15 +44,18 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             ...state,
             isLoading: false,
             activeBoard: payload.data,
-            boards: [
+            boards: {
                 ...state.boards,
-                payload.data
-            ],
+                rows: [
+                    ...state.boards.rows,
+                    payload.data
+                ],
+                count: state.boards.count + 1
+            },
             error: {}
         };
     case CREATE_BOARD_FAILURE:
         return {
-            ...state,
             ...state,
             isLoading: false,
             error: payload.data
@@ -54,20 +63,23 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case FETCH_BOARDS_PENDING:
         return {
             ...state,
-            ...state,
             isLoading: true
         };
     case FETCH_BOARDS_SUCCESS:
         return {
             ...state,
-            ...state,
             isLoading: false,
-            boards: payload.data,
+            boards: {
+                ...payload.data,
+                rows: [
+                    ...state.boards.rows,
+                    ...payload.data.rows
+                ]
+            },
             error: {}
         };
     case FETCH_BOARDS_FAILURE:
         return {
-            ...state,
             ...state,
             isLoading: false,
             error: {
@@ -77,22 +89,23 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case FETCH_TASKLIST_SUCCESS:
         return {
             ...state,
-            ...state,
             activeBoard: {
                 ...state.activeBoard,
-                task_list: payload.data.task_list
+                task_lists: [
+                    ...state.activeBoard.task_lists,
+                    payload.data
+                ]
             }
         };
 
     case CREATE_TASKLIST_SUCCESS:
-        console.log("payload", payload);
+        // console.log("payload", payload);
         return {
-            ...state,
             ...state,
             activeBoard: {
                 ...state.activeBoard,
-                task_list: [
-                    ...state.activeBoard.task_list,
+                task_lists: [
+                    ...state.activeBoard.task_lists,
                     payload.data
                 ]
             }
@@ -100,15 +113,14 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case NEW_TASK_SUCCESS:
         return {
             ...state,
-            ...state,
             activeBoard: {
                 ...state.activeBoard,
-                task_list: state.activeBoard.task_list.map((taskList) => {
-                    if (taskList._id === payload.data.task_list) {
+                task_lists: state.activeBoard.task_lists.map((taskList) => {
+                    if (taskList.id === payload.data.taskListId) {
                         return {
                             ...taskList,
-                            tasks: taskList.tasks.filter((task) => task._id === payload.data._id).length > 0 ? taskList.tasks.map((task) => {
-                                if (task._id === payload.data._id) {
+                            tasks: taskList.tasks.filter((task) => task.id === payload.data.id).length > 0 ? taskList.tasks.map((task) => {
+                                if (task.id === payload.data.id) {
                                     return payload.data;
                                 }
                                 return task;
@@ -123,14 +135,13 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             }
         };
     case SWAP_LIST_CARD_SUCCESS:
-        const listToSwap = state.activeBoard.task_list.filter((task) => task._id === payload.id)[0];
-        const toList = state.activeBoard.task_list.filter((task) => task._id !== payload.id);
+        const listToSwap = state.activeBoard.task_lists.filter((task) => task.id === payload.id)[0];
+        const toList = state.activeBoard.task_lists.filter((task) => task.id !== payload.id);
         return {
-            ...state,
             ...state,
             activeBoard: {
                 ...state.activeBoard,
-                task_list: [
+                task_lists: [
                     ...toList.slice(0, payload.index),
                     listToSwap,
                     ...toList.slice(payload.index)
@@ -142,12 +153,12 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         const { to, from } = payload;
         let taskToReplace = {};
         // finding task
-        state.activeBoard.task_list.map((taskList) => {
-            if (taskList._id === from.list_id) {
+        state.activeBoard.task_lists.map((taskList) => {
+            if (taskList.id === from.listid) {
                 return {
                     ...taskList,
                     tasks: taskList.tasks.map((task) => {
-                        if (task._id === from.task_id) {
+                        if (task.id === from.taskid) {
                             taskToReplace = task;
                         }
                         return task;
@@ -157,11 +168,11 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             return taskList;
         });
         // remove task from list;
-        const fromList = state.activeBoard.task_list.map((taskList) => {
-            if (taskList._id === from.list_id) {
+        const fromList = state.activeBoard.task_lists.map((taskList) => {
+            if (taskList.id === from.listid) {
                 return {
                     ...taskList,
-                    tasks: taskList.tasks.filter((task) => task._id !== from.task_id)
+                    tasks: taskList.tasks.filter((task) => task.id !== from.taskid)
                 };
             }
             return taskList;
@@ -169,7 +180,7 @@ export default (state = INITIAL_STATE, { type, payload }) => {
 
         // add task into list at provided index:
         const updatedList = fromList.map((taskList) => {
-            if (taskList._id === to.list_id) {
+            if (taskList.id === to.listid) {
                 return {
                     ...taskList,
                     tasks: [
@@ -183,19 +194,19 @@ export default (state = INITIAL_STATE, { type, payload }) => {
         });
         return {
             ...state,
-            ...state,
             activeBoard: {
                 ...state.activeBoard,
-                task_list: updatedList
+                task_lists: updatedList
             }
         };
 
     case CHANGE_ACTIVE_BOARD_SUCCESS:
         return {
             ...state,
-            ...state,
             activeBoard: payload.data
         };
+    case USER_LOGOUT:
+        return INITIAL_STATE;
     default:
         return state;
     }

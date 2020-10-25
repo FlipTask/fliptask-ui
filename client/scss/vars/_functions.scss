@@ -1,0 +1,109 @@
+$themeColors: "danger" $red,
+"primary" $skyblue,
+"success" $green,
+"info" $blue,
+"warning" $yellow,
+"default" var(--color-default),
+"neutral" $theme-neutral-color,
+"white" var(--color-white),
+"transparent" transparent;
+$primary-color: $skyblue;
+$success-color: $green;
+$info-color: $blue;
+$warning-color: $yellow;
+$default-color: var(--color-default);
+$neutral-color: $theme-neutral-color;
+$white-color: var(--color-white);
+$transparent: transparent;
+@each $i in $themeColors {
+    .bg-#{nth($i, 1)} {
+        background-color: nth($i, 2);
+        color: #fff;
+        &.floating-shadow {
+            &::before {
+                box-shadow: 0 12px 7px nth($i, 2), 0 -4px 5px nth($i, 2);
+            }
+        }
+    }
+    .bg-#{nth($i, 1)}-light {
+        background-color: rgba(nth($i, 2), 0.2);
+    }
+    .text-#{nth($i, 1)} {
+        color: nth($i, 2);
+    }
+    .border-#{nth($i, 1)} {
+        border: 1px solid nth($i, 2);
+    }
+    .form-control.border-#{nth($i, 1)} {
+        border: 1px solid nth($i, 2);
+    }
+    .btn-#{nth($i, 1)} {
+        background-color: nth($i, 2);
+        @if nth($i, 1)=="default" or nth($i, 1)=="transparent" or nth($i, 1)=="white" {
+            color: $dark-grey;
+        }
+        @else {
+            color: #fff;
+        }
+        &.disabled {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+        &.floating-shadow {
+            &::before {
+                box-shadow: 0 12px 7px nth($i, 2), 0 -4px 5px nth($i, 2);
+            }
+        }
+        @if nth($i, 1)=="transparent" {
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.3);
+                @extend .text-default;
+            }
+        }
+        @else {
+            &:hover {
+                background-color: unquote("hsla(nth($i, 2), 5%)");
+                &.floating-shadow {
+                    &::before {
+                        box-shadow: 0 12px 7px unquote("hsla(nth($i, 2), 5%)"), 0 -4px 5px unquote("hsla(nth($i, 2), 5%)");
+                    }
+                }
+            }
+        }
+    }
+    .btn-#{nth($i, 1)}-line {
+        background-color: transparent;
+        color: nth($i, 2);
+        border: 1px solid nth($i, 2) !important;
+        &.disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        &:hover {
+            background-color: nth($i, 2);
+            color: #fff;
+        }
+    }
+    .badge {
+        font-size: 0.8em;
+        font-family: $secondary-font;
+        font-weight: 600;
+        padding: 0.1em 0.6em;
+        margin: 0 0.5em;
+        border-radius: 3px;
+        &:first-child {
+            margin-left: 0px;
+        }
+        &:last-child {
+            margin-right: 0px;
+        }
+        &.badge-#{nth($i, 1)} {
+            background-color: rgba(nth($i, 2), 0.15);
+            color: nth($i, 2);
+        }
+        &.badge-#{nth($i, 1)}-imp {
+            background-color: rgba(nth($i, 2), 0.15) !important;
+            color: nth($i, 2);
+        }
+    }
+}

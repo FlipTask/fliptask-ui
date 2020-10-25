@@ -1,0 +1,7 @@
+$textAlignProperties: ( "center": center, "left": left, "right": right);
+@each $property,
+$i in $textAlignProperties {
+    .text-#{$property} {
+        text-align: $i;
+    }
+}

@@ -1,51 +1,60 @@
-*, *:before, *:after {
+*,
+*:before,
+*:after {
     box-sizing: border-box;
 }
 
 body {
-    font-family: $primary-font;
-
+    font-family: $secondary-font;
     margin: 0;
     padding: 0;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    // color: #333;
-    // color: #707053;
-    color: #495057;
+    -moz-osx-font-smoothing: grayscale;
+    color: inherit;
     position: relative;
     min-height: 100vh;
     font-size: 14px;
     font-smooth: always;
-    -webkit-font-smoothing: auto;
+    zoom: 0;
 }
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-    font-weight: bold;
+    font-weight: 600;
 }
+
 h1 {
     font-size: 2em;
 }
+
 h2 {
     font-size: 1.75em;
 }
+
 h3 {
     font-size: 1.60em;
 }
+
 h4 {
     font-size: 1.50em;
 }
+
 h5 {
     font-size: 1.40em;
 }
+
 h6 {
     font-size: 1.25em;
 }
 
+
 /* Change Autocomplete styles in Chrome*/
+
 // input:-webkit-autofill,
 // input:-webkit-autofill:hover, 
 // input:-webkit-autofill:focus,

@@ -1,14 +1,19 @@
 .task-list--wrapper {
-    display: inline-block;
-    width: 300px;
-    vertical-align: top;
-    min-width: 300px;
-    margin: 0 1em;
+    display: block;
+    width: 270px;
+    min-width: 270px;
+    padding: 0.7em 0;
+    margin: 0 0.5em;
     max-height: 80vh;
-    // transition: 0.1s ease all;
-    height: 100%;
-    &:first-child{
-        // margin-left: 0;
+    border-radius: 3px;
+    background-color: var(--nav-color);
+    @include responsive($sm, "max") {
+        width: 100%;
+        min-width: auto;
+        margin: 1em 0px 1em;
+        max-height: 100%;
+        background-color: #fff;
+        padding: 1em;
     }
     .task-list {
         display: flex;
@@ -16,8 +21,8 @@
         max-height: inherit;
         @include borderRadius;
         border-color: #fff;
-        background-color: transparent;
-        background-color: #f7f9fc;
+        // background-color: transparent;
+        // background-color: #f7f9fc;
         .task-list--header {
             font-size: 1em;
             font-weight: 700;
@@ -28,17 +33,20 @@
             justify-content: space-between;
             padding: 0.5em 0;
             position: relative;
-            p{
+            border-bottom: var(--theme-border);
+            p {
                 margin: 0;
                 padding-left: 1em;
                 padding-right: 3em;
             }
-            .task-list--options-btn{
+            .task-list--options-btn {
                 padding: 0.4em 1em;
                 position: absolute;
                 right: 0;
                 top: 0.2em;
-                &:hover,&:focus,&.active{
+                &:hover,
+                &:focus,
+                &.active {
                     background-color: #e5eef5;
                     @include borderRadius;
                     box-shadow: inset 0px 0px 3px #ddd;
@@ -50,7 +58,6 @@
             display: block;
             height: inherit;
             width: 100%;
-            background-color: #e5eef5;
             @include borderRadius;
             float: left;
             flex: 1 1 auto;
@@ -59,28 +66,71 @@
         }
         .task-list--footer {
             float: left;
-            margin-top: 1em;
-            // padding: 0em 0.5em;
-            button{
+            margin: 0.5em 1em 0 1em;
+            button {
                 width: 100%;
             }
         }
     }
+    &.active-list-item {
+        // background-color: $success-color !important;
+        @extend .bg-success-light;
+    }
 }
 
-
-.card-shadow{
-    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
-}
-
-.active-list-item{
+.active-list-item {
     cursor: all-scroll;
 }
-#new-task-list-placeholder{
-    margin-top: 3.4em;
-}
-.create-new-list-form{
-    .form-group{
+
+.create-new-list-form {
+    .form-group {
         margin-bottom: 1em;
     }
+}
+
+.dropable-list {
+    @include responsive($sm, "min") {
+        display: flex;
+        overflow-x: auto;
+        height: 84vh;
+    }
+    @include responsive($sm, "max") {
+        padding: 1em;
+    }
+}
+
+.dropable-list {
+    .smooth-dnd-container.horizontal {
+        display: flex;
+        >.smooth-dnd-draggable-wrapper {
+            // padding: 0 1em;
+            height: 100%;
+            display: inline-flex;
+            vertical-align: top;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        >.smooth-dnd-ghost {
+            .dragable-list {
+                box-shadow: 0 1px 2px 0 rgba(9, 30, 66, .25);
+            }
+            // width: 270px !important;
+        }
+    }
+}
+
+.task_list-drop-preview {
+    @include borderRadius;
+    background-color: rgba(150, 150, 200, 0.1);
+    border: 1px dashed #abc;
+    margin: 0 0.5em;
+    background-color: var(--nav-active-color);
+    * {
+        visibility: hidden;
+    }
+}
+
+.create-new-list-form {
+    padding: 1em;
 }

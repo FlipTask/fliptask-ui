@@ -27,6 +27,7 @@ class NavList extends Component {
             list = [],
             urlPrefix = "",
             activeItem = {},
+            addListItemButton,
             addListItem,
             iconName,
             collapsed,
@@ -35,14 +36,14 @@ class NavList extends Component {
         const { accordian, open } = this.state;
         return (
             <div className={`nav-list ${open ? "active" : ""}`}>
-                <div className="nav-list-heading text-light" onClick={(e) => {
+                <div className="nav-list-heading" onClick={(e) => {
                     if (accordian) {
                         this.toggleOpen(e);
                     }
                     return false;
                 }}>
                     <div className="nav-list-name">
-                        <Svg name={iconName} className="side-nav-icon" height="30" width="30"/>
+                        <Svg name={iconName} className="side-nav-icon" height="20" width="20"/>
                         {
                             collapsing || collapsed
                                 ? ""
@@ -66,14 +67,19 @@ class NavList extends Component {
                                         <div className="nav-list--wrapper">
                                             {
                                                 list.map((listItem, i) => <NavListItem
-                                                    active={listItem._id === activeItem._id}
+                                                    active={listItem.id === activeItem.id}
                                                     listItem={listItem}
                                                     key={i}
                                                     urlPrefix={urlPrefix}
                                                 />)
                                             }
+                                            {
+                                                addListItem
+                                                    ? addListItem()
+                                                    : null
+                                            }
                                         </div>
-                                        {addListItem()}
+                                        {addListItemButton()}
                                     </div>
                                     : ""
                             }

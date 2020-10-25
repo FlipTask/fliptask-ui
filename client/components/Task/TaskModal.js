@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import loadable from "@loadable/component";
 import { connect } from "react-redux";
 import Drawer from "../Drawer";
+import Button from "../Button";
 import Input from "../Input";
 import {
     createNewTask,
@@ -11,6 +12,7 @@ import {
 import DropDown from "../DropDown";
 import { priority } from "../../constants/PriorityMap";
 import Comment from "../Comment";
+import InlineEditableInput from "../Input/InlineEditableInput";
 
 const InputEditor = loadable(() => import(
     /* webpackChunkName: "InputEditor" */ "./../Input/InputEditor"
@@ -26,26 +28,26 @@ class TaskModal extends Component {
         const {
             listId, ticketId
         } = props.match.params;
-        const taskList = workspace.task_list.filter((t) => t._id === listId)[0];
+        const taskList = workspace.task_lists.filter((t) => t.id === parseInt(listId, 10))[0];
         let task;
         if (ticketId === "create-new") {
             task = null;
         } else {
-            [task] = taskList.tasks.filter((t) => t._id === ticketId);
+            [task] = taskList.tasks.filter((t) => t.id === parseInt(ticketId, 10));
         }
-
+        this.task = task;
         this.state = {
             openModal: true,
             loader: false,
             images: [],
             disableModalActions: false,
-            edit: !((task && task._id)),
-            title: (task && task._id) ? task.title : "Create New Task",
+            edit: !((task && task.id)),
+            title: (task && task.id) ? task.title : "Create New Task",
             task: task || {
-                task_list: listId,
-                title: "",
+                taskListId: listId,
+                name: "",
                 description: "",
-                due_date: "",
+                dueDate: "",
                 priority: "",
                 desc_images: []
             }
@@ -59,12 +61,12 @@ class TaskModal extends Component {
     }
 
     getOnlyChangedValues = () => {
-        const taskKeys = Object.keys(this.props.task);
+        const taskKeys = this.task ? Object.keys(this.task) : [];
         return taskKeys.reduce((acc, key) => {
-            if (this.state.task[key] !== this.props.task[key]) {
+            if (this.state.task[key] !== this.task[key]) {
                 acc[key] = this.state.task[key];
             }
-            if (key === "task_list" || key === "_id") {
+            if (key === "taskListId" || key === "id") {
                 acc[key] = this.state.task[key];
             }
             return acc;
@@ -89,22 +91,22 @@ class TaskModal extends Component {
             disableModalActions: true,
             loader: true
         });
-        if (!this.state.task._id) { // CREATE NEW
+        if (!this.state.task.id) { // CREATE NEW
             const res = await this.props.createNewTask({
                 ...this.state.task
             });
-            // console.log(res.data.task_id);
+            // console.log(res.data.taskid);
             if (this.state.images.length > 0 && !res.error) {
                 await this.props.uploadTaskDescriptionImages(
                     this.state.images,
-                    res.data._id
+                    res.data.id
                 );
             }
         } else { // EDIT
             if (this.state.images.length > 0) {
                 await this.props.uploadTaskDescriptionImages(
                     this.state.images,
-                    this.state.task._id
+                    this.state.task.id
                 );
             }
             this.props.updateTask({
@@ -136,13 +138,21 @@ class TaskModal extends Component {
         const HeaderComponent = () => (
             <React.Fragment>
                 <p className="ellipsis">
-                    {this.state.task.title || this.props.title}
+                    {this.state.task.name || this.props.name}
                 </p>
                 {
                     !this.state.edit
-                        ? <button onClick={this.toggleEditMode} className="btn sm bg-primary text-white rounded">
-                            <i className="far fa-pencil-alt"></i> Edit Task</button>
-                        : <button onClick={this.toggleEditMode} className="btn sm bg-warning text-white rounded">Cancel</button>
+                        ? <Button
+                            onClick={this.toggleEditMode}
+                            className="sm btn-primary-line"
+                        >
+                            <i className="far fa-pencil-alt"></i> Edit Task
+                        </Button>
+                        : <Button
+                            onClick={this.toggleEditMode}
+                            className="sm btn-warning-line"
+                            text="Cancel"
+                        />
                 }
 
             </React.Fragment>
@@ -150,91 +160,101 @@ class TaskModal extends Component {
 
         const FooterComponent = () => (
             <React.Fragment>
-                <button
-                    className={`btn text-white bg-primary rounded ${!this.state.edit ? "disabled" : ""}`}
+                <Button
+                    className={`btn-primary-line ${!this.state.edit ? "disabled" : ""}`}
                     onClick={this.createNewTask}
                 >
-                    {!this.state.task._id ? "Save" : "Update"}
-                </button>
-                {
-                    !this.state.edit
-                        ? <i className="far fa-check text-success" style={{
-                            fontSize: "1.5em",
-                            marginLeft: "0.6em"
-                        }}></i>
-                        : ""
-                }
+                    {!this.state.task.id ? "Save" : "Update"}
+                    {
+                        !this.state.edit
+                            ? <i className="far fa-check text-success" style={{
+                                fontSize: "1.5em",
+                                marginLeft: "0.6em"
+                            }}></i>
+                            : ""
+                    }
+                </Button>
+
             </React.Fragment>
         );
-        const dueDate = new Date(this.state.task.due_date);
-        const date = this.state.task.due_date ? `${dueDate.getFullYear()}-${dueDate.getMonth() + 1 < 10 ? "0" : ""}${dueDate.getMonth() + 1}-${dueDate.getDate() < 10 ? "0" : ""}${dueDate.getDate()}` : "";
+        const dueDate = new Date(this.state.task.dueDate);
+        const date = this.state.task.dueDate ? `${dueDate.getFullYear()}-${dueDate.getMonth() + 1 < 10 ? "0" : ""}${dueDate.getMonth() + 1}-${dueDate.getDate() < 10 ? "0" : ""}${dueDate.getDate()}` : "";
         return (
             <React.Fragment>
                 <Drawer
                     afterClose={() => this.props.history.goBack(-1)}
                     loader={this.state.loader}
                     FooterComponent={FooterComponent}
-                    HeaderComponent={this.state.task._id ? HeaderComponent : null}
+                    HeaderComponent={this.state.task.id ? HeaderComponent : null}
                     open={this.state.openModal}
                     disableActions={this.state.disableModalActions}
                     onCancel={this.toggleModal}
                     onSubmit={this.createNewTask}
                     title={this.state.title}
                 >
-                    <div className="create-new-task--modal modal-form">
-                        <div className="task-details">
-                            <Input
-                                readOnly={!this.state.edit}
-                                label="Title"
-                                type="Input"
-                                className={`bordered-on-focus form-input ${!this.state.edit ? "readOnly" : "border"}`}
-                                placeholder="Title"
-                                name="title"
-                                value={this.state.task.title}
-                                onChange={this.handleOnChange}
-                            />
-
-                            <InputEditor
-                                readOnly={!this.state.edit}
-                                label="Description"
-                                value={this.state.task.description}
-                                onChange={this.handleOnChange}
-                                name="description"
-                                placeholder="Description"
-                            />
-                            <ImageUpload
-                                name="desc_images"
-                                readOnly={!this.state.edit}
-                                onChange={this.updateImages}
-                                files={this.state.task.desc_images}
-                            />
-                            <Comment/>
-                        </div>
-                        <div className="task-meta-info">
-                            <div className="task-meta-block">
-                                <DropDown
+                    <div className="row row--flex">
+                        <div className="col-12 col-xs-12 col-md-8 padding-left-0">
+                            <InlineEditableInput editBtn={true}>
+                                <Input
+                                    label="Title"
+                                    type="Input"
+                                    className={"form-input rounded"}
+                                    placeholder="Add a title..."
+                                    name="name"
+                                    value={this.state.task.name}
+                                    onChange={this.handleOnChange}
+                                />
+                            </InlineEditableInput>
+                            <div className="gutter-top">
+                                <InlineEditableInput>
+                                    <InputEditor
+                                        label="Description"
+                                        value={this.state.task.description}
+                                        onChange={this.handleOnChange}
+                                        name="description"
+                                        placeholder="Add a description..."
+                                    />
+                                </InlineEditableInput>
+                            </div>
+                            <div className="gutter-top">
+                                <ImageUpload
+                                    name="desc_images"
                                     readOnly={!this.state.edit}
+                                    onChange={this.updateImages}
+                                    files={this.state.task.desc_images || []}
+                                />
+                            </div>
+                            <div className="gutter-top">
+                                <Comment/>
+                            </div>
+                        </div>
+                        <div className="col-12 col-xs-12 col-md-4 padding-right-0" style={{
+                            borderLeft: "var(--theme-border)"
+                        }}>
+                            <InlineEditableInput>
+                                <DropDown
                                     label="Priority"
-                                    placeholder="Task Priority"
+                                    placeholder="Select Task Priority"
                                     options={priority}
                                     name="priority"
                                     onSelect={this.handleOnChange}
                                     selected={this.state.task.priority}
-                                    className={`bordered-on-focus form-input ${!this.state.edit ? "readOnly" : "border"}`}
+                                    className={"form-input rounded"}
                                 />
-                            </div>
-                            <div className="task-meta-block">
-                                <Input
-                                    readOnly={!this.state.edit}
-                                    label="Due Date"
-                                    type="date"
-                                    className={`bordered-on-focus form-input ${!this.state.edit ? "readOnly" : "border"}`}
-                                    placeholder="Due Date"
-                                    name="due_date"
-                                    value={date}
-                                    onChange={this.handleOnChange}
-                                    pattern="\d{4}-\d{2}-\d{2}"
-                                />
+                            </InlineEditableInput>
+                            <div className="gutter-top">
+                                <InlineEditableInput>
+                                    <Input
+                                        label="Due Date"
+                                        type="date"
+                                        className={"form-input rounded"}
+                                        placeholder="Select a Due Date"
+                                        name="dueDate"
+                                        value={date}
+                                        onChange={this.handleOnChange}
+                                        pattern="\d{4}-\d{2}-\d{2}"
+                                    />
+                                </InlineEditableInput>
                             </div>
                         </div>
                     </div>

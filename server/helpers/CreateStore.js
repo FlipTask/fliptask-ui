@@ -3,36 +3,42 @@ import thunk from "redux-thunk";
 import axios from "axios";
 import Cookies from "universal-cookie";
 import reducers from "../../client/reducers";
+import getTheme from "../../client/config/theme";
 
 const getUrl = () => {
     const apiUrl = process.env.API_URL;
     if (apiUrl.indexOf("http://") > -1 || apiUrl.indexOf("https://") > -1) {
-        return process.env.API_URL;
+        return apiUrl;
     }
-    return `http://${process.env.API_URL}`;
+    return `http://${apiUrl}`;
 };
 
 export default (req) => {
+    /**
+     *  Getting cookie from browser and sendind to API
+     */
     const cookies = new Cookies(req.headers.cookie);
-
     const axiosInstance = axios.create({
-        baseURL: `${getUrl()}/api`,
-        headers: { cookie: req.get("cookie") || "" }
+        baseURL: `${getUrl()}`,
+        headers: {
+            cookie: req.get("cookie") || "",
+            Authorization: `Bearer ${cookies.get("token") || ""}`,
+            organisationid: cookies.get("active-org") || ""
+        }
     });
 
-    axiosInstance.interceptors.request.use((request) => {
-        console.log(`[AXIOS Request][${request.baseURL}] ${request.method} ${request.url}`);
-        return request;
+    axiosInstance.interceptors.response.use((response) => response, (error) => {
+        if (error.response) {
+            console.log(`[REQUEST_FAILED] ${error.response.config.url} ${error.response.status}`);
+            return Promise.reject(error);
+        }
     });
-
-    axiosInstance.interceptors.response.use((response) => {
-        console.log(`[AXIOS Response][${response.config.baseURL}] ${response.status} ${response.config.url}`);
-        return response;
-    }, (err) => err.response.data);
 
     const store = createStore(reducers, {}, applyMiddleware(thunk.withExtraArgument({
         api: axiosInstance,
         cookies
     })));
+    getTheme(store, cookies);
+    console.log("Theme on serverside", store.getState());
     return store;
 };

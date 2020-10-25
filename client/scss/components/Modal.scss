@@ -4,9 +4,9 @@
     width: 100%;
     left: 0;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.25);
+    background-color: rgba(0, 0, 0, 0.78);
     display: flex;
-    z-index: 1;
+    z-index: 9999;
     transition: opacity 300ms cubic-bezier(0.165, 0.84, 0.44, 1);
     &.closed {
         opacity: 0;
@@ -18,11 +18,12 @@
         opacity: 0;
     }
 }
+
 .modal {
     position: relative;
     width: 50%;
     margin: 4em auto auto;
-    background-color: #fff;
+    background-color: var(--theme-color);
     padding: 1em;
     box-shadow: 0 0 4px 0 rgba(53, 53, 53, 0.2);
     .cancel-btn {
@@ -32,17 +33,17 @@
         padding: 0.7em 1em;
         font-size: 1.5em;
         &:hover {
-            color: #333 !important;
+            color: inherit;
             cursor: pointer;
         }
     }
     .modal--header {
         padding-bottom: 1em;
-        border-bottom: 1px solid #f7f7f7;
+        border-bottom: var(--theme-border);
         margin-bottom: 1em;
         p {
             font-size: 1.5em;
-            font-weight: 700;
+            font-weight: 500;
             margin: 0;
             padding-right: 2em;
         }
@@ -52,7 +53,7 @@
     }
     .modal--footer {
         padding-top: 1em;
-        border-top: 1px solid #f7f7f7;
+        border-top: var(--theme-border);
         margin-top: 1em;
         text-align: right;
         button {
@@ -62,6 +63,7 @@
         }
     }
 }
+
 .modal-form {
     .form-field-block {
         margin-bottom: 1.5em;

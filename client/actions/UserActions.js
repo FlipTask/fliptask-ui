@@ -1,30 +1,40 @@
 import {
     FETCH_USER_PENDING,
     FETCH_USER_SUCCESS,
-
-    // using for creating user //  no need to create new action types
-    USER_LOGIN_SUCCESS,
-    USER_LOGIN_PENDING,
-    USER_LOGIN_FAILURE
+    SIGNUP_USER_FAILURE,
+    SIGNUP_USER_PENDING,
+    SIGNUP_USER_SUCCESS
 } from "../constants/ActionTypes";
 import {
     logout,
     setAuthTokenInSession
 } from "./AuthActions";
 
-export const fetchUser = (fromServer) => async (dispatch, getState, { api }) => {
-    // console.log("fromserver",fromServer);
+export const fetchUser = () => async (dispatch, getState, { api, cookies }) => {
     try {
         dispatch({
             type: FETCH_USER_PENDING
         });
-        const res = await api.get(`/user/me${fromServer ? "?fromserver=true" : ""}`);
-        dispatch({
-            type: FETCH_USER_SUCCESS,
-            payload: res.data
+        const res = await api.get("/user/me", {
+            params: {
+                include: "organisations"
+            }
         });
+        if (res) {
+            /**
+             * adding orgId in cookie if the user has single organisation
+            */
+            if ((res.data.data.organisations && res.data.data.organisations.length === 1) && !cookies.get("active-org")) {
+                cookies.set("active-org", res.data.data.organisations[0].id, { path: "/" });
+            }
+
+            dispatch({
+                type: FETCH_USER_SUCCESS,
+                payload: res.data
+            });
+        }
     } catch (e) {
-        // console.error(e);
+        console.error(e);
         dispatch(setAuthTokenInSession());
         dispatch(logout());
     }
@@ -33,20 +43,20 @@ export const fetchUser = (fromServer) => async (dispatch, getState, { api }) => 
 export const createNewUser = (obj = {}) => async (dispatch, getState, { api }) => {
     try {
         dispatch({
-            type: USER_LOGIN_PENDING
+            type: SIGNUP_USER_PENDING
         });
         const res = await api.post("/user/signup", {
             ...obj
         });
-        dispatch(setAuthTokenInSession(res.data.data.token));
         dispatch({
-            type: USER_LOGIN_SUCCESS,
+            type: SIGNUP_USER_SUCCESS,
             payload: res.data
         });
     } catch (e) {
+        console.log(e);
         dispatch({
-            type: USER_LOGIN_FAILURE,
-            payload: e.message ? { message: e.message } : e.response.data
+            type: SIGNUP_USER_FAILURE,
+            payload: e.response.data
         });
     }
 };

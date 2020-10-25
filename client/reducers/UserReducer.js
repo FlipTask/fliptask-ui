@@ -3,12 +3,20 @@ import {
     USER_LOGIN_FAILURE,
     USER_LOGIN_PENDING,
     USER_LOGIN_SUCCESS,
+    SIGNUP_USER_FAILURE,
+    SIGNUP_USER_PENDING,
+    SIGNUP_USER_SUCCESS,
     FETCH_USER_PENDING,
     FETCH_USER_SUCCESS,
     USER_LOGOUT
 } from "../constants/ActionTypes";
 
 const INITIAL_STATE = {
+    signup: {
+        success: false,
+        pending: true,
+        error: {}
+    },
     userLoading: false,
     isAuthorised: false,
     user: {},
@@ -21,18 +29,15 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case FETCH_USER_PENDING:
         return {
             ...state,
-            ...state,
             userLoading: true
         };
     case USER_LOGIN_PENDING:
         return {
             ...state,
-            ...state,
             isLoading: true
         };
     case FETCH_USER_SUCCESS:
         return {
-            ...state,
             ...state,
             userLoading: false,
             user: { ...payload.data },
@@ -43,7 +48,6 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case USER_LOGIN_SUCCESS:
         return {
             ...state,
-            ...state,
             user: { ...payload.data.user },
             isAuthorised: true,
             isLoading: false,
@@ -52,17 +56,44 @@ export default (state = INITIAL_STATE, { type, payload }) => {
     case USER_LOGIN_FAILURE:
         return {
             ...state,
-            ...state,
             user: {},
             isAuthorised: false,
             isLoading: false,
             error: {
-                message: payload.message
+                message: payload.messages.error
+            }
+        };
+    case SIGNUP_USER_FAILURE:
+        return {
+            ...state,
+            signup: {
+                success: false,
+                pending: false,
+                error: {
+                    ...payload.messages
+                }
+            }
+        };
+    case SIGNUP_USER_PENDING:
+        return {
+            ...state,
+            signup: {
+                success: false,
+                error: {},
+                pending: true
+            }
+        };
+    case SIGNUP_USER_SUCCESS:
+        return {
+            ...state,
+            signup: {
+                success: true,
+                pending: false,
+                error: {}
             }
         };
     case USER_LOGOUT:
         return {
-            ...state,
             ...state,
             ...INITIAL_STATE
         };

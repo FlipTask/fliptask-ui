@@ -1,18 +1,23 @@
 import proxy from "express-http-proxy";
+import Cookies from "universal-cookie";
 
 const compression = require("compression");
 
 const shouldCompress = (req, res) => {
-    if (req.headers["x-no-compression"]) return false;
+    if (req.headers["x-no-compression"]) { return false; }
     return compression.filter(req, res);
 };
 
+
 export const useProxy = proxy(`${process.env.API_URL}`, {
-    proxyReqPathResolver(req) {
-        return `${process.env.API_URL}${req.originalUrl}`;
-    },
-    proxyReqOptDecorator(opts) {
+    proxyReqOptDecorator(opts, req) {
+        console.log(`${process.env.API_URL} ${req.method} ${req.originalUrl}`);
+        const cookies = new Cookies(req.headers.cookie);
         opts.headers["x-forwarded-host"] = process.env.HOST_URL;
+        opts.headers.Authorization = `Bearer ${cookies.get("token") || ""}`;
+        if (cookies.get("active-org")) {
+            opts.headers.organisationid = cookies.get("active-org");
+        }
         return opts;
     }
 });

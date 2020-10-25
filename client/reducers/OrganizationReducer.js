@@ -1,7 +1,8 @@
 import {
     FETCH_ORGANIZATION_INFO_FAILURE,
     FETCH_ORGANIZATION_INFO_PENDING,
-    FETCH_ORGANIZATION_INFO_SUCCESS
+    FETCH_ORGANIZATION_INFO_SUCCESS,
+    USER_LOGOUT
 } from "../constants/ActionTypes";
 
 const INITIAL_STATE = {
@@ -33,6 +34,8 @@ export default (state = INITIAL_STATE, { type, payload }) => {
             isLoading: false,
             error: payload.data
         };
+    case USER_LOGOUT:
+        return INITIAL_STATE;
     default:
         return state;
     }

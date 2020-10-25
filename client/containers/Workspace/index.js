@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import RenderRoutes from "../../components/RenderRoutes";
 import { fetchBoards } from "../../actions";
 import Button from "../../components/Button";
+import Dashboard from "../Home";
 
 class Workspace extends Component {
     render() {
@@ -11,10 +11,9 @@ class Workspace extends Component {
             workspaces
         } = this.props;
         return (
-            <React.Fragment>
-                <RenderRoutes routes={this.props.route.routes} />
+            <Dashboard>
                 {
-                    workspaces.length <= 0
+                    workspaces.rows && workspaces.rows.length <= 0
                         ? <div className="autoHeight--placeholder">
                             <div className="autoHeight--placeholder_wrapper text-light text-center">
                                 <div className="img-placeholder">
@@ -30,7 +29,7 @@ class Workspace extends Component {
                         </div>
                         : ""
                 }
-            </React.Fragment>
+            </Dashboard>
         );
     }
 }

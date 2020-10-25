@@ -42,12 +42,12 @@ export const searchOrganization = (q) => async (dispatch, getState, { api }) => 
 
 export const createNewOrganization = (name) => async (dispatch, getState, { api }) => {
     try {
-        const res = await api.post("/org/create", {
+        const res = await api.post("/organisation", {
             name
         });
         if (!res.data.error) {
             await dispatch(fetchUser());
-            await dispatch(fetchOrganization());
+            // await dispatch(fetchOrganization());
         }
         return res.data;
     } catch (e) {
@@ -57,10 +57,10 @@ export const createNewOrganization = (name) => async (dispatch, getState, { api 
 };
 
 
-export const sendInvitation = (mailList) => async (dispatch, getState, { api }) => {
+export const sendInvitation = (mailList = []) => async (dispatch, getState, { api }) => {
     try {
-        await api.post("/onboard/invite", {
-            mailList
+        await api.post("/invitation/invite", {
+            emailList: mailList
         });
     } catch (e) {
         console.log(e);

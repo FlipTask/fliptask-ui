@@ -4,6 +4,7 @@ import React, { Component } from "react";
 class Input extends Component {
     render() {
         const {
+            error = null,
             value,
             type,
             label,
@@ -15,11 +16,17 @@ class Input extends Component {
             readOnly = false,
             icon = false,
             iconPosition = "left",
+            wrapperClass = "",
             ...rest
         } = this.props;
         if (type === "textarea") {
             return (
-                <div className="form-group">
+                <div className={`form-group ${wrapperClass}`}>
+                    {
+                        error
+                            ? <p className="text-sm text-danger">{error}</p> 
+                            : ""
+                    }
                     <div className="input-group">
                         {
                             label
@@ -27,12 +34,13 @@ class Input extends Component {
                                 : ""
                         }
                         <textarea
+                            readOnly={readOnly}
                             {...rest}
                             value={value}
                             placeholder={placeholder}
                             onChange={onChange}
                             name={name}
-                            className={`${className || ""} form-control`}
+                            className={`form-control ${className || ""} `}
                         />
                     </div>
                 </div>
@@ -40,7 +48,12 @@ class Input extends Component {
         }
         if (type === "dropdown") {
             return (
-                <div className="form-group">
+                <div className={`form-group ${wrapperClass}`}>
+                    {
+                        error
+                            ? <p className="text-sm text-danger">{error}</p> 
+                            : ""
+                    }
                     <div className="input-group">
                         {
                             label
@@ -54,7 +67,8 @@ class Input extends Component {
                             placeholder={placeholder}
                             onChange={onChange}
                             name={name}
-                            className={`${className || ""} form-control`}
+                            readOnly={readOnly}
+                            className={`form-control ${className || ""}`}
                         />
                         <i className="far fa-chevron-down text-light" aria-hidden="true"></i>
                     </div>
@@ -65,7 +79,12 @@ class Input extends Component {
         // eslint-disable-next-line no-nested-ternary
         const classNameIfIcon = icon ? (iconPosition === "left" ? "to-left" : "to-right") : "";
         return (
-            <div className="form-group">
+            <div className={`form-group ${wrapperClass}`}>
+                {
+                    error
+                        ? <p className="text-sm text-danger">{error}</p> 
+                        : ""
+                }
                 <div className={`input-group ${icon ? "with-icon" : ""}`}>
                     {
                         label
@@ -79,12 +98,14 @@ class Input extends Component {
                     }
                     <input
                         {...rest}
+                        autoCapitalize="off"
                         value={value}
                         type={type || "text"}
                         placeholder={placeholder}
                         onChange={onChange}
+                        readOnly={readOnly}
                         name={name}
-                        className={`${className || ""} form-control ${classNameIfIcon}`}
+                        className={`form-control ${classNameIfIcon} ${className || ""}`}
                     />
                 </div>
             </div>

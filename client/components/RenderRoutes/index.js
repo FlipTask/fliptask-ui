@@ -30,6 +30,12 @@ class RenderRoutes extends Component {
                                 render={(props) => {
                                     if (!isAuthenticated) {
                                         return <Redirect to="/login" />;
+                                    } if (
+                                        props.match.url.indexOf("/onboard") < -1
+                                            && isAuthenticated
+                                            && user.organisations.length === 0
+                                    ) {
+                                        return <Redirect to="/onboard/create-new" />;
                                     }
                                     return <RequestedComponent {...props} {...extraProps} route={route} />;
                                 }}
@@ -45,10 +51,10 @@ class RenderRoutes extends Component {
                                     return route.render({ ...props, ...extraProps, route });
                                 }
                                 if ((props.match.path === "/login" || props.match.path === "/signup") && isAuthenticated) {
-                                    if (user.meta && !user.meta.is_org_verified) {
-                                        return <Redirect to="/onboard" />;
+                                    if (user.organisations.length === 0) {
+                                        return <Redirect to="/onboard/create-new" />;
                                     }
-                                    return <Redirect to="/workspace" />;
+                                    return <Redirect to="/" />;
                                 }
                                 return <RequestedComponent {...props} {...extraProps} route={route} />;
                             }}

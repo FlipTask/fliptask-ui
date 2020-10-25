@@ -1,8 +1,8 @@
 @keyframes drawerSlideIn {
     0% {
         opacity: 0;
-        -webkit-transform: translate3d(100%,0,0);
-        transform: translate3d(100%,0,0);
+        -webkit-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0);
     }
     100% {
         opacity: 1;
@@ -10,6 +10,7 @@
         transform: none;
     }
 }
+
 @keyframes drawerSlideOut {
     from {
         opacity: 1;
@@ -18,10 +19,11 @@
     }
     to {
         opacity: 0;
-        -webkit-transform: translate3d(100%,0,0);
-        transform: translate3d(100%,0,0);
+        -webkit-transform: translate3d(100%, 0, 0);
+        transform: translate3d(100%, 0, 0);
     }
 }
+
 .drawer-slide-in {
     -webkit-animation-duration: 0.3s;
     animation-duration: 0.3s;
@@ -32,6 +34,7 @@
     animation-name: drawerSlideIn;
     height: inherit;
 }
+
 .drawer-slide-out {
     -webkit-animation-duration: 0.3s;
     animation-duration: 0.3s;
@@ -42,6 +45,7 @@
     animation-name: drawerSlideOut;
     height: inherit;
 }
+
 @keyframes slideDownOpen {
     from {
         // opacity: 0;
@@ -54,6 +58,7 @@
         overflow: auto;
     }
 }
+
 @keyframes slideUpClose {
     to {
         // opacity: 0;
@@ -66,10 +71,12 @@
         overflow: auto;
     }
 }
+
 .slideDownOpen {
     transition: all 0.3s ease-out;
     animation: slideDownOpen 0.3s;
 }
+
 .slideUpClose {
     transition: all 0.3s ease-in;
     animation: slideUpClose 0.3s;
@@ -78,9 +85,14 @@
 .invite-box-wrapper {
     padding: 0.625rem 0.75rem !important;
     border-radius: 0;
+    border: none;
+    background-color: var(--theme-textbox-active-background) !important;
     &.customize-token-input---focused---2EN4q {
         box-shadow: 0 2px 3px rgba(50, 50, 93, 0.11), 0 0 2px rgba(0, 0, 0, 0.08) !important;
-        border-color: #1f89e5 !important;
+        // border-color: #1f89e5 !important;
+    }
+    &.customize-token-input---errors---1qMJA {
+        border-color: #ccc !important;
     }
 }
 
@@ -89,10 +101,11 @@
     justify-content: space-between;
     position: relative;
     padding-right: 0 !important;
-    padding-top: 0;
+    padding-top: 0px !important;
     padding-bottom: 0 !important;
-    line-height: 24px !important;
+    line-height: 21px !important;
     margin-right: 10px !important;
+    font-size: 1em;
     i {
         align-self: center;
         padding: 5px;
@@ -109,6 +122,7 @@
         }
     }
 }
+
 @keyframes clockwise {
     from {
         transform: rotateZ(0deg);
@@ -117,6 +131,7 @@
         transform: rotateZ(180deg);
     }
 }
+
 @keyframes anticlockwise {
     to {
         transform: rotateZ(0deg);
@@ -125,10 +140,12 @@
         transform: rotateZ(180deg);
     }
 }
+
 .flip-down {
     transform: rotateX(180deg);
     transition: all 0.2s ease-in;
 }
+
 .flip-up {
     transform: rotateX(0deg);
     transition: all 0.2s ease-out;
@@ -138,7 +155,12 @@
     transform: rotateZ(180deg);
     transition: all 0.2s ease-in;
 }
+
 .flip-right {
     transform: rotateZ(0deg);
     transition: all 0.2s ease-out;
+}
+
+.transition {
+    transition: .3s ease all;
 }

@@ -80,17 +80,18 @@ class NewTaskList extends Component {
                             ? <button
                                 type="button"
                                 onClick={this.toggleForm}
-                                className="btn md btn-task rounded shadowed"
+                                className="btn md btn-success rounded card-shadow"
                                 style={{
-                                    width: "100%"
+                                    fontWeight: "600",
+                                    margin: "0.5em 1em"
                                 }}
                             >
-                                <i className="fa fa-plus" aria-hidden="true"></i>
+                                <i className="fas fa-plus" aria-hidden="true"></i>
                                 Create New List
                             </button>
                             : <div className="create-new-list-form">
                                 <Input
-                                    className="form-input bordered shadowed rounded"
+                                    className="form-input rounded bg-default"
                                     placeholder="List Name"
                                     type="text"
                                     name="title"
@@ -101,12 +102,12 @@ class NewTaskList extends Component {
                                     <button
                                         onClick={(e) => this.createTaskList(e, this.props.boardId)}
                                         type="button"
-                                        className="btn sm bg-success text-white shadowed rounded">Create</button>
+                                        className="btn sm btn-success shadowed rounded">Create</button>
                                     <button
                                         onClick={this.toggleForm}
                                         style={{ marginLeft: "1em" }}
                                         type="button"
-                                        className="btn sm bg-warning text-white shadowed rounded">Cancel</button>
+                                        className="btn sm btn-danger shadowed rounded">Cancel</button>
                                 </div>
                             </div>
                     }
@@ -117,7 +118,7 @@ class NewTaskList extends Component {
 }
 
 const mapStateToProps = ({ boards }) => ({
-    boardId: boards.activeBoard._id
+    boardId: boards.activeBoard.id
 });
 
 export default connect(mapStateToProps, {

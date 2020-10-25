@@ -1,7 +1,9 @@
+/* eslint-disable import/no-cycle */
 export {
     tryLogin,
     setAuthTokenInSession,
     setHeaderInApi,
+    verifyEmail,
     logout
 } from "./AuthActions";
 
@@ -12,12 +14,12 @@ export {
 
 export {
     fetchBoards,
-    fetchTaskListsForBoard,
     swapTaskCard,
     swapTaskList,
     createNewTaskList,
     changeActiveBoard,
-    createNewBoard
+    createNewBoard,
+    getTaskListById
 } from "./BoardActions";
 
 export {
@@ -33,3 +35,14 @@ export {
     createNewOrganization,
     sendInvitation
 } from "./OrganizationActions";
+
+export {
+    createNewTeam,
+    getAllTeams,
+    getTeam
+} from "./TeamActions";
+
+export {
+    toggleSideNav,
+    toggleTheme
+} from "./AppActions";

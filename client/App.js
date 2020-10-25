@@ -6,20 +6,35 @@ import { fetchUser } from "./actions";
 import Routes from "./Routes";
 
 class App extends Component {
-    componentDidMount = async () => {
-        // await this.props.fetchUser();
+    constructor(props) {
+        super(props);
+        this.state = {
+            theme: props.theme
+        };
+    }
+
+    static getDerivedStateFromProps(newProps, state) {
+        if (newProps.theme !== state.theme) {
+            document.body.setAttribute("data-theme", newProps.theme);
+            return {
+                theme: newProps.theme
+            };
+        }
+        return null;
     }
 
     render() {
         return (
-            <div className="page--container">
-                <RenderRoutes routes={Routes} />
+            <div className="container-fluid">
+                <div className="row" style={{ minHeight: "100vh" }}>
+                    <RenderRoutes routes={Routes} />
+                </div>
             </div>
         );
     }
 }
-const mapStateToProps = () => ({
-
+const mapStateToProps = ({ app }) => ({
+    theme: app.theme
 });
 
 export default connect(mapStateToProps, {

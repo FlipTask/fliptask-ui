@@ -51,7 +51,7 @@ class DrawerWrapper extends Component {
                                 {
                                     HeaderComponent
                                         ? <HeaderComponent />
-                                        : <p className="text-light-grey">
+                                        : <p>
                                             {title}
                                         </p>
                                 }
@@ -72,7 +72,7 @@ class DrawerWrapper extends Component {
                                 {
                                     FooterComponent
                                         ? <FooterComponent />
-                                        : <button className={`btn text-white bg-primary ${disableActions ? "disabled" : ""}`} onClick={this.onSubmit}>Submit</button>
+                                        : <button className={`btn btn-primary-line rounded shadowed ${disableActions ? "disabled" : ""}`} onClick={this.onSubmit}>Submit</button>
                                 }
                             </div>
                         </div>
