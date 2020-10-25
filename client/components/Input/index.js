@@ -17,6 +17,7 @@ class Input extends Component {
             icon = false,
             iconPosition = "left",
             wrapperClass = "",
+            iconClassName = "",
             ...rest
         } = this.props;
         if (type === "textarea") {
@@ -93,7 +94,7 @@ class Input extends Component {
                     }
                     {
                         icon
-                            ? <i className={`far fa-${icon} icon ${classNameIfIcon}`}></i>
+                            ? <i className={`far fa-${icon} icon ${classNameIfIcon} ${iconClassName}`}></i>
                             : ""
                     }
                     <input

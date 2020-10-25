@@ -7,12 +7,15 @@ textarea {
     font-size: 1em;
 }
 
+.focused {
+    outline: none;
+    box-shadow: none;
+    background-color: var(--nav-active-color);
+}
+
 .on-focus {
     &:focus {
-        outline: none;
-        box-shadow: none;
-        color: var(--theme-text-color);
-        background-color: var(--input-focus-backgorund) !important;
+        @extend .focused;
     }
 }
 
@@ -145,7 +148,9 @@ textarea {
             flex: 1 1 auto;
             font-size: .875rem;
             transition: none;
-            background-color: var(--theme-textbox-background);
+            font-weight: 500;
+            background-color: transparent;
+            // background-color: var(--theme-textbox-background);
             color: var(--theme-text-color);
             &:hover,
             &:focus {
@@ -155,9 +160,11 @@ textarea {
             }
             &::placeholder {
                 color: var(--theme-textbox-placeholder-color);
+                // color: #fff;
             }
             &:not([readOnly]) {
-                background-color: var(--theme-textbox-active-background);
+                // background-color: var(--theme-textbox-active-background);
+                background-color: var(--nav-active-color);
             }
             &.border {
                 border: var(--theme-border);

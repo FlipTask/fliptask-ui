@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import SideNav from "../../components/SideNav";
-import RenderRoutes from "../../components/RenderRoutes";
 import { fetchBoards, fetchUser, getAllTeams } from "../../actions";
-import CopyRightFooter from "../../components/Footer/CopyRightFooter";
-import Header from "../../components/Header";
+import { AuthPage } from "../Wrappers";
 
 class Home extends Component {
     state = {
@@ -33,15 +31,11 @@ class Home extends Component {
 
     render() {
         const {
-            activeWorkspace
-        } = this.props;
-        const {
             sideNavOpen,
             sideNavCollapsing
         } = this.state;
         return (
-            <React.Fragment>
-                <Header />
+            <AuthPage>
                 <SideNav
                     onCollapsing={this.onCollapsing}
                     onEnd={this.onEnd}
@@ -52,7 +46,7 @@ class Home extends Component {
                         { this.props.children }
                     </div>
                 </div>
-            </React.Fragment>
+            </AuthPage>
         );
     }
 }
