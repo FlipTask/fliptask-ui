@@ -71,7 +71,7 @@
         "@loadable/component": "5.12.0",
         "@loadable/webpack-plugin": "5.12.0",
         "autoprefixer": "^9.8.0",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "babel-eslint": "^10.1.0",
         "babel-loader": "^8.1.0",
         "brotli-webpack-plugin": "^1.1.0",
